@@ -20,15 +20,17 @@ dob DATETIME2,
 streetAddress VARCHAR(100),
 phoneNumber VARCHAR(10),
 email VARCHAR(50),
-tag VARCHAR(50),
+tag ENUM(1,2,3,4,5),
 country VARCHAR(25),
-vaccineTypeGiven VARCHAR(35),
+vaccineTypeGivenID INT(10),
 noOfDosesRemaining INT(3),
 appointmentDate DATETIME2,
 medicalConditions VARCHAR(300),
 nid VARCHAR(11),
 passportNumber VARCHAR(30),
-reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CONSTRAINT  UC_uniquePatient UNIQUE (nid,passportNumber)
+CONSTRAINT FK_patient FOREIGN KEY (vaccineTypeGivenID)
+REFERENCES vaccine(vaccineTypeID)
 )";
 
 if ($conn->query($sql) === TRUE) {
