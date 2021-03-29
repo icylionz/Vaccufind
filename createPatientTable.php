@@ -13,24 +13,24 @@ if ($conn->connect_error) {
 
 // sql to create table
 $sql = "CREATE TABLE patient (
-patientID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-firstname VARCHAR(50) NOT NULL,
-lastname VARCHAR(50) NOT NULL,
-dob DATETIME2,
-streetAddress VARCHAR(100),
-phoneNumber VARCHAR(10),
-email VARCHAR(50),
-tag ENUM(1,2,3,4,5),
-country VARCHAR(25),
-vaccineTypeGivenID INT(10),
-noOfDosesRemaining INT(3),
-appointmentDate DATETIME2,
-medicalConditions VARCHAR(300),
-nid VARCHAR(11),
-passportNumber VARCHAR(30),
-CONSTRAINT  UC_uniquePatient UNIQUE (nid,passportNumber)
-CONSTRAINT FK_patient FOREIGN KEY (vaccineTypeGivenID)
-REFERENCES vaccine(vaccineTypeID)
+patientID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY, --id of patient record in the table 
+firstname VARCHAR(50) NOT NULL, -- patient's first name
+lastname VARCHAR(50) NOT NULL, -- patient's last name
+dob DATETIME2, -- patient's date of birth
+streetAddress VARCHAR(100), -- patient's address
+phoneNumber VARCHAR(10), -- patient's phone number
+email VARCHAR(50), -- patient's email address
+tag ENUM(1,2,3,4,5), -- patient's tag given by the system
+country VARCHAR(25), -- patient's country
+vaccineGivenID INT(10), -- vaccine id assigned to patient by the system
+noOfDosesRemaining INT(3), -- number of vaccine doses left to be adminsitered to the patient
+appointmentDate DATETIME2, -- patient's next appointment date
+medicalConditions VARCHAR(300), -- patient's medical conditions (stores multiple medical conditions seperated by a ,)
+nid VARCHAR(11), -- patient's Barbados national identification number
+passportNumber VARCHAR(30), -- patient's passport number
+
+CONSTRAINT  UC_uniquePatient UNIQUE (nid,passportNumber,patientID),
+CONSTRAINT FK_patient FOREIGN KEY (vaccineTypeGivenID) REFERENCES vaccine(vaccineTypeID)
 )";
 
 if ($conn->query($sql) === TRUE) {

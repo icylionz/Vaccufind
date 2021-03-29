@@ -13,9 +13,10 @@ if ($conn->connect_error) {
 
 // sql to create table
 $sql = "CREATE TABLE waiting (
-waitingID INT(10) UNSIGNED UNIQUE AUTO_INCREMENT PRIMARY KEY,
-patientID INT(10) NOT NULL UNIQUE , 
-dateAdded DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+waitingID INT(10) UNSIGNED UNIQUE AUTO_INCREMENT PRIMARY KEY, -- id of record in the waiting list
+patientID INT(10) NOT NULL UNIQUE ,  -- id of patient from patient table
+dateAdded DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, -- date when patient was added to the waiting list
+
 CONSTRAINT FK_waiting FOREIGN KEY patientID REFERENCES patient(patientID) ON DELETE SET NULL
 )";
 
