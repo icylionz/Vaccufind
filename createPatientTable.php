@@ -29,8 +29,8 @@ medicalConditions VARCHAR(300), -- patient's medical conditions (stores multiple
 nid VARCHAR(11), -- patient's Barbados national identification number
 passportNumber VARCHAR(30), -- patient's passport number
 
-CONSTRAINT  UC_uniquePatient UNIQUE (nid,passportNumber,patientID),
-CONSTRAINT FK_patient FOREIGN KEY (vaccineTypeGivenID) REFERENCES vaccine(vaccineTypeID)
+CONSTRAINT  UC_patient UNIQUE (nid, passportNumber, patientID),
+CONSTRAINT FK_patient FOREIGN KEY (vaccineGivenID) REFERENCES vaccine(vaccineID)
 )";
 
 if ($conn->query($sql) === TRUE) {
