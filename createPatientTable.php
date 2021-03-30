@@ -14,8 +14,8 @@ if ($conn->connect_error) {
 // sql to create table
 $sql = "CREATE TABLE patient (
 patientID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY, --id of patient record in the table 
-firstname VARCHAR(50) NOT NULL, -- patient's first name
-lastname VARCHAR(50) NOT NULL, -- patient's last name
+firstName VARCHAR(50) NOT NULL, -- patient's first name
+lastName VARCHAR(50) NOT NULL, -- patient's last name
 dob DATETIME2, -- patient's date of birth
 streetAddress VARCHAR(100), -- patient's address
 phoneNumber VARCHAR(10), -- patient's phone number
