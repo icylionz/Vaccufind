@@ -1,7 +1,7 @@
 <?php
 
 // define variables and set to empty values
-$firstNameErr = $lasstNameErr = $nidErr = "";
+$firstNameErr = $lastNameErr = $nidErr = "";
 
 if(isset($_POST['submit'])) {
     $validForm = 0;
