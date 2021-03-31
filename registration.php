@@ -71,9 +71,9 @@
 
 
 // define variables and set to empty values
-$firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $phoneNumberErr = $emailErr = $countryErr = "";
+$firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $phoneEmailErr = $countryErr = "";
 
-
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $validForm = 0;
     // ensures first name is entered
     if (empty($_POST["firstName"])) {
@@ -101,8 +101,13 @@ $firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $
     else {
         $nid = modifyInput($_POST["nid"]);
         $passportNumber = modifyInput($_POST["passportNumber"]);
-        if(!patientExist())
-        $validForm = $validForm + 1;
+        if(!patientExist($nid,$passportNumber)) {
+            $validForm = $validForm + 1;
+        }
+        else {
+            $patientExistsError = "This patient has already registered";
+        }
+            
     }
     // ensures phone number or email address is entered
     if (empty($_POST["phoneNumber"]) and empty($_POST["email"])) {
@@ -148,7 +153,7 @@ $firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $
         insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $nid, $passportNumber);
     }
 
-
+}
     
 //modifies input
 function modifyInput($input) {
@@ -157,6 +162,33 @@ function modifyInput($input) {
     $input = htmlspecialchars($input); // security feature to rename special characters (prevents malicious attempts to enter html code into the form)
     return $input;
 } 
+function patientExists($nid,$passportNumber){
+    $servername = "localhost";
+    $username = "username";
+    $password = "password";
+    $dbname = "myDB";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    
+    $sql = "SELECT * FROM patient WHERE nid = $nid OR passportNumber = $passportNumber";
+    if ($conn->query($sql) === TRUE) {
+        echo "Error has occured querying patient";
+    } 
+    $result = $conn->query($sql);
+    if($result->num_rows == 0){
+        return false;
+    }
+    else {
+        return true;
+    }
+    
+    $conn->close();
+}
 
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
@@ -244,7 +276,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstname">
                                 <span class="requiredError">* <?php echo $firstNameErr;?> </span>
-                                <input type="text" name="firstname" placeholder="First Name" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13" required>
+                                <input type="text" name="firstname" placeholder="First Name" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="lastname">
                                 <span class="requiredError">* <?php echo $lastNameErr;?> </span>
@@ -252,7 +284,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="nid">
                                 <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
-                                <input type="text" name="nid" placeholder="Barbados National ID" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
+                                <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" placeholder="Barbados National ID" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passport">
                                 <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
@@ -295,17 +327,17 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
                                 <small>Select one or more</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
-                                <span class="requiredError">* <?php echo $emailErr;?> </span>
-                                <input type="email" name="email" placeholder="Email*" data-form-field="email" class="form-control" value="" id="email-form7-13">
+                                <span class="requiredError">* <?php echo $phoneEmailErr;?> </span>
+                                <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" value="" id="email-form7-13">
                             </div>
-                            <div data-for="phone" class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="phoneNumber">
-                                <span class="requiredError">* <?php echo $phoneNumberErr;?> </span>
-                                <input type="tel" name="phoneNumber" placeholder="Phone*" data-form-field="phone" class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <span class="requiredError">* <?php echo $phoneEmailErr;?> </span>
+                                <input type="tel" name="phoneNumber" placeholder="Phone" class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                                 <small>Format: 123-123-4567</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="streetAddress">
                                 <span class="requiredError">* <?php echo $streetAddressErr;?> </span>
-                                <input type="text" name="streetAddress" placeholder="Street Address*" data-form-field="address" class="form-control" value="" id="address-form7-13">
+                                <input type="text" name="streetAddress" placeholder="Street Address" data-form-field="address" class="form-control" value="" id="address-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="country">
                                 <span class="requiredError">* <?php echo $countryErr;?> </span>
