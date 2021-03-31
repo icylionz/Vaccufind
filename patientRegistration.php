@@ -82,7 +82,7 @@ function modifyInput($input) {
     return $input;
 } 
 
-//inserts the essential worker's record into the database
+//inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
     $servername = "localhost";
     $username = "username";
@@ -102,9 +102,9 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     $result = $conn->query($sql);
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo "You have registered successfully";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: Patient has already registered.";
     }
     $conn->close();
 }
