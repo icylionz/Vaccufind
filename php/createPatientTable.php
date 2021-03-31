@@ -26,6 +26,7 @@ vaccineGivenID INT(10), -- vaccine id assigned to patient by the system
 noOfDosesRemaining INT(3), -- number of vaccine doses left to be adminsitered to the patient
 appointmentDate DATETIME2, -- patient's next appointment date
 medicalConditions VARCHAR(300), -- patient's medical conditions (stores multiple medical conditions seperated by a ,)
+allergies VARCHAR(300), -- patient's allergies (stores multiple allergies seperated by a ,)
 nid VARCHAR(11), -- patient's Barbados national identification number
 passportNumber VARCHAR(30), -- patient's passport number
 

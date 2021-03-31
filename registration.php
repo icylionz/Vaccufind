@@ -67,6 +67,125 @@
 </head>
 
 <body>
+<?php 
+
+
+// define variables and set to empty values
+$firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $phoneNumberErr = $emailErr = $countryErr = "";
+
+
+    $validForm = 0;
+    // ensures first name is entered
+    if (empty($_POST["firstName"])) {
+        $firstNameErr = "First Name is required";
+        
+    } 
+    else {
+        $firstName = modifyInput($_POST["firstName"]);
+        $validForm = $validForm + 1;
+    }
+    // ensures last name is entered
+    if (empty($_POST["lastName"])) {
+        $lastNameErr = "Last Name is required";
+        
+    } 
+    else {
+        $lastName = modifyInput($_POST["lastName"]);
+        $validForm = $validForm + 1;
+    }
+    // ensures nid or passport number is entered
+    if (empty($_POST["nid"]) and empty($_POST["passportNumber"])) {
+        $nidPassportErr = "National Identification Number is required Or Passport Number is required";
+        
+    } 
+    else {
+        $nid = modifyInput($_POST["nid"]);
+        $passportNumber = modifyInput($_POST["passportNumber"]);
+        if(!patientExist())
+        $validForm = $validForm + 1;
+    }
+    // ensures phone number or email address is entered
+    if (empty($_POST["phoneNumber"]) and empty($_POST["email"])) {
+        $phoneEmailErr = "Phone Number is required Or Email is required";
+        
+    } 
+    else {
+        $phoneNumber = modifyInput($_POST["phoneNumber"]);
+        $email = modifyInput($_POST["email"]);
+        $validForm = $validForm + 1;
+    }
+    // ensures date of birth is entered
+    if (empty($_POST["dob"])) {
+        $dobErr = "Date of Birth is required";
+    } 
+    else {
+        $dob = modifyInput($_POST["dob"]);
+        $validForm = $validForm + 1;
+    }
+    // ensures Street Address is entered
+    if (empty($_POST["address"])) {
+        $streetAddressErr = "Street Address is required";
+    } 
+    else {
+        $streetAddress = modifyInput($_POST["streetAddress"]);
+        $validForm = $validForm + 1;
+    }
+    // ensures country is entered
+    if (empty($_POST["country"])) {
+        $countryErr = "Country is required";
+    } 
+    else {
+        $country = modifyInput($_POST["country"]);
+        $validForm = $validForm + 1;
+    }
+    if (!empty($_POST["medicalConditions"])){
+        $medicalConditions = modifyInput($_POST["medicalConditions"]);
+    }
+    if (!empty($_POST["allergies"])){
+        $allergies = modifyInput($_POST["allergies"]);
+    }
+    if($validForm >= 7){
+        insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $nid, $passportNumber);
+    }
+
+
+    
+//modifies input
+function modifyInput($input) {
+    $input = stripslashes($input); // removes / and \ from the input
+    $input = trim($input); // removes whitespaces from the input
+    $input = htmlspecialchars($input); // security feature to rename special characters (prevents malicious attempts to enter html code into the form)
+    return $input;
+} 
+
+//inserts the patient's record into the database
+function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
+    $servername = "localhost";
+    $username = "username";
+    $password = "password";
+    $dbname = "myDB";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,nid,passportNumber) 
+    VALUES ($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert)";
+
+    $result = $conn->query($sql);
+
+    if ($conn->query($sql) === TRUE) {
+        echo "You have registered successfully";
+    } else {
+        echo "Error: Patient has already registered.";
+    }
+    $conn->close();
+}
+
+?> 
 
 
     <section class="menu menu2 cid-srkI4nsbXu" once="menu" id="menu2-1a">
@@ -118,24 +237,33 @@
             </div>
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="patientRegistration.php">
-                        <p class="mbr-text mbr-fonts-style align-center mb-4 display-7">
-                            Requried*</p>
+                    <!--Patient Registration Form-->
+                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
+                            Required*</p>
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstname">
-                                <input type="text" name="firstname" placeholder="First Name*" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
+                                <span class="requiredError">* <?php echo $firstNameErr;?> </span>
+                                <input type="text" name="firstname" placeholder="First Name" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13" required>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="lastname">
-                                <input type="text" name="lastname" placeholder="Last Name*" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
+                                <span class="requiredError">* <?php echo $lastNameErr;?> </span>
+                                <input type="text" name="lastname" placeholder="Last Name" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="nid">
-                                <input type="text" name="nid" placeholder="National ID / Passport Number (Optional)" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
+                                <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
+                                <input type="text" name="nid" placeholder="Barbados National ID" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="birthday">
-                                <input type="date" name="birthday" data-form-field="birthday" class="form-control" value="" id="birthday-form7-13">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passport">
+                                <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
+                                <input type="text" name="nid" placeholder="Passport Number" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medical">
-                                <select name="medical" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="dob">
+                                <span class="requiredError">* <?php echo $dobErr;?> </span>
+                                <input type="date" name="dob" data-form-field="birthday" class="form-control" value="" id="birthday-form7-13">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
+                                <select name="medicalConditions" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
                                     <option value="Nothing">Nothing</option>
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
@@ -167,16 +295,20 @@
                                 <small>Select one or more</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
+                                <span class="requiredError">* <?php echo $emailErr;?> </span>
                                 <input type="email" name="email" placeholder="Email*" data-form-field="email" class="form-control" value="" id="email-form7-13">
                             </div>
-                            <div data-for="phone" class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="phone">
-                                <input type="tel" name="phone" placeholder="Phone*" data-form-field="phone" class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                            <div data-for="phone" class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="phoneNumber">
+                                <span class="requiredError">* <?php echo $phoneNumberErr;?> </span>
+                                <input type="tel" name="phoneNumber" placeholder="Phone*" data-form-field="phone" class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                                 <small>Format: 123-123-4567</small>
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="address">
-                                <input type="text" name="address" placeholder="Street Address*" data-form-field="address" class="form-control" value="" id="address-form7-13">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="streetAddress">
+                                <span class="requiredError">* <?php echo $streetAddressErr;?> </span>
+                                <input type="text" name="streetAddress" placeholder="Street Address*" data-form-field="address" class="form-control" value="" id="address-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="country">
+                                <span class="requiredError">* <?php echo $countryErr;?> </span>
                                 <select type="text" name="country" data-form-field="country" class="form-control" value="" id="country-form7-13">
                                     <option value="" disabled selected hidden>-- Select Country* --</option>
                                     <option value="Afganistan">Afghanistan</option>
@@ -429,7 +561,9 @@
                             </div>
                             <div class="col-auto mbr-section-btn align-center">
                                <!--  <input type="button"  onClick="WriteToFile(appointment)" value="Submit">-->
-                                <input type="submit" class="btn btn-primary display-4" name="submit" value="Submit"/>                            </div>
+                                <input type="submit" class="btn btn-primary display-4" name="submit" value="Submit"/>                            
+                            
+                            </div>
                             </div>
                     </form>
                 </div>

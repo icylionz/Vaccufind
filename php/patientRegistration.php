@@ -1,9 +1,9 @@
 <?php
 
 // define variables and set to empty values
-$firstNameErr = $lastNameErr = $nidPassportErr = "";
+$firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $phoneNumberErr = $emailErr = $countryErr = "";
 
-if(isset($_POST['submit'])) {
+
     $validForm = 0;
     // ensures first name is entered
     if (empty($_POST["firstName"])) {
@@ -67,12 +67,17 @@ if(isset($_POST['submit'])) {
         $country = modifyInput($_POST["country"]);
         $validForm = $validForm + 1;
     }
-    $medicalConditions = modifyInput($_POST["medicalConditions"]);
+    if (!empty($_POST["medicalConditions"])){
+        $medicalConditions = modifyInput($_POST["medicalConditions"]);
+    }
+    if (!empty($_POST["allergies"])){
+        $allergies = modifyInput($_POST["allergies"]);
+    }
     if($validForm >= 7){
         insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $nid, $passportNumber);
     }
 
-}
+
     
 //modifies input
 function modifyInput($input) {
