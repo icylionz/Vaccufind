@@ -46,10 +46,10 @@ function modifyInput($input) {
 
 //inserts the medical worker's record into the database
 function insertMedical($firstNameInsert,$lastNameInsert,$nidInsert){
-    $servername = "localhost";
-    $username = "username";
+    $servername = "127.0.01";
+    $username = "root";
     $password = "password";
-    $dbname = "myDB";
+    $dbname = "vaccufind";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);

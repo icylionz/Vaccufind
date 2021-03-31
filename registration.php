@@ -163,10 +163,10 @@ function modifyInput($input) {
     return $input;
 } 
 function patientExists($nid,$passportNumber){
-    $servername = "localhost";
-    $username = "username";
+    $servername = "127.0.01";
+    $username = "root";
     $password = "password";
-    $dbname = "myDB";
+    $dbname = "vaccufind";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -192,10 +192,10 @@ function patientExists($nid,$passportNumber){
 
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
-    $servername = "localhost";
-    $username = "username";
+    $servername = "127.0.01";
+    $username = "root";
     $password = "password";
-    $dbname = "myDB";
+    $dbname = "vaccufind";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);

@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "username";
+$servername = "127.0.01";
+$username = "root";
 $password = "password";
-$dbname = "myDB";
+$dbname = "vaccufind";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
