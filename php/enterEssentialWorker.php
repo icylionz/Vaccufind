@@ -1,40 +1,42 @@
 <?php
+function enterEssentialWorker(){
+    // define variables and set to empty values
+    $firstNameErr = $lastNameErr = $nidErr = "";
 
-// define variables and set to empty values
-$firstNameErr = $lastNameErr = $nidErr = "";
+    if(isset($_POST['submit'])) {
+        $validForm = 0;
+        // ensures first name is entered
+        if (empty($_POST["firstName"])) {
+            $firstNameErr = "First Name is required";
+            $validForm = $validForm + 1;
+        } 
+        else {
+            $firstName = modifyInput($_POST["firstName"]);
+        }
+        // ensures last name is entered
+        if (empty($_POST["lastName"])) {
+            $lastNameErr = "Last Name is required";
+            $validForm = $validForm + 1;
+        } 
+        else {
+            $lastName = modifyInput($_POST["lastName"]);
+        }
+        // ensures nid is entered
+        if (empty($_POST["nid"])) {
+            $nidErr = "National Identification Number is required";
+            $validForm = $validForm + 1;
+        } 
+        else {
+            $nid = modifyInput($_POST["nid"]);
+        }
+        if($validForm == 3){
+            insertEssential($firstName, $lastName, $nid);
+        }
 
-if(isset($_POST['submit'])) {
-    $validForm = 0;
-    // ensures first name is entered
-    if (empty($_POST["firstName"])) {
-        $firstNameErr = "First Name is required";
-        $validForm = $validForm + 1;
-    } 
-    else {
-        $firstName = modifyInput($_POST["firstName"]);
     }
-    // ensures last name is entered
-    if (empty($_POST["lastName"])) {
-        $lastNameErr = "Last Name is required";
-        $validForm = $validForm + 1;
-    } 
-    else {
-        $lastName = modifyInput($_POST["lastName"]);
-    }
-    // ensures nid is entered
-    if (empty($_POST["nid"])) {
-        $nidErr = "National Identification Number is required";
-        $validForm = $validForm + 1;
-    } 
-    else {
-        $nid = modifyInput($_POST["nid"]);
-    }
-    if($validForm == 3){
-        insertEssential($firstName, $lastName, $nid);
-    }
+        
 
 }
-    
 
 //modifies input
 function modifyInput($input) {
@@ -46,17 +48,7 @@ function modifyInput($input) {
 
 //inserts the essential worker's record into the database
 function insertEssential($firstNameInsert,$lastNameInsert,$nidInsert){
-    $servername = "127.0.01";
-    $username = "root";
-    $password = "password";
-    $dbname = "vaccufind";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-    }
+    require 'connect.php';
 
     $sql = "INSERT INTO essential (firstName, lastName, nid) 
     VALUES ($firstNameInsert, $lastNameInsert, $nidInsert)";

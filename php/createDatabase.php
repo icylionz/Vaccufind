@@ -33,17 +33,7 @@ function createDatabase(){
 }
 
 function createEssentialWorkersTable(){
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
-  $dbname = "vaccufind";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require 'connect.php';
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS essentialWorkers (
@@ -65,17 +55,7 @@ function createEssentialWorkersTable(){
 }
 
 function createMedicalWorkersTable(){
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
-  $dbname = "vaccufind";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require 'connect.php';
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS medicalWorkers (
@@ -96,17 +76,7 @@ function createMedicalWorkersTable(){
 }
 
 function createPatientTable(){
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
-  $dbname = "vaccufind";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require 'connect.php';
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS patient (
@@ -140,17 +110,7 @@ function createPatientTable(){
 }
 
 function createSuperAdminLoginTable(){
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
-  $dbname = "vaccufind";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require 'connect.php';
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS superAdminLogin (
@@ -174,17 +134,7 @@ function createSuperAdminLoginTable(){
 }
 
 function createVaccineTable(){
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
-  $dbname = "vaccufind";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require 'connect.php';
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS vaccine (
@@ -207,17 +157,7 @@ function createVaccineTable(){
 }
 
 function createWaitingListTable(){
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
-  $dbname = "vaccufind";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require 'connect.php';
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS waiting (

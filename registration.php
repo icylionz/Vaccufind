@@ -65,15 +65,12 @@
 
 
 </head>
+<?php
+if (isset($_POST['submit'])) {
+    // define variables and set to empty values
+    $firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $phoneEmailErr = $countryErr = "";
 
-<body>
-<?php 
 
-
-// define variables and set to empty values
-$firstNameErr = $lastNameErr = $nidPassportErr = $dobErr = $streetAddressErr = $phoneEmailErr = $countryErr = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $validForm = 0;
     // ensures first name is entered
     if (empty($_POST["firstName"])) {
@@ -153,73 +150,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $nid, $passportNumber);
     }
 
-}
-    
-//modifies input
-function modifyInput($input) {
-    $input = stripslashes($input); // removes / and \ from the input
-    $input = trim($input); // removes whitespaces from the input
-    $input = htmlspecialchars($input); // security feature to rename special characters (prevents malicious attempts to enter html code into the form)
-    return $input;
-} 
-function patientExists($nid,$passportNumber){
-    $servername = "127.0.01";
-    $username = "root";
-    $password = "password";
-    $dbname = "vaccufind";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    
-    $sql = "SELECT * FROM patient WHERE nid = $nid OR passportNumber = $passportNumber";
-    if ($conn->query($sql) === TRUE) {
-        echo "Error has occured querying patient";
-    } 
-    $result = $conn->query($sql);
-    if($result->num_rows == 0){
-        return false;
-    }
-    else {
-        return true;
-    }
-    
-    $conn->close();
-}
-
-//inserts the patient's record into the database
-function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
-    $servername = "127.0.01";
-    $username = "root";
-    $password = "password";
-    $dbname = "vaccufind";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-    }
-
-    $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,nid,passportNumber) 
-    VALUES ($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert)";
-
-    $result = $conn->query($sql);
-
-    if ($conn->query($sql) === TRUE) {
-        echo "You have registered successfully";
-    } else {
-        echo "Error: Patient has already registered.";
-    }
-    $conn->close();
-}
-
-?> 
-
-
+}  
+?>
+<body>
     <section class="menu menu2 cid-srkI4nsbXu" once="menu" id="menu2-1a">
 
 
@@ -269,8 +202,9 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
             </div>
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
+
                     <!--Patient Registration Form-->
-                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="<?php patientRegistration();?>">
                         <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
                             Required*</p>
                         <div class="dragArea row">
@@ -623,7 +557,73 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
         <a href="https://mobirise.site/x "></a>
     </section>
 
+    <?php 
+            
+        
 
+        
+            //modifies input
+            function modifyInput($input) {
+                $input = stripslashes($input); // removes / and \ from the input
+                $input = trim($input); // removes whitespaces from the input
+                $input = htmlspecialchars($input); // security feature to rename special characters (prevents malicious attempts to enter html code into the form)
+                return $input;
+            } 
+            function patientExists($nid,$passportNumber){
+                $servername = "127.0.01";
+                $username = "root";
+                $password = "password";
+                $dbname = "vaccufind";
+
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                
+                $sql = "SELECT * FROM patient WHERE nid = $nid OR passportNumber = $passportNumber";
+                if ($conn->query($sql) === TRUE) {
+                    echo "Error has occured querying patient";
+                } 
+                $result = $conn->query($sql);
+                if($result->num_rows == 0){
+                    return false;
+                }
+                else {
+                    return true;
+                }
+                
+                $conn->close();
+            }
+        
+            //inserts the patient's record into the database
+            function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
+                $servername = "127.0.01";
+                $username = "root";
+                $password = "password";
+                $dbname = "vaccufind";
+
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+                }
+
+                $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,nid,passportNumber) 
+                VALUES ($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert)";
+
+                $result = $conn->query($sql);
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "You have registered successfully";
+                } else {
+                    echo "Error: Patient has already registered.";
+                }
+                $conn->close();
+            }
+    ?>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
