@@ -4,38 +4,27 @@ function enterEssentialWorker(){
     $firstNameErr = $lastNameErr = $nidErr = "";
 
     if(isset($_POST['submit'])) {
-        $validForm = 0;
         // ensures first name is entered
         if (empty($_POST["firstName"])) {
             $firstNameErr = "First Name is required";
-            $validForm = $validForm + 1;
         } 
-        else {
-            $firstName = modifyInput($_POST["firstName"]);
-        }
         // ensures last name is entered
-        if (empty($_POST["lastName"])) {
+        else if (empty($_POST["lastName"])) {
             $lastNameErr = "Last Name is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $lastName = modifyInput($_POST["lastName"]);
-        }
-        // ensures nid is entered
-        if (empty($_POST["nid"])) {
-            $nidErr = "National Identification Number is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $nid = modifyInput($_POST["nid"]);
-        }
-        if($validForm == 3){
-            insertEssential($firstName, $lastName, $nid);
-        }
-
-    }
         
-
+        } 
+        // ensures nid is entered
+        else if (empty($_POST["nid"])) {
+            $nidErr = "National Identification Number is required";
+        } 
+        else {
+            
+            $lastName = modifyInput($_POST["lastName"]);
+            $firstName = modifyInput($_POST["firstName"]);
+            $nid = modifyInput($_POST["nid"]);
+            insertEssential($firstName,$lastName,$nid);
+        }
+    }
 }
 
 //modifies input
@@ -49,6 +38,7 @@ function modifyInput($input) {
 //inserts the essential worker's record into the database
 function insertEssential($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
+    $conn = connectVaccufind();
 
     $sql = "INSERT INTO essential (firstName, lastName, nid) 
     VALUES ($firstNameInsert, $lastNameInsert, $nidInsert)";

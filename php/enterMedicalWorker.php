@@ -1,43 +1,34 @@
 <?php
 function enterMedicalWorker(){
     // define variables and set to empty values
-    $firstNameErr = $lasstNameErr = $nidErr = "";
+    $firstNameErr = $lastNameErr = $nidErr = "";
 
     if(isset($_POST['submit'])) {
         $validForm = 0;
         // ensures first name is entered
         if (empty($_POST["firstName"])) {
             $firstNameErr = "First Name is required";
-            $validForm = $validForm + 1;
+            
+        } 
+        // ensures last name is entered
+        else if (empty($_POST["lastName"])) {
+            $lastNameErr = "Last Name is required";
+            
+        } 
+        // ensures nid is entered
+        else if (empty($_POST["nid"])) {
+            $nidErr = "National Identification Number is required";
+         
         } 
         else {
             $firstName = modifyInput($_POST["firstName"]);
-        }
-        // ensures last name is entered
-        if (empty($_POST["lastName"])) {
-            $lastNameErr = "Last Name is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
             $lastName = modifyInput($_POST["lastName"]);
-        }
-        // ensures nid is entered
-        if (empty($_POST["nid"])) {
-            $nidErr = "National Identification Number is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
             $nid = modifyInput($_POST["nid"]);
-        }
-        if($validForm == 3){
-            insertMedical($firstName, $lastName, $nid);
-        }
+            insertMedical($firstName,$lastName,$nid);
+        }    
     }
-
 }
 
-
-    
 
 //modifies input
 function modifyInput($input) {
@@ -50,6 +41,7 @@ function modifyInput($input) {
 //inserts the medical worker's record into the database
 function insertMedical($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
+    $conn = connectVaccufind();
     
     $sql = "INSERT INTO medical (firstName, lastName, nid) 
     VALUES ($firstNameInsert, $lastNameInsert, $nidInsert)";
