@@ -41,8 +41,8 @@ function createEssentialWorkersTable(){
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS essentialWorkers (
   essentialID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of essential worker's record
-  essentialWorkerFirstName VARCHAR(50) DEFAULT NULL, -- first name of the essential worker
-  essentialWorkerLastName VARCHAR(50) DEFAULT NULL, -- last name of the essential worker
+  essentialWorkerFirstName TEXT DEFAULT NULL, -- first name of the essential worker
+  essentialWorkerLastName TEXT DEFAULT NULL, -- last name of the essential worker
   nid VARCHAR(11) UNIQUE NOT NULL -- Barbados nid of essential worker
 
   )";
@@ -64,8 +64,8 @@ function createMedicalWorkersTable(){
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS medicalWorkers (
   medicalID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of medical worker's record
-  MedicalWorkerFirstName VARCHAR(50) DEFAULT '', -- first name of the medical worker
-  MedicalWorkerLastName VARCHAR(50) DEFAULT '', -- last name of the medical worker
+  MedicalWorkerFirstName TEXT DEFAULT '', -- first name of the medical worker
+  MedicalWorkerLastName TEXT DEFAULT '', -- last name of the medical worker
   nid VARCHAR(11) NOT NULL UNIQUE -- Barbados nid of medical worker
 
   )";
@@ -86,21 +86,21 @@ function createPatientTable(){
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS patient (
     patientID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY , -- id of patient record in the table 
-    firstName VARCHAR(50) NOT NULL, -- patient's first name
-    lastName VARCHAR(50) NOT NULL, -- patient's last name
+    firstName TEXT NOT NULL, -- patient's first name
+    lastName TEXT NOT NULL, -- patient's last name
     dob DATE, -- patient's date of birth
-    streetAddress VARCHAR(100), -- patient's address
-    phoneNumber VARCHAR(10), -- patient's phone number
-    email VARCHAR(50), -- patient's email address
+    streetAddress TEXT, -- patient's address
+    phoneNumber TEXT, -- patient's phone number
+    email TEXT, -- patient's email address
     tag INT, -- patient's tag given by the system
-    country VARCHAR(25), -- patient's country
+    country TEXT, -- patient's country
     vaccineGivenID INT UNSIGNED, -- vaccine id assigned to patient by the system
     noOfDosesRemaining INT, -- number of vaccine doses left to be adminsitered to the patient
     appointmentDate DATE, -- patient's next appointment date
-    medicalConditions VARCHAR(300), -- patient's medical conditions (stores multiple medical conditions seperated by a ,)
-    allergies VARCHAR(300), -- patient's allergies (stores multiple allergies seperated by a ,)
-    nid VARCHAR(11) UNIQUE, -- patient's Barbados national identification number
-    passportNumber VARCHAR(30) UNIQUE, -- patient's passport number
+    medicalConditions TEXT, -- patient's medical conditions (stores multiple medical conditions seperated by a ,)
+    allergies TEXT, -- patient's allergies (stores multiple allergies seperated by a ,)
+    nid TEXT UNIQUE, -- patient's Barbados national identification number
+    passportNumber TEXT UNIQUE, -- patient's passport number
     
     FOREIGN KEY (vaccineGivenID) REFERENCES vaccine(vaccineID)
     );";
@@ -121,10 +121,10 @@ function createSuperAdminLoginTable(){
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS superAdminLogin (
   superAdminID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of superAdmin login record
-  superAdminFirstName VARCHAR(50) DEFAULT NULL, -- first name of the super admin
-  superAdminLastName VARCHAR(50) DEFAULT NULL, -- last name of the super admin 
-  username VARCHAR(50) NOT NULL UNIQUE, -- username of super admin
-  passwrd VARCHAR(50) NOT NULL UNIQUE -- passowrd of super admin
+  superAdminFirstName TEXT DEFAULT NULL, -- first name of the super admin
+  superAdminLastName TEXT DEFAULT NULL, -- last name of the super admin 
+  username TEXT NOT NULL UNIQUE, -- username of super admin
+  passwrd TEXT NOT NULL UNIQUE -- passowrd of super admin
 
 
 
@@ -145,10 +145,10 @@ function createAdminLoginTable(){
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS adminLogin (
   adminID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of admin login record
-  adminFirstName VARCHAR(50) DEFAULT NULL, -- first name of the super admin
-  adminLastName VARCHAR(50) DEFAULT NULL, -- last name of the super admin 
-  username VARCHAR(50) NOT NULL UNIQUE, -- username of super admin
-  passwrd VARCHAR(50) NOT NULL UNIQUE -- passowrd of super admin
+  adminFirstName TEXT DEFAULT NULL, -- first name of the super admin
+  adminLastName TEXT DEFAULT NULL, -- last name of the super admin 
+  username TEXT NOT NULL UNIQUE, -- username of super admin
+  passwrd TEXT NOT NULL UNIQUE -- passowrd of super admin
 
 
 
@@ -169,10 +169,10 @@ function createVaccineTable(){
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS vaccine (
   vaccineID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- id of vaccine
-  vaccineName VARCHAR(50) NOT NULL UNIQUE, -- name of the vaccine 
+  vaccineName TEXT NOT NULL UNIQUE, -- name of the vaccine 
   lengthOfTimeBetweenDoses INT DEFAULT 0 NOT NULL, -- length of time required between each dose administered to the patient
   noOfDosesRequired INT DEFAULT 1, -- number of doses the patient must be adminsitered
-  medicalConstraints VARCHAR(300) DEFAULT NULL, -- vaccine should not be administered to any patient with these medical conditions (stores multiple medical conditions seperated by a ,)
+  medicalConstraints TEXT DEFAULT NULL, -- vaccine should not be administered to any patient with these medical conditions (stores multiple medical conditions seperated by a ,)
   noOfDosesAvailable INT DEFAULT 0 NOT NULL -- number of doses available 
 
   )";

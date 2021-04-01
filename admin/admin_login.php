@@ -110,7 +110,7 @@
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label>Admin ID</label>
-                                <input type="text" name="adminId" class="form-control" value="" id="adminId-form7-18">
+                                <input type="text" name="username" class="form-control" value="" id="adminId-form7-18">
                             </div>
                             <?php if (isset($_GET['error'])) { ?>
                                 <?php if ($_GET['error'] == "Admin ID is required" || $_GET['error'] == "Incorrect Admin ID or Password") { ?>

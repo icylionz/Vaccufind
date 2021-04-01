@@ -65,10 +65,7 @@
 
 
 </head>
-<?php
-include "php/patientRegistration.php";
 
-?>
 <body>
     <section class="menu menu2 cid-srkI4nsbXu" once="menu" id="menu2-1a">
 
@@ -121,7 +118,10 @@ include "php/patientRegistration.php";
                 <div class="col-lg-8 mx-auto mbr-form">
 
                     <!--Patient Registration Form-->
-                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                    <?php
+                        require "php/patientRegistration.php";
+                    ?>
+                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="php/patientRegistration.php">
                         <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
                             Required*</p>
                         <div class="dragArea row">
@@ -139,7 +139,7 @@ include "php/patientRegistration.php";
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passport">
                                 <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
-                                <input type="text" name="nid" placeholder="Passport Number" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
+                                <input type="text" name="passportNumber" placeholder="Passport Number" data-form-field="nid" class="form-control" value="" id="passportNumber-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="dob">
                                 <span class="requiredError">* <?php echo $dobErr;?> </span>
@@ -147,7 +147,7 @@ include "php/patientRegistration.php";
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
                                 <select name="medicalConditions" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
-                                    <option value="Nothing">Nothing</option>
+                                    
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
                                     <option value="Cystic Fibrosis">Cystic Fibrosis</option>
@@ -166,7 +166,7 @@ include "php/patientRegistration.php";
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medical">
                                 <select name="allergies" data-form-field="medical" class="form-control multi_select_allergies" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
-                                    <option value="Nothing">Nothing</option>
+                                    
                                     <option value="Allergy: Penicillin">Allergy: Penicillin</option>
                                     <option value="Aspirin">Aspirin</option>
                                     <option value="Erythromycin">Erythromycin</option>

@@ -28,14 +28,14 @@ if (isset($_POST['username']) && isset($_POST['adminpass']))
     else
     {
         $sql = "SELECT * FROM adminLogin WHERE username='$adid' AND passwrd='$adpass'";
-
+        
         $result = mysqli_query($conn, $sql);
 
         $rows=mysqli_num_rows($result);
         if (mysqli_num_rows($result) === 1)
         {
             $row = mysqli_fetch_assoc($result);
-            if ($row['username'] === $adid && $row['passwrd'] === $adpass)
+            if ($row['username'] == $adid && $row['passwrd'] == $adpass)
             {
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['passwrd'] = $row['passwrd'];
