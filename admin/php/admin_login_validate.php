@@ -38,19 +38,20 @@ if (isset($_POST['adminId']) && isset($_POST['adminpass']))
             if ($row['admin_ID'] === $adid && $row['admin_password'] === $adpass)
             {
                 $_SESSION['admin_ID'] = $row['admin_ID'];
-                $_SESSION['admin_name'] = $row['admin_name'];
+                $_SESSION['admin_fname'] = $row['admin_fname'];
+                $_SESSION['admin_lname'] = $row['admin_lname'];
                 header("Location: ../admin_console.php");
                 exit();
             }
             else
             {
-                header("Location: ../admin_login.php?error=Incorrect Admin Id or Password 2");
+                header("Location: ../admin_login.php?error=Incorrect Admin Id or Password");
                 exit();
             }
         }
         else
         {
-            header("Location: ../admin_login.php?error=Incorrect Admin Id or Password 1");
+            header("Location: ../admin_login.php?error=Incorrect Admin Id or Password");
             exit();
         }
     }

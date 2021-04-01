@@ -100,7 +100,7 @@ if (isset($_SESSION['admin_ID'])) {
                             Contacts</a></li>
                     </ul>
 
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="admin_login.html">
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="php/admin_logout.php">
                         Log Out</a></div>
                 </div>
             </div>
@@ -113,7 +113,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Admin <?php echo $_SESSION['admin_name']; ?></strong>
+                    <strong>&ensp; Admin <?php echo $_SESSION['admin_fname']; ?> <?php echo $_SESSION['admin_lname']; ?></strong>
                 </h3>
             </div>
         </div>
@@ -688,7 +688,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div id="super" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" >
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form action="php/super_admin_login_validate.php" method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -699,12 +699,22 @@ if (isset($_SESSION['admin_ID'])) {
                                 <label>Super Admin Id</label>
                                 <input type="text" name="super_admin_ID" class="form-control" value="" id="super_admin_ID-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "Super Admin ID is required" || $_GET['error2'] == "Incorrect Super Admin Id or Password") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Password</label>
                                 <input type="password" name="super_admin_Pass" class="form-control" value="" id="super_admin_Pass-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error2'] == "Password is required" || $_GET['error2'] == "Incorrect Super Admin Id or Password") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4" onclick="document.location='super_admin_console.html'">Submit</button>
+                                <button type="submit" class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -753,7 +763,6 @@ if (isset($_SESSION['admin_ID'])) {
 </body>
 
 </html>
-
 <?php
 }
 else

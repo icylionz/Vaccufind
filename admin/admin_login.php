@@ -113,8 +113,8 @@
                                 <input type="text" name="adminId" class="form-control" value="" id="adminId-form7-18">
                             </div>
                             <?php if (isset($_GET['error'])) { ?>
-                                <?php if ($_GET['error'] == "Admin ID is required") { ?>
-                                    <p class="error" style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php if ($_GET['error'] == "Admin ID is required" || $_GET['error'] == "Incorrect Admin Id or Password") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -122,8 +122,8 @@
                                 <input type="password" name="adminpass" class="form-control" value="" id="adminpass-form7-18">
                             </div>
                             <?php if (isset($_GET['error'])) { ?>
-                                <?php if ($_GET['error'] == "Password is required") { ?>
-                                    <p class="error" style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php if ($_GET['error'] == "Password is required" || $_GET['error'] == "Incorrect Admin Id or Password") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                             <div class="col-auto mbr-section-btn align-center">

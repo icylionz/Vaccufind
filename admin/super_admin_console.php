@@ -1,3 +1,9 @@
+<?php 
+session_start();
+
+if (isset($_SESSION['super_admin_ID'])) {
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -40,7 +46,7 @@
         { media class,
         container classes, - class="media-container-row align-center mbr-white" }
         input tags, - <input>
-        form tags & classes, - class="col-lg-8 mx-auto mbr-form" data-form-type="formoid"
+        form tags & classes, - class="col-lg-8 mx-auto mbr-form"
         alert tags & classes and - data-form-alert-danger="" class="alert alert-danger col-12"
         ul tags, <ul></ul> -->
     <link rel="stylesheet" href="assets/theme/css/style.css">
@@ -92,7 +98,7 @@
                             Contacts</a></li>
                     </ul>
 
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="admin_login.html">
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="php/super_admin_logout.php">
                         Log Out</a></div>
                 </div>
             </div>
@@ -105,7 +111,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Super Admin</strong>
+                    <strong>&ensp; Super Admin <?php echo $_SESSION['super_admin_fname']; ?> <?php echo $_SESSION['super_admin_lname']; ?></strong>
                 </h3>
             </div>
         </div>
@@ -132,13 +138,16 @@
                 <div class="button-7">
                     <button type="button" class="btn admin_btn btn-primary" onclick="createForm();">Create Admin</button>
                 </div>
+                <div class="button-8">
+                    <button type="button" class="btn admin_btn btn-primary" onclick="createSuperForm();">Create Super Admin</button>
+                </div>
             </div>
         </div>
 
 
         <div id="default" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                <div class="col-lg-8 mx-auto mbr-form">
                     <br>
                     <br>
                     <br>
@@ -163,7 +172,7 @@
 
         <div id="client" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;" data-form-type="formoid">
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
                     <div class="wrapper">
                         <div class="notification_wrap">
                             <div class="dropdown">
@@ -246,7 +255,7 @@
                     <div id="panel">
                         <br>
                         <br>
-                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -309,12 +318,12 @@
 
         <div id="wait" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;" data-form-type="formoid">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"style="padding-top:25px">
                         <div class="dragArea row">
-                            <div data-for="vacName" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of Persons to be selected each day</label>
-                                <input type="text" name="vacName" data-form-field="vacName" class="form-control" value="" id="vacName-form3-1f">
+                                <input type="text" name="noP" class="form-control" value="" id="noP-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -324,7 +333,7 @@
                 </div>
 
 
-                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;" data-form-type="formoid">
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
                     <div class="wrapper">
                         <div class="notification_wrap">
                             <div class="dropdown">
@@ -391,7 +400,7 @@
                     <div id="panel">
                         <br>
                         <br>
-                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -454,7 +463,7 @@
 
         <div id="notification" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                <div class="col-lg-8 mx-auto mbr-form">
                     <div class="wrapper">
                         <div class="notification_wrap">
                             <div class="dropdown">
@@ -519,7 +528,7 @@
                         <div id="panel">
                             <br>
                             <br>
-                            <form method="POST" class="mbr-form2 form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                            <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                                 <div class="dragArea row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -583,25 +592,25 @@
 
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
                                     <strong>Essential Workers Form</strong>
                                 </h1>
                             </div>
-                            <div data-for="ess_first_Name" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
-                                <input type="text" name="ess_first_Name" data-form-field="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
+                                <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
                             </div>
-                            <div data-for="last_Name" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
-                                <input type="text" name="ess_last_Name" data-form-field="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
+                                <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
-                            <div data-for="natid" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="ess_natid" data-form-field="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
+                                <input type="text" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -615,25 +624,25 @@
 
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
                                     <strong>Medical Workers Form</strong>
                                 </h1>
                             </div>
-                            <div data-for="med_first_Name" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
-                                <input type="text" name="med_first_Name" data-form-field="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
+                                <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
-                            <div data-for="last_Name" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
-                                <input type="text" name="med_last_Name" data-form-field="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
+                                <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            <div data-for="natid" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="med_natid" data-form-field="med_natid" class="form-control" value="" id="med_natid-form3-1f">
+                                <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -647,25 +656,25 @@
 
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
                                     <strong>Vaccine Type Form</strong>
                                 </h1>
                             </div>
-                            <div data-for="vacName" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Vaccine Name</label>
-                                <input type="text" name="vacName" data-form-field="vacName" class="form-control" value="" id="vacName-form3-1f">
+                                <input type="text" name="vacName" class="form-control" value="" id="vacName-form3-1f">
                             </div>
-                            <div data-for="dosesNum" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="text" name="dosesNum" data-form-field="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="text" name="dosesNum"  class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
-                            <div data-for="time" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Length of time between doses</label>
-                                <input type="text" name="time" data-form-field="time" class="form-control" value="" id="time-form3-1f">
+                                <input type="text" name="time" class="form-control" value="" id="time-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -679,25 +688,73 @@
 
         <div id="create" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" style="padding-top:25px">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
                                     <strong>Create Admin</strong>
                                 </h1>
                             </div>
-                            <div data-for="create_Admin_ID" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>First Name</label>
+                                <input type="text" name="create_admin_fname" class="form-control" value="" id="create_admin_fname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Last Name</label>
+                                <input type="text" name="create_admin_lname" class="form-control" value="" id="create_admin_lname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label> Admin Id</label>
-                                <input type="text" name="create_Admin_ID" data-form-field="create_Admin_ID" class="form-control" value="" id="create_Admin_ID-form3-1f">
+                                <input type="text" name="create_admin_ID" class="form-control" value="" id="create_admin_ID-form3-1f">
                             </div>
-                            <div data-for="create_Admin_Pass" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Password</label>
-                                <input type="password" name="create_Admin_Pass" data-form-field="create_Admin_Pass" class="form-control" value="" id="create_Admin_Pass-form3-1f">
+                                <input type="password" name="create_admin_pass" class="form-control" value="" id="create_admin_pass-form3-1f">
                             </div>
-                            <div data-for="retype_Password" class="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Retype Password</label>
-                                <input type="password" name="retype_Password" data-form-field="retype_Password" class="form-control" value="" id="retype_Password-form3-1f">
+                                <input type="password" name="retype_admin_pass" class="form-control" value="" id="retype_admin_pass-form3-1f">
+                            </div>
+                            <div class="col-md-auto col-12 mbr-section-btn">
+                                <button type="button" class="btn btn-black display-4">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="createSuper" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                    <strong>Create Super Admin</strong>
+                                </h1>
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>First Name</label>
+                                <input type="text" name="create_super_admin_fname" class="form-control" value="" id="create_super_admin_fname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Last Name</label>
+                                <input type="text" name="create_super_admin_lname" class="form-control" value="" id="create_super_admin_lname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Admin Id</label>
+                                <input type="text" name="create_super_admin_ID" class="form-control" value="" id="create_super_admin_ID-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Password</label>
+                                <input type="password" name="create_super_admin_pass" class="form-control" value="" id="create_super_admin_pass-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Retype Password</label>
+                                <input type="password" name="retype_super_admin_pass" class="form-control" value="" id="retype_super_admin_pass-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Create</button>
@@ -749,3 +806,12 @@
 </body>
 
 </html>
+<?php
+}
+else
+{
+    header("Location: admin_console.php");
+    exit();
+}
+
+?>
