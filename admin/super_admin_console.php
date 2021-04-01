@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['super_admin_ID'])) {
+if (isset($_SESSION['super_admin_ID']) && isset($_SESSION['super_admin_password']) ) {
 
 ?>
 <!DOCTYPE html>

@@ -204,7 +204,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-lg-8 mx-auto mbr-form">
 
                     <!--Patient Registration Form-->
-                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="<?php patientRegistration();?>">
+                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
                         <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
                             Required*</p>
                         <div class="dragArea row">
