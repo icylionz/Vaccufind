@@ -61,11 +61,27 @@ if (isset($_SESSION['admin_ID'])) {
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
+    <!--holds cutom css changes
+            patient and waiting list tables
+    -->
+    <link rel="stylesheet" href="assets/bootstrap/css/custom-css-added.css" type="text/css">
     <script src="assets/form/admin_forms.js"></script>
 
 
 </head>
+<?php
+    require 'vaccufind/php/connect.php';
 
+    $patientTableData = array();
+
+    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
+        if($patientRecords->num_rows){
+            while($patientRow = $patientRecords->fetch_object()){
+                $patientTableData[] = $patientRow;
+            }
+        }
+    }
+?>
 <body onload="forms();">
 
 
@@ -120,7 +136,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div class="form-col-3 form-menu">
             <div class="menu">
                 <div class="button-1">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="clientList();">Client List</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="clientList();">Patient List</button>
                 </div>
                 <div class="button-2">
                     <button type="button" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
@@ -177,72 +193,41 @@ if (isset($_SESSION['admin_ID'])) {
                             <div class="dropdown">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Client List</strong>
+                                        <strong>Patient List</strong>
                                     </h1>
                                 </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p>
-                                        <a id="p1" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p2" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p3" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p4" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p>
-                                        <a id="p5" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p6" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p7" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p8" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
+                                <!--Display patient info table-->
+                                <div> 
+                                    <table class='adminTables' id="patientInfoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>National ID</th>
+                                                <th>Passport No.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            if(count($patientTableData) > 0){
+                                                foreach($patientTableData as $p){
+                                        ?>
+                                                    <tr>
+                                                        <td><?php echo modifyInput($p->patientID);?></td>
+                                                        <td><?php echo modifyInput($p->firstName);?></td>
+                                                        <td><?php echo modifyInput($p->lastName);?></td>
+                                                        <td><?php echo modifyInput($p->nid);?></td>
+                                                        <td><?php echo modifyInput($p->passportNumber);?></td>
+                                                    </tr>
+                                            <?php        
+                                                }
+                                            }
+                                            ?>
+                                       
+                                        </tbody>
+                                            
+                                    </table>
                                 </div>
                             </div>
                         </div>

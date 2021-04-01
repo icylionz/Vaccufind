@@ -1,0 +1,26 @@
+.adminTables{
+    width:100%;
+    height: auto;
+    
+
+}
+.adminTables tr{
+    height: auto;
+
+}
+.adminTables tbody{
+    width: 100%;
+    height: auto;
+
+}
+.adminTables th, td{
+    text-align:center;
+    width: auto;
+    border-bottom:1px solid rgb(63, 63, 63);
+    
+}
+
+.adminTables tr:nth-child(even){
+    background-color: rgb(201, 201, 201);
+    
+}
