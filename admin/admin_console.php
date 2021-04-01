@@ -70,17 +70,40 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
 
 </head>
 <?php
-    // include './php/connect.php';
-
-    // $patientTableData = array();
-
-    // if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
-    //     if($patientRecords->num_rows){
-    //         while($patientRow = $patientRecords->fetch_object()){
-    //             $patientTableData[] = $patientRow;
-    //         }
-    //     }
-    // }
+    require 'vaccufind/php/connect.php';
+    $conn = connectVaccufind();
+    
+    // fetches all patient records
+    $patientTableData = array();
+    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
+        if($patientRecords->num_rows > 0){
+            while($patientRow = $patientRecords->fetch_object()){
+                $patientTableData[] = $patientRow;
+            }
+        }
+    }
+    $patientRecords->free();
+    // fetches requested patient data by name
+    $patientSearchData = array();
+    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient WHERE firstName = $searchFirstName AND lastName = $sarchLastName")){
+        if($patientRecords->num_rows > 0){
+            while($patientRow = $patientRecords->fetch_object()){
+                $patientSearchData[] = $patientRow;
+            }
+        }
+    }
+    $patientRecords->free();
+    // fetches all records in the waiting list
+    $waitingTableData = array();
+    if($waitingRecords = $conn->query("SELECT patientID, waitingID, firstName, lastName, dateAdded FROM waiting")){
+        if($waitingRecords->num_rows > 0){
+            while($waitingRow = $waitingRecords->fetch_object()){
+                $waitingTableData[] = $waitingRow;
+            }
+        }
+    }
+    $waitingRecords->free();
+    
 ?>
 <body onload="forms();">
 
@@ -181,7 +204,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
             </div>
         </div>
 
-
+                            <!--  Patient Info List -->        
         <div id="client" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
@@ -292,7 +315,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
             </div>
         </div>
 
-
+                            <!--  Waiting List -->
         <div id="wait" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
@@ -319,53 +342,40 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
                                         <strong>Waiting List</strong>
                                     </h1>
                                 </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
+                                <!--Display waiting list-->
+                                <div> 
+                                    <table class='adminTables' id="waitingTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient ID</th>
+                                                <th>Waiting ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Date Added</th>
+                                              
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            if(count($waitingTableData) > 0){
+                                                foreach($waitingTableData as $w){
+                                        ?>
+                                                    <tr>
+                                                        <td onclick=''><?php echo modifyInput($w->patientID);?></td>
+                                                        <td><?php echo modifyInput($w->waitingID);?></td>
+                                                        <td><?php echo modifyInput($w->firstName);?></td>
+                                                        <td><?php echo modifyInput($w->lastName);?></td>
+                                                        <td><?php echo modifyInput($w->dateAdded);?></td>
+                                                        
+                                                    </tr>
+                                            <?php        
+                                                }
+                                            }
+                                            ?>
+                                       
+                                        </tbody>
+                                            
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -437,7 +447,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
             </div>
         </div>
 
-
+                <!--Notification panel-->
         <div id="notification" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -566,7 +576,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
             </div>
         </div>
 
-
+                <!--Essential Workers Form-->
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -598,7 +608,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
             </div>
         </div>
 
-
+                <!--Medical Workers Form-->
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -630,7 +640,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
             </div>
         </div>
 
-
+                <!--Vaccine Form-->
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">

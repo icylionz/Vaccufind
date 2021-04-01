@@ -16,6 +16,11 @@ function clientList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+<<<<<<< HEAD
+=======
+        document.getElementById('super').style.display = 'none';
+        
+>>>>>>> ab0cbeb94a2ebbe71772423f929696e5eaf9f998
     } else if (document.getElementById('client').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -24,6 +29,11 @@ function clientList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+<<<<<<< HEAD
+=======
+        document.getElementById('super').style.display = 'none';
+        
+>>>>>>> ab0cbeb94a2ebbe71772423f929696e5eaf9f998
     }
 }
 
@@ -44,6 +54,11 @@ function waitList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+<<<<<<< HEAD
+=======
+        document.getElementById('super').style.display = 'none';
+        
+>>>>>>> ab0cbeb94a2ebbe71772423f929696e5eaf9f998
     }
 }
 
