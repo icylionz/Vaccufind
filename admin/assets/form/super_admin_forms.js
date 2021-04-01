@@ -6,6 +6,7 @@ function forms() {
     document.getElementById('medical').style.display = 'none';
     document.getElementById('vac').style.display = 'none';
     document.getElementById('create').style.display = 'none';
+    document.getElementById('createSuper').style.display = 'none';
 }
 
 function clientList() {
@@ -18,6 +19,7 @@ function clientList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('client').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -27,6 +29,7 @@ function clientList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }
 
@@ -40,6 +43,7 @@ function waitList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('wait').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -49,6 +53,7 @@ function waitList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }
 
@@ -62,6 +67,7 @@ function notificationTable() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('notification').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -71,6 +77,7 @@ function notificationTable() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }
 
@@ -84,6 +91,7 @@ function essentialForm() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('essential').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -93,6 +101,7 @@ function essentialForm() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }
 
@@ -106,6 +115,7 @@ function medicalForm() {
         document.getElementById('medical').style.display = 'block';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('medical').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -115,6 +125,7 @@ function medicalForm() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }
 
@@ -128,6 +139,7 @@ function vacForm() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'block';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('vac').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -137,6 +149,7 @@ function vacForm() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }
 
@@ -148,6 +161,7 @@ function createForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('notification').style.display = 'none';
         document.getElementById('create').style.display = 'block';
+        document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('create').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('wait').style.display = 'none';
@@ -155,5 +169,26 @@ function createForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('notification').style.display = 'none';
         document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
+    }
+}
+
+function createSuperForm() {
+    if (document.getElementById('createSuper').style.display == 'none') {
+        document.getElementById('default').style.display = 'none';
+        document.getElementById('wait').style.display = 'none';
+        document.getElementById('vac').style.display = 'none';
+        document.getElementById('essential').style.display = 'none';
+        document.getElementById('notification').style.display = 'none';
+        document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'block';
+    } else if (document.getElementById('createSuper').style.display == 'block') {
+        document.getElementById('default').style.display = 'block';
+        document.getElementById('wait').style.display = 'none';
+        document.getElementById('vac').style.display = 'none';
+        document.getElementById('essential').style.display = 'none';
+        document.getElementById('notification').style.display = 'none';
+        document.getElementById('create').style.display = 'none';
+        document.getElementById('createSuper').style.display = 'none';
     }
 }

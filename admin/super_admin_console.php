@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['admin_ID'])) {
+if (isset($_SESSION['super_admin_ID'])) {
 
 ?>
 <!DOCTYPE html>
@@ -17,13 +17,11 @@ if (isset($_SESSION['admin_ID'])) {
     <meta name="description" content="">
 
 
-    <title>Admin Panel</title>
+    <title>Super Admin Panel</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
-    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <!--Holds CCS for
         nav-dropdown classes, class="navbar-nav nav-dropdown" 
@@ -48,7 +46,7 @@ if (isset($_SESSION['admin_ID'])) {
         { media class,
         container classes, - class="media-container-row align-center mbr-white" }
         input tags, - <input>
-        form tags & classes, - class="col-lg-8 mx-auto mbr-form" data-form-type="formoid"
+        form tags & classes, - class="col-lg-8 mx-auto mbr-form"
         alert tags & classes and - data-form-alert-danger="" class="alert alert-danger col-12"
         ul tags, <ul></ul> -->
     <link rel="stylesheet" href="assets/theme/css/style.css">
@@ -61,7 +59,7 @@ if (isset($_SESSION['admin_ID'])) {
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
-    <script src="assets/form/admin_forms.js"></script>
+    <script src="assets/form/super_admin_forms.js"></script>
 
 
 </head>
@@ -100,7 +98,7 @@ if (isset($_SESSION['admin_ID'])) {
                             Contacts</a></li>
                     </ul>
 
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="php/admin_logout.php">
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="php/super_admin_logout.php">
                         Log Out</a></div>
                 </div>
             </div>
@@ -113,7 +111,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Admin <?php echo $_SESSION['admin_fname']; ?> <?php echo $_SESSION['admin_lname']; ?></strong>
+                    <strong>&ensp; Super Admin <?php echo $_SESSION['super_admin_fname']; ?> <?php echo $_SESSION['super_admin_lname']; ?></strong>
                 </h3>
             </div>
         </div>
@@ -138,7 +136,10 @@ if (isset($_SESSION['admin_ID'])) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-7">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="superForm();">Super Admin</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="createForm();">Create Admin</button>
+                </div>
+                <div class="button-8">
+                    <button type="button" class="btn admin_btn btn-primary" onclick="createSuperForm();">Create Super Admin</button>
                 </div>
             </div>
         </div>
@@ -318,7 +319,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div id="wait" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of Persons to be selected each day</label>
@@ -624,7 +625,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -639,7 +640,7 @@ if (isset($_SESSION['admin_ID'])) {
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            <div dclass="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
@@ -656,7 +657,7 @@ if (isset($_SESSION['admin_ID'])) {
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -669,7 +670,7 @@ if (isset($_SESSION['admin_ID'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="text" name="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="text" name="dosesNum"  class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Length of time between doses</label>
@@ -685,36 +686,78 @@ if (isset($_SESSION['admin_ID'])) {
         </div>
 
 
-        <div id="super" class="container">
+        <div id="create" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" >
-                    <form action="php/super_admin_login_validate.php" method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                    <strong>Super Admin Login</strong>
+                                    <strong>Create Admin</strong>
                                 </h1>
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Super Admin Id</label>
-                                <input type="text" name="super_admin_ID" class="form-control" value="" id="super_admin_ID-form3-1f">
+                                <label>First Name</label>
+                                <input type="text" name="create_admin_fname" class="form-control" value="" id="create_admin_fname-form3-1f">
                             </div>
-                            <?php if (isset($_GET['error2'])) { ?>
-                                <?php if ($_GET['error2'] == "Super Admin ID is required" || $_GET['error2'] == "Incorrect Super Admin Id or Password") { ?>
-                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Last Name</label>
+                                <input type="text" name="create_admin_lname" class="form-control" value="" id="create_admin_lname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Admin Id</label>
+                                <input type="text" name="create_admin_ID" class="form-control" value="" id="create_admin_ID-form3-1f">
+                            </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Password</label>
-                                <input type="password" name="super_admin_Pass" class="form-control" value="" id="super_admin_Pass-form3-1f">
+                                <input type="password" name="create_admin_pass" class="form-control" value="" id="create_admin_pass-form3-1f">
                             </div>
-                            <?php if (isset($_GET['error'])) { ?>
-                                <?php if ($_GET['error2'] == "Password is required" || $_GET['error2'] == "Incorrect Super Admin Id or Password") { ?>
-                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Retype Password</label>
+                                <input type="password" name="retype_admin_pass" class="form-control" value="" id="retype_admin_pass-form3-1f">
+                            </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="submit" class="btn btn-black display-4">Submit</button>
+                                <button type="button" class="btn btn-black display-4">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="createSuper" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                    <strong>Create Super Admin</strong>
+                                </h1>
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>First Name</label>
+                                <input type="text" name="create_super_admin_fname" class="form-control" value="" id="create_super_admin_fname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Last Name</label>
+                                <input type="text" name="create_super_admin_lname" class="form-control" value="" id="create_super_admin_lname-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label> Admin Id</label>
+                                <input type="text" name="create_super_admin_ID" class="form-control" value="" id="create_super_admin_ID-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Password</label>
+                                <input type="password" name="create_super_admin_pass" class="form-control" value="" id="create_super_admin_pass-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Retype Password</label>
+                                <input type="password" name="retype_super_admin_pass" class="form-control" value="" id="retype_super_admin_pass-form3-1f">
+                            </div>
+                            <div class="col-md-auto col-12 mbr-section-btn">
+                                <button type="button" class="btn btn-black display-4">Create</button>
                             </div>
                         </div>
                     </form>
@@ -767,7 +810,7 @@ if (isset($_SESSION['admin_ID'])) {
 }
 else
 {
-    header("Location: admin_login.php");
+    header("Location: admin_console.php");
     exit();
 }
 
