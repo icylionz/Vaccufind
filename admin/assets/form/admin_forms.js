@@ -18,6 +18,7 @@ function clientList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('super').style.display = 'none';
+        
     } else if (document.getElementById('client').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('client').style.display = 'none';
@@ -27,6 +28,7 @@ function clientList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('super').style.display = 'none';
+        
     }
 }
 
@@ -49,6 +51,7 @@ function waitList() {
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('super').style.display = 'none';
+        
     }
 }
 

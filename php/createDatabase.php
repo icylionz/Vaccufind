@@ -1,4 +1,5 @@
 <?php
+require 'connect.php';
 createDatabase();
 createEssentialWorkersTable();
 createMedicalWorkersTable();
@@ -6,7 +7,7 @@ createPatientTable();
 createSuperAdminLoginTable();
 createWaitingListTable();
 createVaccineTable();
-createSuperAdminLoginTable();
+createAdminLoginTable();
 
 function createDatabase(){
   $servername = "127.0.0.1";
@@ -21,7 +22,7 @@ function createDatabase(){
   }
 
   // Create database
-  $sql = "CREATE DATABASE vaccufind";
+  $sql = "CREATE DATABASE IF NOT EXISTS vaccufind";
   if ($conn->query($sql) === TRUE) {
     echo "Database created successfully";
   } 
@@ -33,8 +34,10 @@ function createDatabase(){
 }
 
 function createEssentialWorkersTable(){
-  require 'connect.php';
-
+  
+  $conn = connectVaccufind();
+  
+  
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS essentialWorkers (
   essentialID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of essential worker's record
@@ -55,7 +58,8 @@ function createEssentialWorkersTable(){
 }
 
 function createMedicalWorkersTable(){
-  require 'connect.php';
+  
+  $conn = connectVaccufind();
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS medicalWorkers (
@@ -76,7 +80,8 @@ function createMedicalWorkersTable(){
 }
 
 function createPatientTable(){
-  require 'connect.php';
+  
+  $conn = connectVaccufind();
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS patient (
@@ -110,7 +115,8 @@ function createPatientTable(){
 }
 
 function createSuperAdminLoginTable(){
-  require 'connect.php';
+  
+  $conn = connectVaccufind();
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS superAdminLogin (
@@ -132,9 +138,33 @@ function createSuperAdminLoginTable(){
 
   $conn->close();
 }
+function createAdminLoginTable(){
+  
+  $conn = connectVaccufind();
 
+  // sql to create table
+  $sql = "CREATE TABLE IF NOT EXISTS adminLogin (
+  adminID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of admin login record
+  adminFirstName VARCHAR(50) DEFAULT NULL, -- first name of the super admin
+  adminLastName VARCHAR(50) DEFAULT NULL, -- last name of the super admin 
+  username VARCHAR(50) NOT NULL UNIQUE, -- username of super admin
+  passwrd VARCHAR(50) NOT NULL UNIQUE -- passowrd of super admin
+
+
+
+  )";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "Table adminLogin created successfully";
+  } else {
+    echo "Error creating table: " . $conn->error;
+  }
+
+  $conn->close();
+}
 function createVaccineTable(){
-  require 'connect.php';
+  
+  $conn = connectVaccufind();
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS vaccine (
@@ -157,7 +187,8 @@ function createVaccineTable(){
 }
 
 function createWaitingListTable(){
-  require 'connect.php';
+  
+  $conn = connectVaccufind();
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS waiting (
