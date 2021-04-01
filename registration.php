@@ -184,7 +184,7 @@ if (isset($_POST['submit'])) {
                             Contacts</a></li>
                     </ul>
 
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="admin/admin_login.html">
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="admin/admin_login.php">
                         Admin Login</a></div>
                 </div>
             </div>
