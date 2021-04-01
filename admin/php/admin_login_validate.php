@@ -1,8 +1,8 @@
 <?php
 session_start();
-include "db_conn.php";
+include "";
 
-if (isset($_POST['adminId']) && isset($_POST['adminpass']))
+if (isset($_POST['username']) && isset($_POST['adminpass']))
 {
     function validate($data)
     {
@@ -12,7 +12,7 @@ if (isset($_POST['adminId']) && isset($_POST['adminpass']))
         return $data;
     }
 
-    $adid = validate($_POST['adminId']);
+    $adid = validate($_POST['username']);
     $adpass = validate($_POST['adminpass']);
 
     if (empty($adid))
@@ -27,7 +27,7 @@ if (isset($_POST['adminId']) && isset($_POST['adminpass']))
     }
     else
     {
-        $sql = "SELECT * FROM admins WHERE admin_ID='$adid' AND admin_password='$adpass'";
+        $sql = "SELECT * FROM adminLogin WHERE username='$adid' AND passwrd='$adpass'";
 
         $result = mysqli_query($conn, $sql);
 
@@ -35,12 +35,12 @@ if (isset($_POST['adminId']) && isset($_POST['adminpass']))
         if (mysqli_num_rows($result) === 1)
         {
             $row = mysqli_fetch_assoc($result);
-            if ($row['admin_ID'] === $adid && $row['admin_password'] === $adpass)
+            if ($row['username'] === $adid && $row['passwrd'] === $adpass)
             {
-                $_SESSION['admin_ID'] = $row['admin_ID'];
-                $_SESSION['admin_password'] = $row['admin_password'];
-                $_SESSION['admin_fname'] = $row['admin_fname'];
-                $_SESSION['admin_lname'] = $row['admin_lname'];
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['passwrd'] = $row['passwrd'];
+                $_SESSION['adminFirstName'] = $row['adminFirstName'];
+                $_SESSION['adminLastName'] = $row['adminLastName'];
                 include "super_admin_login_validate.php";
                 exit();
             }

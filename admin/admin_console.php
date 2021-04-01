@@ -1,7 +1,9 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
+include "../php/patientRegistration.php";
+
+if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
 ?>
 <!DOCTYPE html>
@@ -70,7 +72,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
 
 </head>
 <?php
-    require 'vaccufind/php/connect.php';
+    include "../php/connect.php";
     $conn = connectVaccufind();
     
     // fetches all patient records
@@ -152,7 +154,7 @@ if (isset($_SESSION['admin_ID']) && isset($_SESSION['admin_password'])) {
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Admin <?php echo $_SESSION['admin_fname']; ?> <?php echo $_SESSION['admin_lname']; ?></strong>
+                    <strong>&ensp; Admin <?php echo $_SESSION['admin_fname']; ?> <?php echo $_SESSION['adminLastName']; ?></strong>
                 </h3>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['super_admin_ID']) && isset($_SESSION['super_admin_password']) ) {
+if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) {
 
 ?>
 <!DOCTYPE html>
@@ -111,7 +111,7 @@ if (isset($_SESSION['super_admin_ID']) && isset($_SESSION['super_admin_password'
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Super Admin <?php echo $_SESSION['super_admin_fname']; ?> <?php echo $_SESSION['super_admin_lname']; ?></strong>
+                    <strong>&ensp; Super Admin <?php echo $_SESSION['superAdminFirstName']; ?> <?php echo $_SESSION['superAdminLastName']; ?></strong>
                 </h3>
             </div>
         </div>
@@ -746,7 +746,7 @@ if (isset($_SESSION['super_admin_ID']) && isset($_SESSION['super_admin_password'
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label> Admin Id</label>
-                                <input type="text" name="create_super_admin_ID" class="form-control" value="" id="create_super_admin_ID-form3-1f">
+                                <input type="text" name="create_username" class="form-control" value="" id="create_username-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Password</label>
