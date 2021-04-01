@@ -109,7 +109,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 ?>
 <body onload="forms();">
 
-
+<!--                                       Header                                                  -->
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
 
 
@@ -148,7 +148,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         </nav>
     </section>
 
-
+<!--                                       Body                                                  -->
     <section class="form7 cid-srkFJnF1sD" id="form7-18">
 
         <div class="row justify-content-center">
