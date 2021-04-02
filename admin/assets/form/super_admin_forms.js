@@ -156,6 +156,7 @@ function vacForm() {
 function createForm() {
     if (document.getElementById('create').style.display == 'none') {
         document.getElementById('default').style.display = 'none';
+        document.getElementById('client').style.display = 'none';
         document.getElementById('wait').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('essential').style.display = 'none';
@@ -164,6 +165,7 @@ function createForm() {
         document.getElementById('createSuper').style.display = 'none';
     } else if (document.getElementById('create').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
+        document.getElementById('client').style.display = 'none';
         document.getElementById('wait').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('essential').style.display = 'none';
@@ -176,6 +178,7 @@ function createForm() {
 function createSuperForm() {
     if (document.getElementById('createSuper').style.display == 'none') {
         document.getElementById('default').style.display = 'none';
+        document.getElementById('client').style.display = 'none';
         document.getElementById('wait').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('essential').style.display = 'none';
@@ -184,6 +187,7 @@ function createSuperForm() {
         document.getElementById('createSuper').style.display = 'block';
     } else if (document.getElementById('createSuper').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
+        document.getElementById('client').style.display = 'none';
         document.getElementById('wait').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
         document.getElementById('essential').style.display = 'none';

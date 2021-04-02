@@ -1,8 +1,9 @@
 <?php
-session_start();
-include "";
+include "connect.php";
 
-if (isset($_POST['username']) && isset($_POST['adminpass']))
+session_start();
+
+if (isset($_POST['username']) && isset($_POST['passwrd']))
 {
     function validate($data)
     {
@@ -13,7 +14,7 @@ if (isset($_POST['username']) && isset($_POST['adminpass']))
     }
 
     $adid = validate($_POST['username']);
-    $adpass = validate($_POST['adminpass']);
+    $adpass = validate($_POST['passwrd']);
 
     if (empty($adid))
     {
@@ -29,12 +30,11 @@ if (isset($_POST['username']) && isset($_POST['adminpass']))
     {
         $sql = "SELECT * FROM adminLogin WHERE username='$adid' AND passwrd='$adpass'";
 
-        $result = mysqli_query($conn, $sql);
+        $result = $conn->query($sql);
 
-        $rows=mysqli_num_rows($result);
-        if (mysqli_num_rows($result) === 1)
+        if ($result->num_rows === 1)
         {
-            $row = mysqli_fetch_assoc($result);
+            $row = $result->fetch_assoc();
             if ($row['username'] === $adid && $row['passwrd'] === $adpass)
             {
                 $_SESSION['username'] = $row['username'];

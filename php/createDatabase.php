@@ -10,9 +10,9 @@ createVaccineTable();
 createAdminLoginTable();
 
 function createDatabase(){
-  $servername = "127.0.0.1";
+  $servername = "localhost";
   $username = "root";
-  $password = "password";
+  $password = "";
 
   // Create connection
   $conn = new mysqli($servername, $username, $password);
@@ -25,6 +25,7 @@ function createDatabase(){
   $sql = "CREATE DATABASE IF NOT EXISTS vaccufind";
   if ($conn->query($sql) === TRUE) {
     echo "Database created successfully";
+    echo "<br>";
   } 
   else{
     echo "Database already exists";
@@ -49,8 +50,10 @@ function createEssentialWorkersTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table essentialWorkers created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
 
@@ -72,8 +75,10 @@ function createMedicalWorkersTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table medicalWorkers created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -107,8 +112,10 @@ function createPatientTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table patient created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -132,8 +139,10 @@ function createSuperAdminLoginTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table superAdminLogin created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -156,8 +165,10 @@ function createAdminLoginTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table adminLogin created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -179,8 +190,10 @@ function createVaccineTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table vaccine created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -202,8 +215,10 @@ function createWaitingListTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table waiting created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();

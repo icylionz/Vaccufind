@@ -87,7 +87,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     $patientRecords->free();
     // fetches requested patient data by name
     $patientSearchData = array();
-    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient WHERE firstName = $searchFirstName AND lastName = $sarchLastName")){
+    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient WHERE firstName = $searchFirstName AND lastName = $searchLastName")){
         if($patientRecords->num_rows > 0){
             while($patientRow = $patientRecords->fetch_object()){
                 $patientSearchData[] = $patientRow;
@@ -154,7 +154,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Admin <?php echo $_SESSION['admin_fname']; ?> <?php echo $_SESSION['adminLastName']; ?></strong>
+                    <strong>&ensp; Admin <?php echo $_SESSION['adminFirstName']; ?> <?php echo $_SESSION['adminLastName']; ?></strong>
                 </h3>
             </div>
         </div>
@@ -629,7 +629,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            <div dclass="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>

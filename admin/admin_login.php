@@ -109,8 +109,8 @@
                                 </h1>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label>Admin ID</label>
-                                <input type="text" name="adminId" class="form-control" value="" id="adminId-form7-18">
+                                <label>Admin Username</label>
+                                <input type="text" name="username" class="form-control" value="" id="username-form7-18">
                             </div>
                             <?php if (isset($_GET['error'])) { ?>
                                 <?php if ($_GET['error'] == "Admin ID is required" || $_GET['error'] == "Incorrect Admin ID or Password") { ?>
@@ -119,7 +119,7 @@
                             <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label>Password</label>
-                                <input type="password" name="adminpass" class="form-control" value="" id="adminpass-form7-18">
+                                <input type="password" name="passwrd" class="form-control" value="" id="passwrd-form7-18">
                             </div>
                             <?php if (isset($_GET['error'])) { ?>
                                 <?php if ($_GET['error'] == "Password is required" || $_GET['error'] == "Incorrect Admin ID or Password") { ?>

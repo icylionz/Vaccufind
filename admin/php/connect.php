@@ -1,5 +1,4 @@
 <?php
-function connectVaccufind(){
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -11,7 +10,3 @@ function connectVaccufind(){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    return $conn;
-}
-
-?>
