@@ -121,33 +121,33 @@ include "php/patientRegistration.php";
                 <div class="col-lg-8 mx-auto mbr-form">
 
                     <!--Patient Registration Form-->
-                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                    <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="php/patientRegistration.php">
                         <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
                             Required*</p>
                         <div class="dragArea row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstname">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstName">
                                 <span class="requiredError">* <?php echo $firstNameErr;?> </span>
-                                <input type="text" name="firstname" placeholder="First Name" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
+                                <input type="text" name="firstName" placeholder="First Name" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="lastname">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="lastName">
                                 <span class="requiredError">* <?php echo $lastNameErr;?> </span>
-                                <input type="text" name="lastname" placeholder="Last Name" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
+                                <input type="text" name="lastName" placeholder="Last Name" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="nid">
                                 <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
                                 <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" placeholder="Barbados National ID" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passport">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passportNumber">
                                 <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
-                                <input type="text" name="nid" placeholder="Passport Number" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
+                                <input type="text" name="passportNumber" placeholder="Passport Number" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="dob">
                                 <span class="requiredError">* <?php echo $dobErr;?> </span>
                                 <input type="date" name="dob" data-form-field="birthday" class="form-control" value="" id="birthday-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
-                                <select name="medicalConditions" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
-                                    <option value="Nothing">Nothing</option>
+                                <select name="medicalConditions[]" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                              
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
                                     <option value="Cystic Fibrosis">Cystic Fibrosis</option>
@@ -165,8 +165,8 @@ include "php/patientRegistration.php";
                                 <small>Select one or more</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medical">
-                                <select name="allergies" data-form-field="medical" class="form-control multi_select_allergies" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
-                                    <option value="Nothing">Nothing</option>
+                                <select name="allergies[]" data-form-field="medical" class="form-control multi_select_allergies" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                    
                                     <option value="Allergy: Penicillin">Allergy: Penicillin</option>
                                     <option value="Aspirin">Aspirin</option>
                                     <option value="Erythromycin">Erythromycin</option>

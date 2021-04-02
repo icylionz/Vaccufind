@@ -1,8 +1,8 @@
 <?php
 function connectVaccufind(){
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $servername = "127.0.0.1";
+    $username = "vaccufind";
+    $password = "vaccufind";
     $dbname = "vaccufind";
 
     // Create connection
