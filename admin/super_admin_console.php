@@ -1,7 +1,8 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) {
+if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) 
+{
 
 ?>
 <!DOCTYPE html>
@@ -689,7 +690,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) {
         <div id="create" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
+                    <form action="php/create_admin.php" method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -698,26 +699,51 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
-                                <input type="text" name="create_admin_fname" class="form-control" value="" id="create_admin_fname-form3-1f">
+                                <input type="text" name="admin_FirstName" class="form-control" value="" id="admin_FirstName-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "First Name is required" || $_GET['error'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label> Last Name</label>
-                                <input type="text" name="create_admin_lname" class="form-control" value="" id="create_admin_lname-form3-1f">
+                                <input type="text" name="admin_LastName" class="form-control" value="" id="admin_LastName-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Last Name is required" || $_GET['error'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label> Admin Id</label>
-                                <input type="text" name="create_admin_ID" class="form-control" value="" id="create_admin_ID-form3-1f">
+                                <label> Admin Username</label>
+                                <input type="text" name="admin_Username" class="form-control" value="" id="admin_Username-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Admin Username is required" || $_GET['error'] == "Admin Username must be between length of 8-30") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Password</label>
-                                <input type="password" name="create_admin_pass" class="form-control" value="" id="create_admin_pass-form3-1f">
+                                <input type="password" name="admin_pass" class="form-control" value="" id="admin_pass-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Password is required" || $_GET['error'] == "Passwords do not match" || $_GET['error'] == "Password must be between length of 8-15") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Retype Password</label>
-                                <input type="password" name="retype_admin_pass" class="form-control" value="" id="retype_admin_pass-form3-1f">
+                                <input type="password" name="admin_pass2" class="form-control" value="" id="admin_pass2-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Second Password is required" || $_GET['error'] == "Passwords do not match" || $_GET['error'] == "Password must be between length of 8-15") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Create</button>
+                                <button type="submit" name="create_admin_btn" class="btn btn-black display-4">Create</button>
                             </div>
                         </div>
                     </form>
@@ -729,7 +755,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) {
         <div id="createSuper" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
+                    <form action="php/create_super_admin.php" method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -738,26 +764,51 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd']) ) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
-                                <input type="text" name="create_super_admin_fname" class="form-control" value="" id="create_super_admin_fname-form3-1f">
+                                <input type="text" name="super_admin_FirstName" class="form-control" value="" id="super_admin_FirstName-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "First Name is required" || $_GET['error'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label> Last Name</label>
-                                <input type="text" name="create_super_admin_lname" class="form-control" value="" id="create_super_admin_lname-form3-1f">
+                                <input type="text" name="super_admin_LastName" class="form-control" value="" id="super_admin_LastName-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Last Name is required" || $_GET['error'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label> Admin Id</label>
-                                <input type="text" name="create_username" class="form-control" value="" id="create_username-form3-1f">
+                                <label>Super Admin Username</label>
+                                <input type="text" name="super_admin_Username" class="form-control" value="" id="super_admin_Username-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Super Admin Username is required" || $_GET['error'] == "Super Admin Username must be between length of 8-30") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Password</label>
-                                <input type="password" name="create_super_admin_pass" class="form-control" value="" id="create_super_admin_pass-form3-1f">
+                                <input type="password" name="super_admin_pass" class="form-control" value="" id="super_admin_pass-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Password is required" || $_GET['error'] == "Passwords do not match" || $_GET['error'] == "Password must be between length of 7-15") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Retype Password</label>
-                                <input type="password" name="retype_super_admin_pass" class="form-control" value="" id="retype_super_admin_pass-form3-1f">
+                                <input type="password" name="super_admin_pass2" class="form-control" value="" id="super_admin_pass2-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Second Password is required" || $_GET['error'] == "Passwords do not match" || $_GET['error'] == "Password must be between length of 7-15") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Create</button>
+                                <button type="submit" name="create_super_admin_btn" class="btn btn-black display-4">Create</button>
                             </div>
                         </div>
                     </form>

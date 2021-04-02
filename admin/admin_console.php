@@ -87,7 +87,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     $patientRecords->free();
     // fetches requested patient data by name
     $patientSearchData = array();
-    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient WHERE firstName = $searchFirstName AND lastName = $searchLastName")){
+    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
         if($patientRecords->num_rows > 0){
             while($patientRow = $patientRecords->fetch_object()){
                 $patientSearchData[] = $patientRow;
@@ -104,7 +104,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    $waitingRecords->free();
+    // $waitingRecords->free();
     
 ?>
 <body onload="forms();">
