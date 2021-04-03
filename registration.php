@@ -146,7 +146,7 @@ include "php/patientRegistration.php";
                                 <input type="date" name="dob" data-form-field="birthday" class="form-control" value="" id="birthday-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
-                                <select name="medicalConditions[]" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                <select name="medicalConditions[]"  class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
                               
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
@@ -164,10 +164,10 @@ include "php/patientRegistration.php";
                                 </select>
                                 <small>Select one or more</small>
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medical">
-                                <select name="allergies[]" data-form-field="medical" class="form-control multi_select_allergies" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="allergies">
+                                <select name="allergies[]"  class="form-control multi_select_allergies" value="" id="allergies-form7-13" multiple data-selected-text-format="count > 3">
                                     
-                                    <option value="Allergy: Penicillin">Allergy: Penicillin</option>
+                                    <option value="Penicillin">Penicillin</option>
                                     <option value="Aspirin">Aspirin</option>
                                     <option value="Erythromycin">Erythromycin</option>
                                     <option value="Latex or Rubber Products">Latex or Rubber Products</option>

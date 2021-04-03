@@ -9,40 +9,40 @@ if(isset($_POST['submit'])){
     // ensures first name is entered
     if (empty($_POST["firstName"])) {
         $firstNameErr = "First Name is required";
-        echo "11";
+        
     } 
     
     // ensures last name is entered
     else if (empty($_POST["lastName"])) {
         $lastNameErr = "Last Name is required";
-        echo "2";
+        
     } 
     // ensures nid or passport number is entered
     else if (empty($_POST["nid"]) and empty($_POST["passportNumber"])) {
         $nidPassportErr = "National Identification Number is required Or Passport Number is required";
-        echo "3";
+        
     } 
     // ensures phone number or email address is entered
     else if (empty($_POST["phoneNumber"]) and empty($_POST["email"])) {
         $phoneEmailErr = "Phone Number is required Or Email is required";
-        echo "4";
+        
     } 
     // ensures date of birth is entered
     else if (empty($_POST["dob"])) {
         $dobErr = "Date of Birth is required";
-        echo "5";
+        
     } 
     
     // ensures Street Address is entered
     else if (empty($_POST["streetAddress"])) {
         $streetAddressErr = "Street Address is required";
-        echo "6";
+        
     } 
     
     // ensures country is entered
     else if (empty($_POST["country"])) {
         $countryErr = "Country is required";
-        echo "7";
+        
     } 
     else {
         $lastName = modifyInput($_POST["lastName"]);
@@ -60,11 +60,15 @@ if(isset($_POST['submit'])){
         $passportNumber = modifyInput($_POST["passportNumber"]);
         $dob = modifyInput($_POST["dob"]);
         $firstName = modifyInput($_POST["firstName"]);
-        insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $allergies, $nid, $passportNumber);
-        echo "8";
+        
+            insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $allergies, $nid, $passportNumber);
+        
+        
+            
+        
     }
-    //echo "1";
-   // header("location: /vaccufind/registration.php");
+    
+    header("location: /vaccufind/registration.php");
 }
 
 
@@ -80,19 +84,28 @@ function modifyInput($input) {
 } 
 
 //inserts the patient's record into the database
-function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert){
+function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
     require "connect.php";
 
     $conn = connectVaccufind();
-    $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,nid,passportNumber) 
-    VALUES ($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $nidInsert, $passportNumberInsert)";
+    if(!empty($_POST["nid"]) and !empty($_POST["passportNumber"])){
+        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', , '$passportNumberInsert');";
+    }
+    else if(empty($nidInsert)){
+        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', NULL, '$passportNumberInsert');";
 
-    $result = $conn->query($sql);
-
+    }
+    else if(empty($passportNumberInsert)){
+        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL);";
+    }    
+    
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
-        echo "Error: Patient has already registered.";
+        echo "Error: Patient has already registered.". $conn->error, "nid is ",$passportNumberInsert,".";
     }
     $conn->close();
 }

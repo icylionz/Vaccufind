@@ -75,16 +75,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     include "../php/connect.php";
     $conn = connectVaccufind();
     
-    // fetches all patient records
-    $patientTableData = array();
-    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
-        if($patientRecords->num_rows > 0){
-            while($patientRow = $patientRecords->fetch_object()){
-                $patientTableData[] = $patientRow;
-            }
-        }
-    }
-    $patientRecords->free();
+    
+    //$patientRecords->free();
     // fetches requested patient data by name
     $patientSearchData = array();
     if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
@@ -94,7 +86,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    $patientRecords->free();
+    //$patientRecords->free();
     // fetches all records in the waiting list
     $waitingTableData = array();
     if($waitingRecords = $conn->query("SELECT patientID, waitingID, firstName, lastName, dateAdded FROM waiting")){
@@ -218,6 +210,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Patient List</strong>
                                     </h1>
                                 </div>
+                                
                                 <!--Display patient info table-->
                                 <div> 
                                     <table class='adminTables' id="patientInfoTable">
@@ -231,16 +224,26 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php
-                                            // if(count($patientTableData) > 0){
-                                            //     foreach($patientTableData as $p){
-                                        ?>
+                                            <?php
+                                            require 'php/patientInfoTable.php';
+
+                                            if(count($patientTableData) > 0){
+                                                foreach($patientTableData as $p){
+                                            ?>
+                                            <?php $_SESSION["patientOverlayID"] = $p->patientID; ?>
+                                                    <form action="php/handleOverlayID.php" method="get">
                                                     <tr>
-                                                        
+                                                        <td ><a type='submit' onclick="on1()"><?php echo $p->patientID;?></a></td>
+                                                        <td><?php echo $p->firstName;?></td>
+                                                        <td><?php echo $p->lastName;?></td>
+                                                        <td><?php echo $p->nid;?></td>
+                                                        <td><?php echo $p->passportNumber;?></td>
                                                     </tr>
+                                                    </form>
+                                                
                                             <?php        
-                                            //     }
-                                            // }
+                                                }
+                                            }
                                             ?>
                                        
                                         </tbody>
@@ -251,7 +254,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         </div>
                     </div>
                 </div>
-
+                                                
 
                 <div id="overlay1" onclick="off1()">
                     <div id="panel">
@@ -264,10 +267,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Example</strong>
                                     </h1>
                                 </div>
-
+                                
+                                <?php 
+                                require 'php/searchPatientID.php';
+                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
+                               
+                                ?>                    
                                 <div>
                                     <label><strong>National ID:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['nid']?></p>
                                 </div>
 
                                 <div class="blank">
@@ -275,14 +283,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
                                 <div>
                                     <label><strong>Date of Birth:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['dob']?></p>
                                 </div>
 
                                 <br>
 
                                 <div>
                                     <label><strong>Medical Conditions:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['medicalConditions']?></p>
                                 </div>
 
                                 <div class="blnk">
@@ -290,16 +298,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
                                 <div>
                                     <label><strong>Allergies:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['allergies']?></p>
                                 </div>
                                 <div>
                                     <label><strong>Email:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['email']?></p>
                                 </div>
 
                                 <div>
                                     <label><strong>Street Address:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['streetAddress']?></p>
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
                                     <button type="button" class="btn btn-black display-4">Complete Appointment</button>
