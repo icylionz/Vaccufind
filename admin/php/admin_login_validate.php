@@ -1,8 +1,9 @@
 <?php
-session_start();
-include "";
+include "connect.php";
 
-if (isset($_POST['username']) && isset($_POST['adminpass']))
+session_start();
+
+if (isset($_POST['username']) && isset($_POST['passwrd']))
 {
     function validate($data)
     {
@@ -12,12 +13,12 @@ if (isset($_POST['username']) && isset($_POST['adminpass']))
         return $data;
     }
 
-    $adid = validate($_POST['username']);
-    $adpass = validate($_POST['adminpass']);
+    $aduser = validate($_POST['username']);
+    $adpass = validate($_POST['passwrd']);
 
-    if (empty($adid))
+    if (empty($aduser))
     {
-        header("Location: ../admin_login.php?error=Admin ID is required");
+        header("Location: ../admin_login.php?error=Admin Username is required");
         exit();
     }
     else if (empty($adpass))
@@ -27,15 +28,14 @@ if (isset($_POST['username']) && isset($_POST['adminpass']))
     }
     else
     {
-        $sql = "SELECT * FROM adminLogin WHERE username='$adid' AND passwrd='$adpass'";
+        $sql = "SELECT * FROM adminLogin WHERE username='$aduser' AND passwrd='$adpass'";
         
-        $result = mysqli_query($conn, $sql);
+        $result = $conn->query($sql);
 
-        $rows=mysqli_num_rows($result);
-        if (mysqli_num_rows($result) === 1)
+        if ($result->num_rows === 1)
         {
-            $row = mysqli_fetch_assoc($result);
-            if ($row['username'] == $adid && $row['passwrd'] == $adpass)
+            $row = $result->fetch_assoc();
+            if ($row['username'] === $aduser && $row['passwrd'] === $adpass)
             {
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['passwrd'] = $row['passwrd'];
@@ -46,13 +46,13 @@ if (isset($_POST['username']) && isset($_POST['adminpass']))
             }
             else
             {
-                header("Location: ../admin_login.php?error=Incorrect Admin ID or Password");
+                header("Location: ../admin_login.php?error=Incorrect Admin Username or Password");
                 exit();
             }
         }
         else
         {
-            header("Location: ../admin_login.php?error=Incorrect Admin ID or Password");
+            header("Location: ../admin_login.php?error=Incorrect Admin Username or Password");
             exit();
         }
     }

@@ -11,8 +11,8 @@ createAdminLoginTable();
 
 function createDatabase(){
   $servername = "127.0.0.1";
-  $username = "root";
-  $password = "password";
+  $username = "vaccufind";
+  $password = "vaccufind";
 
   // Create connection
   $conn = new mysqli($servername, $username, $password);
@@ -25,6 +25,7 @@ function createDatabase(){
   $sql = "CREATE DATABASE IF NOT EXISTS vaccufind";
   if ($conn->query($sql) === TRUE) {
     echo "Database created successfully";
+    echo "<br>";
   } 
   else{
     echo "Database already exists";
@@ -43,14 +44,16 @@ function createEssentialWorkersTable(){
   essentialID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of essential worker's record
   essentialWorkerFirstName TEXT DEFAULT NULL, -- first name of the essential worker
   essentialWorkerLastName TEXT DEFAULT NULL, -- last name of the essential worker
-  nid VARCHAR(11) UNIQUE NOT NULL -- Barbados nid of essential worker
+  nid TEXT UNIQUE NOT NULL -- Barbados nid of essential worker
 
   )";
 
   if ($conn->query($sql) === TRUE) {
     echo "Table essentialWorkers created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
 
@@ -66,14 +69,16 @@ function createMedicalWorkersTable(){
   medicalID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE, -- id of medical worker's record
   MedicalWorkerFirstName TEXT DEFAULT '', -- first name of the medical worker
   MedicalWorkerLastName TEXT DEFAULT '', -- last name of the medical worker
-  nid VARCHAR(11) NOT NULL UNIQUE -- Barbados nid of medical worker
+  nid TEXT NOT NULL UNIQUE -- Barbados nid of medical worker
 
   )";
 
   if ($conn->query($sql) === TRUE) {
     echo "Table medicalWorkers created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -107,8 +112,10 @@ function createPatientTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table patient created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -132,8 +139,10 @@ function createSuperAdminLoginTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table superAdminLogin created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -156,8 +165,10 @@ function createAdminLoginTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table adminLogin created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -179,8 +190,10 @@ function createVaccineTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table vaccine created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();
@@ -202,8 +215,10 @@ function createWaitingListTable(){
 
   if ($conn->query($sql) === TRUE) {
     echo "Table waiting created successfully";
+    echo "<br>";
   } else {
     echo "Error creating table: " . $conn->error;
+    echo "<br>";
   }
 
   $conn->close();

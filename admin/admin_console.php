@@ -75,26 +75,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     include "../php/connect.php";
     $conn = connectVaccufind();
     
-    // fetches all patient records
-    $patientTableData = array();
-    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
-        if($patientRecords->num_rows > 0){
-            while($patientRow = $patientRecords->fetch_object()){
-                $patientTableData[] = $patientRow;
-            }
-        }
-    }
-    $patientRecords->free();
+    
+    //$patientRecords->free();
     // fetches requested patient data by name
     $patientSearchData = array();
-    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient WHERE firstName = $searchFirstName AND lastName = $sarchLastName")){
+    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
         if($patientRecords->num_rows > 0){
             while($patientRow = $patientRecords->fetch_object()){
                 $patientSearchData[] = $patientRow;
             }
         }
     }
-    $patientRecords->free();
+    //$patientRecords->free();
     // fetches all records in the waiting list
     $waitingTableData = array();
     if($waitingRecords = $conn->query("SELECT patientID, waitingID, firstName, lastName, dateAdded FROM waiting")){
@@ -104,7 +96,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    $waitingRecords->free();
+    // $waitingRecords->free();
     
 ?>
 <body onload="forms();">
@@ -154,7 +146,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-12">
                 <h3 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                    <strong>&ensp; Admin <?php echo $_SESSION['admin_fname']; ?> <?php echo $_SESSION['adminLastName']; ?></strong>
+                    <strong>&ensp; Admin <?php echo $_SESSION['adminFirstName']; ?> <?php echo $_SESSION['adminLastName']; ?></strong>
                 </h3>
             </div>
         </div>
@@ -218,6 +210,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Patient List</strong>
                                     </h1>
                                 </div>
+                                
                                 <!--Display patient info table-->
                                 <div> 
                                     <table class='adminTables' id="patientInfoTable">
@@ -231,16 +224,26 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php
-                                            // if(count($patientTableData) > 0){
-                                            //     foreach($patientTableData as $p){
-                                        ?>
+                                            <?php
+                                            require 'php/patientInfoTable.php';
+
+                                            if(count($patientTableData) > 0){
+                                                foreach($patientTableData as $p){
+                                            ?>
+                                            <?php $_SESSION["patientOverlayID"] = $p->patientID; ?>
+                                                    <form action="php/handleOverlayID.php" method="get">
                                                     <tr>
-                                                        
+                                                        <td ><a type='submit' onclick="on1()"><?php echo $p->patientID;?></a></td>
+                                                        <td><?php echo $p->firstName;?></td>
+                                                        <td><?php echo $p->lastName;?></td>
+                                                        <td><?php echo $p->nid;?></td>
+                                                        <td><?php echo $p->passportNumber;?></td>
                                                     </tr>
+                                                    </form>
+                                                
                                             <?php        
-                                            //     }
-                                            // }
+                                                }
+                                            }
                                             ?>
                                        
                                         </tbody>
@@ -251,7 +254,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         </div>
                     </div>
                 </div>
-
+                                                
 
                 <div id="overlay1" onclick="off1()">
                     <div id="panel">
@@ -264,10 +267,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Example</strong>
                                     </h1>
                                 </div>
-
+                                
+                                <?php 
+                                require 'php/searchPatientID.php';
+                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
+                               
+                                ?>                    
                                 <div>
                                     <label><strong>National ID:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['nid']?></p>
                                 </div>
 
                                 <div class="blank">
@@ -275,14 +283,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
                                 <div>
                                     <label><strong>Date of Birth:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['dob']?></p>
                                 </div>
 
                                 <br>
 
                                 <div>
                                     <label><strong>Medical Conditions:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['medicalConditions']?></p>
                                 </div>
 
                                 <div class="blnk">
@@ -290,16 +298,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
                                 <div>
                                     <label><strong>Allergies:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['allergies']?></p>
                                 </div>
                                 <div>
                                     <label><strong>Email:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['email']?></p>
                                 </div>
 
                                 <div>
                                     <label><strong>Street Address:</strong></label>
-                                    <p>Example</p>
+                                    <p><?php echo $patientOverlay['streetAddress']?></p>
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
                                     <button type="button" class="btn btn-black display-4">Complete Appointment</button>
@@ -591,15 +599,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
-                                <input type="text" name="firstName" class="form-control" value="" id="ess_first_Name-form3-1f">
+                                <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
-                                <input type="text" name="lastName" class="form-control" value="" id="ess_last_Name-form3-1f">
+                                <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" class="form-control" value="" id="ess_natid-form3-1f">
+                                <input type="text" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -623,15 +631,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
-                                <input type="text" name="firstName" class="form-control" value="" id="med_first_Name-form3-1f">
+                                <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
-                                <input type="text" name="lastName" class="form-control" value="" id="med_last_Name-form3-1f">
+                                <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            <div dclass="col-lg-12 col-md col-sm-12 form-group">
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" class="form-control" value="" id="med_natid-form3-1f">
+                                <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -655,44 +663,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Vaccine Name</label>
-                                <input type="text" name="vacineName" class="form-control" value="" id="vacName-form3-1f">
+                                <input type="text" name="vacName" class="form-control" value="" id="vacName-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="number" name="noOfDosesRequired" class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="text" name="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Length of time (days) between doses</label>
-                                <input type="number" name="lengthOfTimeBetweenDoses" class="form-control" value="" id="time-form3-1f">
-                            </div>
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Medical Constraints (patients with these conditions should not take this vaccine)</label>
-                                <select name="medicalConstraints" data-form-field="medical" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="values">
-                                    <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
-                                    <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
-                                    <option value="Cystic Fibrosis">Cystic Fibrosis</option>
-                                    <option value="Diabetes">Diabetes (High Blood Sugar)</option>
-                                    <option value="Heart Conditions">Heart Conditions</option>
-                                    <option value="Hypertension">Hypertension (High Blood Pressure)</option>
-                                    <option value="Immunocompromised">Immunocompromised State</option>
-                                    <option value="Kidney Disease">Kidney Disease</option>
-                                    <option value="Liver Disease">Liver Disease</option>
-                                    <option value="Neurologic conditions">Neurologic Conditions</option>
-                                    <option value="Thalassemia">Thalassemia</option>
-                                    <option value="Pregnant">Pregnant</option>
-                                    <option value="Sickle Cell Disease">Sickle Cell Disease</option>
-                                    <option value="Allergy: Penicillin">Allergy: Penicillin</option>
-                                    <option value="Allergy: Aspirin">Aspirin</option>
-                                    <option value="Allergy: Erythromycin">Erythromycin</option>
-                                    <option value="Allergy: Latex or Rubber Products">Latex or Rubber Products</option>
-                                    <option value="Allergy: Codeine">Codeine</option>
-                                    <option value="Allergy: Tetracycline">Tetracycline</option>
-                                    <option value="Allergy:  Germicides/Pesticides, Foods">Germicides/Pesticides, Foods</option>       
-                                </select>
-                            </div>
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Number of doses available</label>
-                                <input type="number" name="noOfDosesAvailable" class="form-control" value="" id="time-form3-1f">
+                                <label>Length of time between doses</label>
+                                <input type="text" name="time" class="form-control" value="" id="time-form3-1f">
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
@@ -707,7 +686,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <br>
     </section>
 
-<!--                                       Footer                                                  -->
+
     <section class="footer3 cid-s48P1Icc8J " once="footers " id="footer3-i ">
 
 

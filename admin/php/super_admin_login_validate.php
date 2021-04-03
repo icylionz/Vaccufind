@@ -1,5 +1,5 @@
 <?php
-include "db_conn.php";
+include "../php/connect.php";
 
 $chkSupAdId = validate($_SESSION['username']);
 $chkSupAdPass = validate($_SESSION['passwrd']);
@@ -8,20 +8,20 @@ $chkSupAdLName= validate($_SESSION['adminLastName']);
 
 $chkSql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass' AND superAdminFirstName='$chkSupAdFName' AND superAdminLastName='$chkSupAdLName'" ;
 
-$chkResult = mysqli_query($conn, $chkSql);
+$chkResult = $conn->query($chkSql);
 
-if (mysqli_num_rows($chkResult) === 1)
+if ($chkResult->num_rows === 1)
 {
-    $row = mysqli_fetch_assoc($chkResult);
+    $row = $chkResult->fetch_assoc();
     if ($row['username'] === $chkSupAdId && $row['passwrd'] === $chkSupAdPass && $row['superAdminFirstName'] === $chkSupAdFName && $row['superAdminLastName'] === $chkSupAdLName)
     {
-        $sql = "SELECT * FROM super_admins WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass'";
+        $sql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass'";
 
-        $Sresult = mysqli_query($conn, $sql);
+        $Sresult = $conn->query($sql);
 
-        if (mysqli_num_rows($Sresult) === 1)
+        if ($Sresult->num_rows === 1)
         {
-            $row = mysqli_fetch_assoc($Sresult);
+            $row = $Sresult->fetch_assoc();
             if ($row['username'] === $chkSupAdId && $row['passwrd'] === $chkSupAdPass)
             {
                 $_SESSION['username'] = $row['username'];
