@@ -91,6 +91,10 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     $diff = date_diff(date_create($dobInsert), date_create($today));
     $age = $diff->format('%y'); 
     $conn = connectVaccufind();
+    //gets the elderly age from admin settings
+    $elderlyAge = $conn->query("SELECT * FROM settings WHERE settingName = 'elderly'");
+    $elderlyAge = $elderlyAge->fetch_assoc();
+    $elderlyAge = $elderlyAge['settingValue'];
     //assign tag to patient
     $tagInsert = 5;
     //medical worker tag
@@ -109,7 +113,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     }
     //elderly tag
     
-    else if($age >= 65 ){
+    else if($age >= $elderlyAge ){
         $tagInsert = 3;    
     }
     //medically comprised tag
