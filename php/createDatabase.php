@@ -8,6 +8,7 @@ createSuperAdminLoginTable();
 createWaitingListTable();
 createVaccineTable();
 createAdminLoginTable();
+createSettingsTable();
 
 function createDatabase(){
   $servername = "127.0.0.1";
