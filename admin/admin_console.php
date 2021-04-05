@@ -101,7 +101,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 ?>
 <body onload="forms();">
 
-
+    <script>sessionStorage.setItem("clickedOverlay",0);</script>
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
 
 
@@ -212,7 +212,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 </div>
                                 
                                 <!--Display patient info table-->
-                                <div> 
+                                <div>
+                                <script>sessionStorage.setItem("clickedOverlay",1);</script>
                                     <table class='adminTables' id="patientInfoTable">
                                         <thead>
                                             <tr>
@@ -230,16 +231,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                             if(count($patientTableData) > 0){
                                                 foreach($patientTableData as $p){
                                             ?>
-                                            <?php $_SESSION["patientOverlayID"] = $p->patientID; ?>
-                                                    <form action="php/handleOverlayID.php" method="get">
-                                                    <tr>
-                                                        <td ><a type='submit' onclick="on1()"><?php echo $p->patientID;?></a></td>
+                                            
+                                                    <tr id="<?php echo $p->patientID;?>">
+                                                        
+                                                        <td><a onclick="on1(parseInt(<?php echo $p->patientID;?>));sendToPHP()"><?php echo $p->patientID;?></a></td>
                                                         <td><?php echo $p->firstName;?></td>
                                                         <td><?php echo $p->lastName;?></td>
                                                         <td><?php echo $p->nid;?></td>
                                                         <td><?php echo $p->passportNumber;?></td>
                                                     </tr>
-                                                    </form>
+                                                    
                                                 
                                             <?php        
                                                 }
@@ -260,6 +261,23 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <div id="panel">
                         <br>
                         <br>
+                        <form id="transferID" method="get" target="_blank" action="php/handleOverlayID.php">
+                            <input id="setOverlayID" name="overlayID" type="hidden" value="">
+                                    
+                        </form>
+                                <script>
+                                function sendToPHP()
+                                {
+                                    if(document.getElementById("overlay1").style.display == 'block'){
+                                        document.getElementById("setOverlayID").value = sessionStorage.getItem("patientOverlayID");
+                                        document.getElementById("transferID").submit();
+                                        sessionStorage.setItem("clickedOverlay",0);
+                                  
+                                    } 
+                                }
+                                
+                                    
+                                </script>
                         <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -268,10 +286,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                     </h1>
                                 </div>
                                 
+                                
                                 <?php 
                                 require 'php/searchPatientID.php';
+                                echo $_SESSION['patientOverlayID'];
                                 $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
-                               
                                 ?>                    
                                 <div>
                                     <label><strong>National ID:</strong></label>

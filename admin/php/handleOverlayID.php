@@ -1,9 +1,11 @@
 <?php
     require 'connect.php';
     session_start();
-    if(isset($_GET[$p->patientID])){
-        
-       $_SESSION['patientOverlayID'] = $_GET[$p->patientID]; 
-    }
     
+  
+    echo $_GET['overlayID'];
+    $_SESSION['patientOverlayID'] = $_GET['overlayID']; 
+    
+    echo $_SESSION['patientOverlayID'];
+  // echo "<script>window.close();</script>";
 ?>
