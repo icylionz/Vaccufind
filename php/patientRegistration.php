@@ -86,7 +86,7 @@ function modifyInput($input) {
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
     require "connect.php";
-
+    //inserts into patient table
     $conn = connectVaccufind();
     if(!empty($_POST["nid"]) and !empty($_POST["passportNumber"])){
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
@@ -102,6 +102,22 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL);";
     }    
     
+    if ($conn->query($sql) === TRUE) {
+        echo "You have registered successfully";
+    } else {
+        echo "Error: Patient has already registered.". $conn->error, "nid is ",$passportNumberInsert,".";
+    }
+    //inserts into waiting table
+    if($addedID = $conn->query("SELECT IDENT_CURRENT(‘patient’)")){
+        echo "patient id received";
+    } 
+    else {
+        echo "Error: Patient id has not been regsitered.". $conn->error;
+        echo "<script>console.log(",$conn->error,"</script>";
+    }
+    echo $addedID;
+    $sql = "INSERT INTO waiting (patientID) 
+    VALUES ('$addedID')";
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
