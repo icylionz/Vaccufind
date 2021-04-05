@@ -224,6 +224,32 @@ function createWaitingListTable(){
   $conn->close();
 }
 
+function createSettingsTable(){
+  
+  $conn = connectVaccufind();
+  
+  
+  // sql to create table
+  $sql = "CREATE TABLE IF NOT EXISTS settings (
+  settingName TEXT UNIQUE NOT NULL, -- name of setting
+  settingValue INT NOT NULL -- value of setting
+
+  )";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "Table settings created successfully";
+    echo "<br>";
+  } else {
+    echo "Error creating table: " . $conn->error;
+    echo "<br>";
+  }
+
+  $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('selectEachDay','1')");
+  $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('dayUntilAppointment','1')");
+  $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('elderlyAge','65')");
+
+  $conn->close();
+}
 
 
 
