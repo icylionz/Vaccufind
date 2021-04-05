@@ -77,6 +77,7 @@ if(isset($_POST['create_admin_btn']))
                 VALUES('$firstname', '$lastname', '$username', '$password' )";
 
         $conn->query($sql);
+        $conn->close();
         header("Location: ../super_admin_console.php");
         exit();
     }

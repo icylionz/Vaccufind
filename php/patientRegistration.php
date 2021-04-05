@@ -86,7 +86,47 @@ function modifyInput($input) {
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
     require "connect.php";
-
+    //calculates patient's age
+    $today = date("Y-m-d");
+    $diff = date_diff(date_create($dobInsert), date_create($today));
+    $age = $diff->format('%y'); 
+    $conn = connectVaccufind();
+    //gets the elderly age from admin settings
+    $elderlyAge = $conn->query("SELECT * FROM settings WHERE settingName = 'elderly'");
+    $elderlyAge = $elderlyAge->fetch_assoc();
+    $elderlyAge = $elderlyAge['settingValue'];
+    //assign tag to patient
+    $tagInsert = 5;
+    //medical worker tag
+    echo "medcon:",$medicalConditionsInsert;
+    if($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")){
+        if($result->num_rows > 0){
+            $tagInsert = 1;
+        }
+    }
+    //essential worker tag
+   
+    else if($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")){
+        if($result->num_rows > 0){
+            $tagInsert = 2;
+        }
+    }
+    //elderly tag
+    
+    else if($age >= $elderlyAge ){
+        $tagInsert = 3;    
+    }
+    //medically comprised tag
+    
+    else if($medicalConditionsInsert != NULL){
+        $tagInsert = 4;
+    }
+    echo "tag:",$tagInsert;
+    /*//everyone else tag
+    else {
+        $tagInsert = 5;
+    }*/
+    //inserts into patient table
     $conn = connectVaccufind();
     if(!empty($_POST["nid"]) and !empty($_POST["passportNumber"])){
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
@@ -102,6 +142,22 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL);";
     }    
     
+    if ($conn->query($sql) === TRUE) {
+        echo "You have registered successfully";
+    } else {
+        echo "Error: Patient has already registered.". $conn->error, "nid is ",$passportNumberInsert,".";
+    }
+    //inserts into waiting table
+    if($addedID = $conn->query("SELECT IDENT_CURRENT(‘patient’)")){
+        echo "patient id received";
+    } 
+    else {
+        echo "Error: Patient id has not been regsitered.". $conn->error;
+        echo "<script>console.log(",$conn->error,"</script>";
+    }
+    echo $addedID;
+    $sql = "INSERT INTO waiting (patientID) 
+    VALUES ('$addedID')";
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
