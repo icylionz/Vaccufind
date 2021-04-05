@@ -111,34 +111,29 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     //assign tag to patient
     $tagInsert = 5;
     //medical worker tag
-    echo "medcon:",$medicalConditionsInsert;
-    if($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")){
-        if($result->num_rows > 0){
-            $tagInsert = 1;
-        }
+    echo "medcon:",$medicalConditionsInsert,"---";
+    if($conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")->num_rows > 0){
+        $tagInsert = 1;
     }
     //essential worker tag
    
-    else if($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")){
-        if($result->num_rows > 0){
-            $tagInsert = 2;
-        }
+    else if($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")->num_rows > 0){
+        $tagInsert = 2;
+        
     }
     //elderly tag
     
     else if($age >= 65 ){
-        $tagInsert = 3;    
+        $tagInsert = 3;   
     }
     //medically comprised tag
     
     else if($medicalConditionsInsert != NULL){
+        
         $tagInsert = 4;
     }
     echo "tag:",$tagInsert;
-    /*//everyone else tag
-    else {
-        $tagInsert = 5;
-    }*/
+    
     //inserts into patient table
     if(!empty($nidInsert) && !empty($passportNumberInsert)){
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
