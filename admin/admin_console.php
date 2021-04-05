@@ -609,7 +609,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" name="essentialForm" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -620,19 +620,63 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorFirstName'])) { ?>
+                                <?php if ($_SESSION['errorFirstName'] == "First Name is required"){ ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorFirstName']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorLastName'])) { ?>
+                                <?php if ($_SESSION['errorLastName'] == "Last Name is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorLastName']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
+                                <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorNid'])) { ?>
+                                <?php if ($_SESSION['errorNid'] == "National Identificaiton is required" || $_SESSION['errorNid'] == "This nid already exist") { ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorNid']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="essentialSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    <!--Handle essential workers form-->
+                    <?php
+                        session_start();
+                        $essNid = $_POST['ess_natid'];
+                        if($_POST['essentialSubmit']){
+                            if(empty($_POST['ess_first_Name'])){
+                                $_SESSION['errorFirstName'] = "First Name is required";
+                            }
+                            else if(empty($_POST['ess_last_Name'])){
+                                $_SESSION['errorLastName'] = "Last Name is required";
+                            }
+                            else if(empty($_POST['ess_natid'])){
+                                $_SESSION['errorNid'] = "National Identificaiton is required";
+                            }
+                            else if($conn->query("SELECT * FROM essentialworkers WHERE nid = '$essNid'")->num_rows > 0){
+                                $_SESSION['errorNid'] = "This nid already exist";
+                            }
+                            else{
+                                $conn = connectVaccufind();
+                                $essFirstName = $_POST['ess_first_Name'];
+                                $essLastName = $_POST['ess_last_Name'] ;
+                                $conn->query("INSERT INTO essentialworkers (essentialWorkerFirstName,essentialWorkerLastName,nid) VALUES ('$essFirstName','$essLastName','$essNID')");
+                                
+
+                                $conn->close();
+                            }
+                        }
+                        
+                    ?>
                 </div>
             </div>
         </div>
@@ -641,30 +685,74 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" name="medicalForm" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                    <strong>Medical Workers Form</strong>
+                                    <strong>Essential Workers Form</strong>
                                 </h1>
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorFirstName'])) { ?>
+                                <?php if ($_SESSION['errorFirstName'] == "First Name is required"){ ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorFirstName']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorLastName'])) { ?>
+                                <?php if ($_SESSION['errorLastName'] == "Last Name is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorLastName']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
+                                <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorNid'])) { ?>
+                                <?php if ($_SESSION['errorNid'] == "National Identificaiton is required" || $_SESSION['errorNid'] == "This nid already exist") { ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorNid']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="medicalSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    <!--Handle medical workers form-->
+                    <?php
+                        session_start();
+                        $medNid = $_POST['med_natid'];
+                        if($_POST['medicalSubmit']){
+                            if(empty($_POST['med_first_Name'])){
+                                $_SESSION['errorFirstName'] = "First Name is required";
+                            }
+                            else if(empty($_POST['med_last_Name'])){
+                                $_SESSION['errorLastName'] = "Last Name is required";
+                            }
+                            else if(empty($_POST['med_natid'])){
+                                $_SESSION['errorNid'] = "National Identificaiton is required";
+                            }
+                            else if($conn->query("SELECT * FROM medicalworkers WHERE nid = '$medNid'")->num_rows > 0){
+                                $_SESSION['errorNid'] = "This nid already exist";
+                            }
+                            else{
+                                $conn = connectVaccufind();
+                                $medFirstName = $_POST['med_first_Name'] ;
+                                $medLastName = $_POST['med_last_Name'] ;
+                                $conn->query("INSERT INTO medicalworkers (medicalWorkerFirstName,medicalWorkerLastName,nid) VALUES ('$medFirstName','$medLastName','$medNid')");
+                                
+
+                                $conn->close();
+                            }
+                        }
+                        
+                    ?>
                 </div>
             </div>
         </div>
@@ -686,12 +774,42 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="text" name="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="number" name="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Length of time between doses</label>
-                                <input type="text" name="time" class="form-control" value="" id="time-form3-1f">
+                                <label>Length of time between doses (days)</label>
+                                <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
                             </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Number of doses available</label>
+                                <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Number of doses available</label>
+                                <select name="medicalConstraints[]"  class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                    <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
+                                    <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
+                                    <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+                                    <option value="Diabetes">Diabetes (High Blood Sugar)</option>
+                                    <option value="Heart Conditions">Heart Conditions</option>
+                                    <option value="Hypertension">Hypertension (High Blood Pressure)</option>
+                                    <option value="Immunocompromised">Immunocompromised State</option>
+                                    <option value="Kidney Disease">Kidney Disease</option>
+                                    <option value="Liver Disease">Liver Disease</option>
+                                    <option value="Neurologic conditions">Neurologic Conditions</option>
+                                    <option value="Thalassemia">Thalassemia</option>
+                                    <option value="Pregnant">Pregnant</option>
+                                    <option value="Sickle Cell Disease">Sickle Cell Disease</option>
+                                    <option value="Penicillin">Allergy: Penicillin</option>
+                                    <option value="Aspirin">Allergy: Aspirin</option>
+                                    <option value="Erythromycin">Allergy: Erythromycin</option>
+                                    <option value="Latex or Rubber Products">Allergy: Latex or Rubber Products</option>
+                                    <option value="Codeine">Allergy: Codeine</option>
+                                    <option value="Tetracycline">Allergy: Tetracycline</option>
+                                    <option value="Germicides/Pesticides, Foods">Allergy: Germicides/Pesticides, Foods</option>   
+                                </select>
+                                <small>Select one or more</small>
+                            </div>    
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="button" class="btn btn-black display-4">Submit</button>
                             </div>

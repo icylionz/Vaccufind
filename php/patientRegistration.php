@@ -50,35 +50,18 @@ if(isset($_POST['submit'])){
         $phoneNumber = modifyInput($_POST["phoneNumber"]);
         $email = modifyInput($_POST["email"]);
         $streetAddress = modifyInput($_POST["streetAddress"]);
-        
-        
+        $medicalConditionsArr = $_POST["medicalConditions"];
+        $medicalConditions = implode(",",$medicalConditionsArr);
+        $medicalConditions = modifyInput($medicalConditions);
+        $allergiesArr = $_POST["allergies"];
+        $allergies = implode(",",$allergiesArr);
+        $allergies = modifyInput($allergies);
         $nid = modifyInput($_POST["nid"]);
         $passportNumber = modifyInput($_POST["passportNumber"]);
         $dob = modifyInput($_POST["dob"]);
         $firstName = modifyInput($_POST["firstName"]);
         
-        if(!empty($_POST["medicalConditions"]) && !empty($_POST["allergies"])){
-            $medicalConditionsArr = $_POST["medicalConditions"];
-            $medicalConditions = implode(",",$medicalConditionsArr);
-            $medicalConditions = modifyInput($medicalConditions);
-            $allergiesArr = $_POST["allergies"];
-            $allergies = implode(",",$allergiesArr);
-            $allergies = modifyInput($allergies);
             insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $allergies, $nid, $passportNumber);
-        }
-        else if(!empty($_POST["medicalConditions"])){
-            $medicalConditionsArr = $_POST["medicalConditions"];
-            $medicalConditions = implode(",",$medicalConditionsArr);
-            $medicalConditions = modifyInput($medicalConditions);
-            insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, NULL, $nid, $passportNumber);
-        }
-        else if(!empty($_POST["allergies"])){
-            $allergiesArr = $_POST["allergies"];
-            $allergies = implode(",",$allergiesArr);
-            $allergies = modifyInput($allergies);
-            insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, NULL, $allergies, $nid, $passportNumber);
-        }
-      
         
         
             
@@ -103,50 +86,20 @@ function modifyInput($input) {
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
     require "connect.php";
-    //calculates patient's age
-    $today = date("Y-m-d");
-    $diff = date_diff(date_create($dobInsert), date_create($today));
-    $age = $diff->format('%y'); 
-    $conn = connectVaccufind();
-    //assign tag to patient
-    $tagInsert = 5;
-    //medical worker tag
-    echo "medcon:",$medicalConditionsInsert,"---";
-    if($conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")->num_rows > 0){
-        $tagInsert = 1;
-    }
-    //essential worker tag
-   
-    else if($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")->num_rows > 0){
-        $tagInsert = 2;
-        
-    }
-    //elderly tag
-    
-    else if($age >= 65 ){
-        $tagInsert = 3;   
-    }
-    //medically comprised tag
-    
-    else if($medicalConditionsInsert != NULL){
-        
-        $tagInsert = 4;
-    }
-    echo "tag:",$tagInsert;
-    
     //inserts into patient table
-    if(!empty($nidInsert) && !empty($passportNumberInsert)){
-        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
-        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', , '$passportNumberInsert',$tagInsert);";
+    $conn = connectVaccufind();
+    if(!empty($_POST["nid"]) and !empty($_POST["passportNumber"])){
+        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', , '$passportNumberInsert');";
     }
     else if(empty($nidInsert)){
-        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
-        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', NULL, '$passportNumberInsert',$tagInsert);";
+        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', NULL, '$passportNumberInsert');";
 
     }
     else if(empty($passportNumberInsert)){
-        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
-        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL,$tagInsert);";
+        $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber) 
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL);";
     }    
     
     if ($conn->query($sql) === TRUE) {
@@ -155,18 +108,16 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
         echo "Error: Patient has already registered.". $conn->error, "nid is ",$passportNumberInsert,".";
     }
     //inserts into waiting table
-    if($addedID = $conn->query("SELECT MAX(patientID) AS maxim FROM patient")){
+    if($addedID = $conn->query("SELECT IDENT_CURRENT(‘patient’)")){
         echo "patient id received";
     } 
     else {
         echo "Error: Patient id has not been regsitered.". $conn->error;
+        echo "<script>console.log(",$conn->error,"</script>";
     }
-    $addedID = $addedID->fetch_assoc();
-   
-   
-    $addedID = $addedID['maxim'];
-  
-    $sql = "INSERT INTO waiting (patientID) VALUES ('$addedID')";
+    echo $addedID;
+    $sql = "INSERT INTO waiting (patientID) 
+    VALUES ('$addedID')";
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {

@@ -81,6 +81,7 @@ if(isset($_POST['create_super_admin_btn']))
 
         $conn->query($sql);
         $conn->query($supersql);
+        $conn->close();
         header("Location: ../super_admin_console.php");
         exit();
     }
