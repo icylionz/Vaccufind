@@ -7,5 +7,5 @@
     $_SESSION['patientOverlayID'] = $_GET['overlayID']; 
     
     //echo $_SESSION['patientOverlayID'];
-  // echo "<script>window.close();</script>";
+   echo "<script>window.close();</script>";
 ?>
