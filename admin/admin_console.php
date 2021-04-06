@@ -348,14 +348,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="wait" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/scheduleAppointment.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>No. of Persons to be selected each day</label>
-                                <input type="text" name="noP" class="form-control" value="" id="noP-form3-1f">
-                            </div>
+                            
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" class="btn btn-black display-4">Schedule Patients</button>
                             </div>
                         </div>
                     </form>
@@ -609,7 +606,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" name="essentialForm" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -650,7 +647,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     </form>
                     <!--Handle essential workers form-->
                     <?php
-                        session_start();
+                       
                         $essNid = $_POST['ess_natid'];
                         if($_POST['essentialSubmit']){
                             if(empty($_POST['ess_first_Name'])){
@@ -685,11 +682,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" name="medicalForm" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                    <strong>Essential Workers Form</strong>
+                                    <strong>Medical Workers Form</strong>
                                 </h1>
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
@@ -726,25 +723,25 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     </form>
                     <!--Handle medical workers form-->
                     <?php
-                        session_start();
-                        $medNid = $_POST['med_natid'];
-                        if($_POST['medicalSubmit']){
-                            if(empty($_POST['med_first_Name'])){
-                                $_SESSION['errorFirstName'] = "First Name is required";
+                       
+                        $medNid = $_POST["med_natid"];
+                        if($_POST["medicalSubmit"]){
+                            if(empty($_POST["med_first_Name"])){
+                                $_SESSION["errorFirstName"] = "First Name is required";
                             }
-                            else if(empty($_POST['med_last_Name'])){
-                                $_SESSION['errorLastName'] = "Last Name is required";
+                            else if(empty($_POST["med_last_Name"])){
+                                $_SESSION["errorLastName"] = "Last Name is required";
                             }
-                            else if(empty($_POST['med_natid'])){
-                                $_SESSION['errorNid'] = "National Identificaiton is required";
+                            else if(empty($_POST["med_natid"])){
+                                $_SESSION["errorNid"] = "National Identificaiton is required";
                             }
                             else if($conn->query("SELECT * FROM medicalworkers WHERE nid = '$medNid'")->num_rows > 0){
-                                $_SESSION['errorNid'] = "This nid already exist";
+                                $_SESSION["errorNid"] = "This nid already exist";
                             }
                             else{
                                 $conn = connectVaccufind();
-                                $medFirstName = $_POST['med_first_Name'] ;
-                                $medLastName = $_POST['med_last_Name'] ;
+                                $medFirstName = $_POST["med_first_Name"] ;
+                                $medLastName = $_POST["med_last_Name"] ;
                                 $conn->query("INSERT INTO medicalworkers (medicalWorkerFirstName,medicalWorkerLastName,nid) VALUES ('$medFirstName','$medLastName','$medNid')");
                                 
 
@@ -761,7 +758,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -785,7 +782,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Number of doses available</label>
+                                <label>Medical Constraints</label>
                                 <select name="medicalConstraints[]"  class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
@@ -811,11 +808,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <small>Select one or more</small>
                             </div>    
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    <?php
+                    if($_POST["vaccineSubmit"]){
+                        echo "fdafdafdfadfd";
+                    }
+
+                    ?>
                 </div>
+                
             </div>
         </div>
         <br>

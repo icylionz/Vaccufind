@@ -246,7 +246,7 @@ function createSettingsTable(){
   }
 
   $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('selectFromWaiting','1')");
-  $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('dayUntilAppointment','1')");
+  $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('daysUntilAppointment','1')");
   $conn->query("INSERT INTO settings (settingName,settingValue) VALUES ('elderlyAge','65')");
 
   $conn->close();
