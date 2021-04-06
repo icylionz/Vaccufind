@@ -643,16 +643,29 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
                             </div> 
-                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssFirstName']; ?></p>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "First Name is required" || $_GET['error'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
-                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssLastName']; ?></p>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Last Name is required" || $_GET['error'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "National ID is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <p style="color:lightcoral"><?php echo $_SESSION['errorEssNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="essentialSubmit"class="btn btn-black display-4">Submit</button>
@@ -679,19 +692,29 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
-                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstName']; ?></p>
-                                
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "First Name is required" || $_GET['error2'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            
-                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastName']; ?></p>
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "Last Name is required" || $_GET['error2'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
-                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedNid']; ?></p>
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "National ID is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="medicalSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
@@ -706,7 +729,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" action="php/vaccineEntry" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/vaccineEntry.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -717,18 +740,38 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>Vaccine Name</label>
                                 <input type="text" name="vacName" class="form-control" value="" id="vacName-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Vaccine Name is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
                                 <input type="number" name="dosesRequired" class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Number of doses is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Length of time between doses (days)</label>
                                 <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Length of time is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Number of doses available</label>
                                 <input type="number" name="dosesAvailable" class="form-control" value="" id="time-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Number of doses available is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
                                 <label>Medical Conditions</label>
                                 <select name="medicalConditions[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">

@@ -1,25 +1,30 @@
 <?php
 enterEssentialWorker();
 function enterEssentialWorker(){
-    // define variables and set to empty values
-    $_SESSION['errorEssFirstName'] = $_SESSION['errorEssLastName'] = $_SESSION['errorEssNid'] = "";
-
-   
-       
     // ensures first name is entered
     if (empty($_POST["ess_first_Name"])) {
-        $_SESSION['errorEssFirstName'] = "First Name is required";
-        echo $_SESSION['errorEssFirstName'];
+        header("Location: ../admin_console.php?error=First Name is required");
+        exit();
     } 
+    else if (strlen($_POST["ess_first_Name"]) < 3 || strlen($_POST["ess_first_Name"]) > 25 )
+    {
+        header("Location: ../admin_console.php?error=First Name must be between length of 3-25");
+        exit();
+    }
     // ensures last name is entered
     else if (empty($_POST["ess_last_Name"])) {
-        $_SESSION['errorEssLastName'] = "Last Name is required";
-        echo $_SESSION['errorEssLastName'];
+        header("Location: ../admin_console.php?error=Last Name is required");
+        exit();
     } 
+    else if (strlen($_POST["ess_last_Name"]) < 3 || strlen($_POST["ess_last_Name"]) > 25 )
+    {
+        header("Location: ../admin_console.php?error=Last Name must be between length of 3-25");
+        exit();
+    }
     // ensures nid is entered
     else if (empty($_POST["ess_natid"])) {
-        $_SESSION['errorEssNid'] = "National Identification Number is required";   
-        echo $_SESSION['errorEssNid'];
+        header("Location: ../admin_console.php?error=National ID is required");
+        exit();
     } 
     else{
         

@@ -128,29 +128,49 @@ include "php/patientRegistration.php";
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstName">
                                 <label>First Name*</label>
-                                <span class="requiredError"> <?php echo $firstNameErr;?> </span>
                                 <input type="text" name="firstName" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "First Name is required" || $_GET['error'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="lastName">
                                 <label>Last Name*</label>
-                                <span class="requiredError"> <?php echo $lastNameErr;?> </span>
                                 <input type="text" name="lastName" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Last Name is required" || $_GET['error'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label>National ID*</label>
-                                <span class="requiredError"> <?php echo $nidPassportErr;?> </span>
-                                <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" class="form-control" value="" id="nid-form7-13">
+                                <input type="text" name="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "National ID or Passport Number is required" || $_GET['error'] == "National ID must be between length of 11") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passportNumber">
                                 <label>Passport Number*</label>
-                                <span class="requiredError"> <?php echo $nidPassportErr;?> </span>
                                 <input type="text" name="passportNumber" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "National ID or Passport Number is required" || $_GET['error'] == "Passport Number must be between length of 11") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="dob">
                                 <label>Date of Birth*</label>
-                                <span class="requiredError"> <?php echo $dobErr;?> </span>
                                 <input type="date" name="dob" data-form-field="birthday" class="form-control" value="" id="birthday-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Date of Birth is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
                                 <label>Medical Conditions</label>
                                 <select name="medicalConditions[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
@@ -187,23 +207,34 @@ include "php/patientRegistration.php";
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
                                 <label>Email*</label>
-                                <span class="requiredError"> <?php echo $phoneEmailErr;?> </span>
                                 <input type="email" name="email" data-form-field="email" class="form-control" value="" id="email-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Phone Number or Email is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label>Phone Number*</label>
-                                <span class="requiredError"> <?php echo $phoneEmailErr;?> </span>
                                 <input type="tel" name="phoneNumber"class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                                 <small>Format: 123-123-4567</small>
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Phone Number or Email is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="streetAddress">
                                 <label>Street Address*</label>
-                                <span class="requiredError"> <?php echo $streetAddressErr;?> </span>
                                 <input type="text" name="streetAddress" data-form-field="address" class="form-control" value="" id="address-form7-13">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Street Address is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="country">
                                 <label>Country*</label>
-                                <span class="requiredError"><?php echo $countryErr;?> </span>
                                 <select type="text" name="country" data-form-field="country" class="form-control" value="" id="country-form7-13">
                                     <option value="" disabled selected hidden>-- Select Country --</option>
                                     <option value="Afganistan">Afghanistan</option>
@@ -454,10 +485,14 @@ include "php/patientRegistration.php";
                                     <option value="Zimbabwe">Zimbabwe</option>
                                 </select>
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Country is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-auto mbr-section-btn align-center">
                                <!--  <input type="button"  onClick="WriteToFile(appointment)" value="Submit">-->
                                 <input type="submit" class="btn btn-primary display-4" name="submit" value="Submit"/>                            
-                            
                             </div>
                         </div>
                     </form>

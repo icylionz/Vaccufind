@@ -8,41 +8,49 @@ if(isset($_POST['submit'])){
     
     // ensures first name is entered
     if (empty($_POST["firstName"])) {
-        $firstNameErr = "First Name is required";
-        
+        header("Location: ../registration.php?error=First Name is required");
+        exit();
     } 
-    
+    else if (strlen($_POST["firstName"]) < 3 || strlen($_POST["firstName"]) > 25 )
+    {
+        header("Location: ../registration.php?error=First Name must be between length of 3-25");
+        exit();
+    }
     // ensures last name is entered
     else if (empty($_POST["lastName"])) {
-        $lastNameErr = "Last Name is required";
-        
-    } 
+        header("Location: ../registration.php?error=Last Name is required");
+        exit();
+    }
+    else if (strlen($_POST["lastName"]) < 3 || strlen($_POST["lastName"]) > 25 )
+    {
+        header("Location: ../registration.php?error=Last Name must be between length of 3-25");
+        exit();
+    }
     // ensures nid or passport number is entered
     else if (empty($_POST["nid"]) and empty($_POST["passportNumber"])) {
-        $nidPassportErr = "National Identification Number is required Or Passport Number is required";
-        
-    } 
-    // ensures phone number or email address is entered
-    else if (empty($_POST["phoneNumber"]) and empty($_POST["email"])) {
-        $phoneEmailErr = "Phone Number is required Or Email is required";
-        
+        header("Location: ../registration.php?error=National ID or Passport Number is required");
+        exit();
     } 
     // ensures date of birth is entered
     else if (empty($_POST["dob"])) {
-        $dobErr = "Date of Birth is required";
-        
+        header("Location: ../registration.php?error=Date of Birth is required");
+        exit();
     } 
-    
+    // ensures phone number or email address is entered
+    else if (empty($_POST["phoneNumber"]) and empty($_POST["email"])) {
+        header("Location: ../registration.php?error=Phone Number or Email is required");
+        exit();
+    } 
     // ensures Street Address is entered
     else if (empty($_POST["streetAddress"])) {
-        $streetAddressErr = "Street Address is required";
-        
+        header("Location: ../registration.php?error=Street Address is required");
+        exit();
     } 
     
     // ensures country is entered
     else if (empty($_POST["country"])) {
-        $countryErr = "Country is required";
-        
+        header("Location: ../registration.php?error=Country is required");
+        exit();
     } 
     else {
         $lastName = modifyInput($_POST["lastName"]);
@@ -85,7 +93,7 @@ if(isset($_POST['submit'])){
         
     }
     
-    header("location: /Vaccufind/registration.php");
+    header("location: ../registration.php");
 }
 
 
@@ -171,7 +179,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
-        echo "Error: Patient has already registered.". $conn->error, "nid is ",$passportNumberInsert,".";
+        echo "Error: Patient has already registered.". $conn->error;
     }
     $conn->close();
 }

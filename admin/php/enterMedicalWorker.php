@@ -1,25 +1,30 @@
 <?php
 enterMedicalWorker();
 function enterMedicalWorker(){
-    // define variables and set to empty values
-    $_SESSION['errorMedFirstName'] = $_SESSION['errorMedLastName'] = $_SESSION['errorMedNid'] = "";
-
-   
-       
     // ensures first name is entered
     if (empty($_POST["med_first_Name"])) {
-        $_SESSION['errorMedFirstName'] = "First Name is required";
-        echo $_SESSION['errorMedFirstName'];
+        header("Location: ../admin_console.php?error2=First Name is required");
+        exit();
     } 
+    else if (strlen($_POST["med_first_Name"]) < 3 || strlen($_POST["med_first_Name"]) > 25 )
+    {
+        header("Location: ../admin_console.php?error=First Name must be between length of 3-25");
+        exit();
+    }
     // ensures last name is entered
     else if (empty($_POST["med_last_Name"])) {
-        $_SESSION['errorMedLastName'] = "Last Name is required";
-        echo $_SESSION['errorMedLastName'];
+        header("Location: ../admin_console.php?error2=Last Name is required");
+        exit();
     } 
+    else if (strlen($_POST["med_last_Name"]) < 3 || strlen($_POST["med_last_Name"]) > 25 )
+    {
+        header("Location: ../admin_console.php?error2=Last Name must be between length of 3-25");
+        exit();
+    }
     // ensures nid is entered
     else if (empty($_POST["med_natid"])) {
-        $_SESSION['errorMedNid'] = "National Identification Number is required";   
-        echo $_SESSION['errorMedNid'];
+        header("Location: ../admin_console.php?error2=National ID is required");
+        exit();
     } 
     else{
         

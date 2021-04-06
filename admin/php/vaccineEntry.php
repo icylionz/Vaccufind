@@ -1,30 +1,25 @@
 <?php
     enterVaccine();
-    function enterEssentialWorker(){
-        // define variables and set to empty values
-        $_SESSION['errorEssFirstName'] = $_SESSION['errorEssLastName'] = $_SESSION['errorEssNid'] = "";
-    
-       
-           
-        // ensures first name is entered
+    function enterVaccine(){
+        // ensures vaccine name is entered
         if (empty($_POST["vacName"])) {
-            $_SESSION['errorVacName'] = "First Name is required";
-            echo $_SESSION['errorVacName'];
+            header("Location: ../admin_console.php?error3=Vaccine Name is required");
+            exit();
         } 
-        // ensures last name is entered
+        // ensures Number of doses is entered
         else if (empty($_POST["dosesRequired"])) {
-            $_SESSION['errorDosesRequired'] = "Last Name is required";
-            echo $_SESSION['errorDosesRequired'];
+            header("Location: ../admin_console.php?error3=Number of doses is required");
+            exit();
         } 
-        // ensures nid is entered
+        // ensures Length of time is entered
         else if (empty($_POST["time"])) {
-            $_SESSION['errorTime'] = "National Identification Number is required";   
-            echo $_SESSION['errorTime'];
+            header("Location: ../admin_console.php?error3=Length of time is required");
+            exit();
         } 
-        // ensures nid is entered
+        // ensures Number of doses available is entered
         else if (empty($_POST["dosesAvailable"])) {
-            $_SESSION['errorDosesAvailable'] = "National Identification Number is required";   
-            echo $_SESSION['errorDosesAvailable'];
+            header("Location: ../admin_console.php?error3=Number of doses available is required");
+            exit();
         } 
         else{
             $name = modifyInput($_POST["vacName"]);
@@ -44,7 +39,7 @@
         }
     
         
-        header("location: /vaccufind/admin/admin_console.php");   
+        header("location: /vaccufind/admin/admin_console.php");  
     
     }
     
@@ -73,5 +68,4 @@
         $conn->close();
     }
     
-    ?> 
 ?>
