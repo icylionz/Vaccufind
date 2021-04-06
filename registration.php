@@ -486,13 +486,7 @@ include "php/patientRegistration.php";
         <a href="https://mobirise.site/x "></a>
     </section>
 
-    <?php 
-            
-        
 
-        
-
-    ?>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
