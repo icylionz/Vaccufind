@@ -483,11 +483,7 @@ $jscomp.polyfill("Array.prototype.find", function(a) { return a ? a : function(a
     else a("section .form-with-styler").each(function() {
         a(this).find('select:not("[multiple]")').each(function() {
             $(".multi_select_conditions").select2({
-                tags: true,
-                tokenSeparators: ['/', ',', ';', " "]
-            });
-
-            $(".multi_select_allergies").select2({
+                placeholder: "Medical Conditions*", //placeholder
                 tags: true,
                 tokenSeparators: ['/', ',', ';', " "]
             });

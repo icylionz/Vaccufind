@@ -62,6 +62,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         alert tags & classes and - data-form-alert-danger="" class="alert alert-danger col-12"
         ul tags, <ul></ul> -->
     <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
     <link rel="stylesheet" href="assets/theme/css/notification_style.css">
 
     <!--Holds CSS for 
@@ -728,9 +729,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>Number of doses available</label>
                                 <input type="number" name="dosesAvailable" class="form-control" value="" id="time-form3-1f">
                             </div>
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Medical Constraints</label>
-                                <select name="medicalConstraints[]"  class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
+                                <label>Medical Conditions</label>
+                                <select name="medicalConditions[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                              
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
                                     <option value="Cystic Fibrosis">Cystic Fibrosis</option>
@@ -744,16 +746,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                     <option value="Thalassemia">Thalassemia</option>
                                     <option value="Pregnant">Pregnant</option>
                                     <option value="Sickle Cell Disease">Sickle Cell Disease</option>
-                                    <option value="Penicillin">Allergy: Penicillin</option>
-                                    <option value="Aspirin">Allergy: Aspirin</option>
-                                    <option value="Erythromycin">Allergy: Erythromycin</option>
-                                    <option value="Latex or Rubber Products">Allergy: Latex or Rubber Products</option>
-                                    <option value="Codeine">Allergy: Codeine</option>
-                                    <option value="Tetracycline">Allergy: Tetracycline</option>
-                                    <option value="Germicides/Pesticides, Foods">Allergy: Germicides/Pesticides, Foods</option>   
                                 </select>
                                 <small>Select one or more</small>
-                            </div>    
+                            </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Submit</button>
                             </div>
