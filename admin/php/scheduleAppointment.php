@@ -3,13 +3,13 @@ require 'connect.php';
 require 'updatePatientInfo.php';
 $conn = connectVaccufind();
 if($patientsToBeScheduled = $conn->query("SELECT * FROM settings WHERE settingName = 'selectFromWaiting'")){
-    
+
     $patientsToBeScheduled = $patientsToBeScheduled->fetch_assoc();
     $patientsToBeScheduled = $patientsToBeScheduled['settingValue'];
 }
 else {
     //display error message
-    header("location: /vaccufind/ph/admin_console.php");
+    header("location: /vaccufind/admin/admin_console.php");
 }
 $offset = 0;
 while($patientsToBeScheduled > 0){
@@ -37,6 +37,7 @@ while($patientsToBeScheduled > 0){
                     $conn->query("DELETE FROM waiting WHERE waitingID = '$waitingID'");
                     //complete scheduling
                     $patientsToBeScheduled = $patientsToBeScheduled - 1;
+
                 }
                 
             }
@@ -51,6 +52,7 @@ while($patientsToBeScheduled > 0){
         echo "<br>";
         echo "No more patients can be scheduled";
         echo "<br>";
+        header("location: /vaccufind/admin/admin_console.php");
     }
     
 }

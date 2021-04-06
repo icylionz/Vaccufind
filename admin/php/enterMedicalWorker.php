@@ -1,13 +1,13 @@
 <?php
+enterMedicalWorker();
 function enterMedicalWorker(){
     // define variables and set to empty values
-    $firstNameErr = $lasstNameErr = $nidErr = "";
+    $errorMedFirstName = $errorMedLastName = $errorMedNid = "";
 
-    if(isset($_POST['submit'])) {
         $validForm = 0;
         // ensures first name is entered
         if (empty($_POST["firstName"])) {
-            $firstNameErr = "First Name is required";
+            $errorMedFirstName = "First Name is required";
             $validForm = $validForm + 1;
         } 
         else {
@@ -15,7 +15,7 @@ function enterMedicalWorker(){
         }
         // ensures last name is entered
         if (empty($_POST["lastName"])) {
-            $lastNameErr = "Last Name is required";
+            $errorMedLastName = "Last Name is required";
             $validForm = $validForm + 1;
         } 
         else {
@@ -23,7 +23,7 @@ function enterMedicalWorker(){
         }
         // ensures nid is entered
         if (empty($_POST["nid"])) {
-            $nidErr = "National Identification Number is required";
+            $errorMedNid = "National Identification Number is required";
             $validForm = $validForm + 1;
         } 
         else {
@@ -32,8 +32,8 @@ function enterMedicalWorker(){
         if($validForm == 3){
             insertMedical($firstName, $lastName, $nid);
         }
-    }
-
+  
+    header("location: /vaccufind/admin/admin_console.php");
 }
 
 

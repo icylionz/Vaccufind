@@ -1,13 +1,14 @@
 <?php
+enterEssentialWorker();
 function enterEssentialWorker(){
     // define variables and set to empty values
-    $firstNameErr = $lastNameErr = $nidErr = "";
+    $_SESSION['errorEssFirstName'] = $_SESSION['errorEssLastName'] = $_SESSION['errorEssNid'] = "";
 
-    if(isset($_POST['submit'])) {
+   
         $validForm = 0;
         // ensures first name is entered
         if (empty($_POST["firstName"])) {
-            $firstNameErr = "First Name is required";
+            $_SESSION['errorEssFirstName'] = "First Name is required";
             $validForm = $validForm + 1;
         } 
         else {
@@ -15,7 +16,7 @@ function enterEssentialWorker(){
         }
         // ensures last name is entered
         if (empty($_POST["lastName"])) {
-            $lastNameErr = "Last Name is required";
+            $_SESSION['errorEssLastName'] = "Last Name is required";
             $validForm = $validForm + 1;
         } 
         else {
@@ -23,7 +24,7 @@ function enterEssentialWorker(){
         }
         // ensures nid is entered
         if (empty($_POST["nid"])) {
-            $nidErr = "National Identification Number is required";
+            $_SESSION['errorEssNid'] = "National Identification Number is required";
             $validForm = $validForm + 1;
         } 
         else {
@@ -33,8 +34,8 @@ function enterEssentialWorker(){
             insertEssential($firstName, $lastName, $nid);
         }
 
-    }
-        
+    
+    header("location: /vaccufind/admin/admin_console.php");   
 
 }
 

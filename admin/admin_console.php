@@ -75,8 +75,24 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     include "../php/connect.php";
     $conn = connectVaccufind();
     
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssLastName'] = "";
+    $_SESSION['errorEssNid'] = "";
+    $_SESSION['errorMedFirstName'] = "";
+    $_SESSION['errorMedLastName'] = "";
+    $_SESSION['errorMedNid'] = "";
+    /* $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = ""; */
+
     
-    //$patientRecords->free();
     // fetches requested patient data by name
     $patientSearchData = array();
     if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
@@ -86,7 +102,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    //$patientRecords->free();
+    
     // fetches all records in the waiting list
     $waitingTableData = array();
     if($waitingRecords = $conn->query("SELECT patientID, waitingID, firstName, lastName, dateAdded FROM waiting")){
@@ -96,7 +112,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    // $waitingRecords->free();
+    
+
     
 ?>
 <body onload="forms();">
@@ -606,7 +623,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/enterEssentialWorker.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -616,64 +633,24 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
                                 <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
-                            </div>
-                            <?php if (isset($_SESSION['errorFirstName'])) { ?>
-                                <?php if ($_SESSION['errorFirstName'] == "First Name is required"){ ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorFirstName']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                            </div> 
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssFirstName']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorLastName'])) { ?>
-                                <?php if ($_SESSION['errorLastName'] == "Last Name is required") { ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorLastName']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssLastName']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorNid'])) { ?>
-                                <?php if ($_SESSION['errorNid'] == "National Identificaiton is required" || $_SESSION['errorNid'] == "This nid already exist") { ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorNid']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="essentialSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
-                    <!--Handle essential workers form-->
-                    <?php
-                       
-                        $essNid = $_POST['ess_natid'];
-                        if($_POST['essentialSubmit']){
-                            if(empty($_POST['ess_first_Name'])){
-                                $_SESSION['errorFirstName'] = "First Name is required";
-                            }
-                            else if(empty($_POST['ess_last_Name'])){
-                                $_SESSION['errorLastName'] = "Last Name is required";
-                            }
-                            else if(empty($_POST['ess_natid'])){
-                                $_SESSION['errorNid'] = "National Identificaiton is required";
-                            }
-                            else if($conn->query("SELECT * FROM essentialworkers WHERE nid = '$essNid'")->num_rows > 0){
-                                $_SESSION['errorNid'] = "This nid already exist";
-                            }
-                            else{
-                                $conn = connectVaccufind();
-                                $essFirstName = $_POST['ess_first_Name'];
-                                $essLastName = $_POST['ess_last_Name'] ;
-                                $conn->query("INSERT INTO essentialworkers (essentialWorkerFirstName,essentialWorkerLastName,nid) VALUES ('$essFirstName','$essLastName','$essNID')");
-                                
-
-                                $conn->close();
-                            }
-                        }
-                        
-                    ?>
+                    
                 </div>
             </div>
         </div>
@@ -682,7 +659,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/enterMedicalWorker.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -693,27 +670,27 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorFirstName'])) { ?>
-                                <?php if ($_SESSION['errorFirstName'] == "First Name is required"){ ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorFirstName']; ?></p>
+                            <?php if (isset($_SESSION['errorMedFirstname'])) { ?>
+                                <?php if ($_SESSION['errorMedFirstname'] == "First Name is required"){ ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstname']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorLastName'])) { ?>
-                                <?php if ($_SESSION['errorLastName'] == "Last Name is required") { ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorLastName']; ?></p>
+                            <?php if (isset($_SESSION['errorMedLastname'])) { ?>
+                                <?php if ($_SESSION['errorMedLastname'] == "Last Name is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastname']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorNid'])) { ?>
-                                <?php if ($_SESSION['errorNid'] == "National Identificaiton is required" || $_SESSION['errorNid'] == "This nid already exist") { ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorNid']; ?></p>
+                            <?php if (isset($_SESSION['errorMedNid'])) { ?>
+                                <?php if ($_SESSION['errorMedNid'] == "National Identificaiton is required" || $_SESSION['errorMedNid'] == "This nid already exist") { ?>
+                                    <p style="color:lightcoral"><?php echo $_SESSION['errorMedNid']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
@@ -721,35 +698,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                         </div>
                     </form>
-                    <!--Handle medical workers form-->
-                    <?php
-                       
-                        $medNid = $_POST["med_natid"];
-                        if($_POST["medicalSubmit"]){
-                            if(empty($_POST["med_first_Name"])){
-                                $_SESSION["errorFirstName"] = "First Name is required";
-                            }
-                            else if(empty($_POST["med_last_Name"])){
-                                $_SESSION["errorLastName"] = "Last Name is required";
-                            }
-                            else if(empty($_POST["med_natid"])){
-                                $_SESSION["errorNid"] = "National Identificaiton is required";
-                            }
-                            else if($conn->query("SELECT * FROM medicalworkers WHERE nid = '$medNid'")->num_rows > 0){
-                                $_SESSION["errorNid"] = "This nid already exist";
-                            }
-                            else{
-                                $conn = connectVaccufind();
-                                $medFirstName = $_POST["med_first_Name"] ;
-                                $medLastName = $_POST["med_last_Name"] ;
-                                $conn->query("INSERT INTO medicalworkers (medicalWorkerFirstName,medicalWorkerLastName,nid) VALUES ('$medFirstName','$medLastName','$medNid')");
-                                
-
-                                $conn->close();
-                            }
-                        }
-                        
-                    ?>
+                    
                 </div>
             </div>
         </div>
