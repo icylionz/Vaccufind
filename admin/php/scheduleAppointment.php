@@ -3,6 +3,7 @@ require 'connect.php';
 require 'updatePatientInfo.php';
 $conn = connectVaccufind();
 if($patientsToBeScheduled = $conn->query("SELECT * FROM settings WHERE settingName = 'selectFromWaiting'")){
+    
     $patientsToBeScheduled = $patientsToBeScheduled->fetch_assoc();
     $patientsToBeScheduled = $patientsToBeScheduled['settingValue'];
 }
@@ -29,7 +30,7 @@ while($patientsToBeScheduled > 0){
                     updatePatient($patientChosen);
                     //remove record from waiting list
 
-                    $waitingID = $conn->query("SELECT waitingID FROM waiting INNER JOIN patient ON patient.patientID = waiting.patientID ORDER BY patient.tag ASC, waiting.dateAdded ASC LIMIT 1 OFFSET '$offset';")
+                    $waitingID = $conn->query("SELECT waitingID FROM waiting INNER JOIN patient ON patient.patientID = waiting.patientID ORDER BY patient.tag ASC, waiting.dateAdded ASC LIMIT 1 OFFSET '$offset';");
                     $waitingID = $waitingID->fetch_assoc();
                     $waitingID = $waitingID['waitingID'];
 
@@ -42,7 +43,7 @@ while($patientsToBeScheduled > 0){
            
         }
         else{ //if vaccine not found
-            $offset = $offset + 1
+            $offset = $offset + 1;
         }
     }
     else { //when select query fails, exit the while
@@ -71,12 +72,12 @@ function selectAppropiateVaccine($medConditions,$allergies){
                 foreach($vaccMedCons as $v){
                     foreach($medArr as $m){
                         if($medArr[$m] == $vaccMedCons[$v]){
-                            $validVaccine = false
+                            $validVaccine = false;
                         }
                     }
                     foreach($allergiesArr as $a){
                         if($allergiesArr[$a] == $vaccMedCons[$v]){
-                            $validVaccine = false
+                            $validVaccine = false;
                         }
                     }
                 }
