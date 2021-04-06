@@ -676,13 +676,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorMedLastname'])) { ?>
+                            
                                 <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastname']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorMedNid'])) { ?>
                                 <p style="color:lightcoral"><?php echo $_SESSION['errorMedNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="medicalSubmit"class="btn btn-black display-4">Submit</button>
@@ -752,12 +751,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                         </div>
                     </form>
-                    <?php
-                    if($_POST["vaccineSubmit"]){
-                        echo "fdafdafdfadfd";
-                    }
-
-                    ?>
+                   
                 </div>
                 
             </div>
