@@ -1,5 +1,4 @@
 <?php
-    <?php
     enterVaccine();
     function enterEssentialWorker(){
         // define variables and set to empty values
@@ -30,7 +29,7 @@
         else{
             $name = modifyInput($_POST["vacName"]);
             $required = modifyInput($_POST["dosesRequired"]);
-            $time = modifyInput(empty($_POST["time"]);
+            $time = modifyInput(empty($_POST["time"]));
             $available = modifyInput($_POST["dosesAvailable"]);
             if (!empty($_POST["medicalConstraints[]"])) {
                 $medicalConstraints = implode(",",$_POST["medicalConstraints[]"]);

@@ -303,7 +303,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 
                                     
                                 </script>
-                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
+                        <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -360,7 +360,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <br>
                                 <br>
                                 <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="submit" class="btn btn-black display-4" onClick="off1();">Close</button>
+                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
                                 </div>
                             </div>
                         </form>
@@ -678,14 +678,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
-                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstname']; ?></p>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstName']; ?></p>
                                 
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
                             
-                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastname']; ?></p>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastName']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
