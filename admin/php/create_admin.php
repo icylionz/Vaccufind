@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include "connect.php";
 
@@ -76,8 +75,14 @@ if(isset($_POST['create_admin_btn']))
         $sql = "INSERT INTO adminlogin(adminFirstName, adminLastName, username, passwrd) 
                 VALUES('$firstname', '$lastname', '$username', '$password' )";
 
-        $conn->query($sql);
-        header("Location: ../super_admin_console.php");
+        if ($conn->query($sql) === TRUE)
+        {
+            header("Location: ../super_admin_console.php");
+        }
+        else
+        {
+            echo $conn->error;
+        }
         exit();
     }
     else

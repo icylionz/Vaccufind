@@ -230,10 +230,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                             if(count($patientTableData) > 0){
                                                 foreach($patientTableData as $p){
                                             ?>
-                                            <?php $_SESSION["patientOverlayID"] = $p->patientID; ?>
                                                     <form action="php/handleOverlayID.php" method="get">
                                                     <tr>
-                                                        <td ><a type='submit' onclick="on1()"><?php echo $p->patientID;?></a></td>
+                                                        <td ><a name="ID" type='submit' onclick="on1()"><?php echo $p->patientID;?></a></td>
                                                         <td><?php echo $p->firstName;?></td>
                                                         <td><?php echo $p->lastName;?></td>
                                                         <td><?php echo $p->nid;?></td>
@@ -260,19 +259,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <div id="panel">
                         <br>
                         <br>
-                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
+                        <form method="get" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Example</strong>
-                                    </h1>
-                                </div>
-                                
-                                <?php 
+                            <?php 
                                 require 'php/searchPatientID.php';
                                 $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
                                
-                                ?>                    
+                                ?>    
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                        <strong><?php echo $patientOverlay['firstName']?> <?php echo $patientOverlay['lastName']?></strong>
+                                    </h1>
+                                </div>                
                                 <div>
                                     <label><strong>National ID:</strong></label>
                                     <p><?php echo $patientOverlay['nid']?></p>
@@ -316,7 +314,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <br>
                                 <br>
                                 <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
+                                    <button type="submit" class="btn btn-black display-4" onClick="off1();">Close</button>
                                 </div>
                             </div>
                         </form>

@@ -124,29 +124,36 @@ include "php/patientRegistration.php";
                     <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="php/patientRegistration.php">
                         <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
                             Required*</p>
+                            <br>
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstName">
-                                <span class="requiredError">* <?php echo $firstNameErr;?> </span>
-                                <input type="text" name="firstName" placeholder="First Name" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
+                                <label>First Name*</label>
+                                <span class="requiredError"> <?php echo $firstNameErr;?> </span>
+                                <input type="text" name="firstName" data-form-field="firstname" class="form-control" value="" id="firstname-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="lastName">
-                                <span class="requiredError">* <?php echo $lastNameErr;?> </span>
-                                <input type="text" name="lastName" placeholder="Last Name" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
+                                <label>Last Name*</label>
+                                <span class="requiredError"> <?php echo $lastNameErr;?> </span>
+                                <input type="text" name="lastName" data-form-field="lastname" class="form-control" value="" id="lastname-form7-13">
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="nid">
-                                <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
-                                <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" placeholder="Barbados National ID" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <label>National ID*</label>
+                                <span class="requiredError"> <?php echo $nidPassportErr;?> </span>
+                                <input pattern="[0-9]{6}-[0-9]{4}" type="text" name="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="passportNumber">
-                                <span class="requiredError">* <?php echo $nidPassportErr;?> </span>
-                                <input type="text" name="passportNumber" placeholder="Passport Number" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
+                                <label>Passport Number*</label>
+                                <span class="requiredError"> <?php echo $nidPassportErr;?> </span>
+                                <input type="text" name="passportNumber" data-form-field="nid" class="form-control" value="" id="nid-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="dob">
-                                <span class="requiredError">* <?php echo $dobErr;?> </span>
+                                <label>Date of Birth*</label>
+                                <span class="requiredError"> <?php echo $dobErr;?> </span>
                                 <input type="date" name="dob" data-form-field="birthday" class="form-control" value="" id="birthday-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
-                                <select name="medicalConditions[]"  class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                <label>Medical Conditions</label>
+                                <select name="medicalConditions[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
                               
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
@@ -165,7 +172,8 @@ include "php/patientRegistration.php";
                                 <small>Select one or more</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="allergies">
-                                <select name="allergies[]"  class="form-control multi_select_allergies" value="" id="allergies-form7-13" multiple data-selected-text-format="count > 3">
+                                <label>Allergies</label>
+                                <select name="allergies[]" class="form-control multi_select_allergies" value="" id="allergies-form7-13" multiple data-selected-text-format="count > 3">
                                     
                                     <option value="Penicillin">Penicillin</option>
                                     <option value="Aspirin">Aspirin</option>
@@ -178,22 +186,26 @@ include "php/patientRegistration.php";
                                 <small>Select one or more</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
-                                <span class="requiredError">* <?php echo $phoneEmailErr;?> </span>
-                                <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" value="" id="email-form7-13">
+                                <label>Email*</label>
+                                <span class="requiredError"> <?php echo $phoneEmailErr;?> </span>
+                                <input type="email" name="email" data-form-field="email" class="form-control" value="" id="email-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <span class="requiredError">* <?php echo $phoneEmailErr;?> </span>
-                                <input type="tel" name="phoneNumber" placeholder="Phone" class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                                <label>Phone Number*</label>
+                                <span class="requiredError"> <?php echo $phoneEmailErr;?> </span>
+                                <input type="tel" name="phoneNumber"class="form-control" value="" id="phone-form7-13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                                 <small>Format: 123-123-4567</small>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="streetAddress">
-                                <span class="requiredError">* <?php echo $streetAddressErr;?> </span>
-                                <input type="text" name="streetAddress" placeholder="Street Address" data-form-field="address" class="form-control" value="" id="address-form7-13">
+                                <label>Street Address*</label>
+                                <span class="requiredError"> <?php echo $streetAddressErr;?> </span>
+                                <input type="text" name="streetAddress" data-form-field="address" class="form-control" value="" id="address-form7-13">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="country">
-                                <span class="requiredError">* <?php echo $countryErr;?> </span>
+                                <label>Country*</label>
+                                <span class="requiredError"><?php echo $countryErr;?> </span>
                                 <select type="text" name="country" data-form-field="country" class="form-control" value="" id="country-form7-13">
-                                    <option value="" disabled selected hidden>-- Select Country* --</option>
+                                    <option value="" disabled selected hidden>-- Select Country --</option>
                                     <option value="Afganistan">Afghanistan</option>
                                     <option value="Albania">Albania</option>
                                     <option value="Algeria">Algeria</option>
