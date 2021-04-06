@@ -2,42 +2,38 @@
 enterMedicalWorker();
 function enterMedicalWorker(){
     // define variables and set to empty values
-    $errorMedFirstName = $errorMedLastName = $errorMedNid = "";
+    $_SESSION['errorMedFirstName'] = $_SESSION['errorMedLastName'] = $_SESSION['errorMedNid'] = "";
 
-        $validForm = 0;
-        // ensures first name is entered
-        if (empty($_POST["firstName"])) {
-            $errorMedFirstName = "First Name is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $firstName = modifyInput($_POST["firstName"]);
-        }
-        // ensures last name is entered
-        if (empty($_POST["lastName"])) {
-            $errorMedLastName = "Last Name is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $lastName = modifyInput($_POST["lastName"]);
-        }
-        // ensures nid is entered
-        if (empty($_POST["nid"])) {
-            $errorMedNid = "National Identification Number is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $nid = modifyInput($_POST["nid"]);
-        }
-        if($validForm == 3){
-            insertMedical($firstName, $lastName, $nid);
-        }
-  
-    header("location: /vaccufind/admin/admin_console.php");
-}
-
+   
+       
+    // ensures first name is entered
+    if (empty($_POST["med_first_Name"])) {
+        $_SESSION['errorMedFirstName'] = "First Name is required";
+        echo $_SESSION['errorMedFirstName'];
+    } 
+    // ensures last name is entered
+    else if (empty($_POST["med_last_Name"])) {
+        $_SESSION['errorMedLastName'] = "Last Name is required";
+        echo $_SESSION['errorMedLastName'];
+    } 
+    // ensures nid is entered
+    else if (empty($_POST["med_natid"])) {
+        $_SESSION['errorMedNid'] = "National Identification Number is required";   
+        echo $_SESSION['errorMedNid'];
+    } 
+    else{
+        
+        $firstName = modifyInput($_POST["med_first_Name"]);
+        $lastName = modifyInput($_POST["med_last_Name"]);
+        $nid = modifyInput($_POST["med_natid"]);
+        echo $firstName,$lastName,$nid;
+        insertMedical($firstName, $lastName, $nid);
+    }
 
     
+    header("location: /vaccufind/admin/admin_console.php");   
+
+}
 
 //modifies input
 function modifyInput($input) {
@@ -50,14 +46,14 @@ function modifyInput($input) {
 //inserts the medical worker's record into the database
 function insertMedical($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
-    
-    $sql = "INSERT INTO medical (firstName, lastName, nid) 
-    VALUES ($firstNameInsert, $lastNameInsert, $nidInsert)";
+
+    $sql = "INSERT INTO medicalworkers (medicalWorkerFirstName, medicalWorkerLastName , nid) 
+    VALUES ('$firstNameInsert', '$lastNameInsert', '$nidInsert')";
 
     $result = $conn->query($sql);
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo "New record created succmedfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

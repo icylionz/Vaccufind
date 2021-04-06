@@ -670,29 +670,20 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
-                            <?php if (isset($_SESSION['errorMedFirstname'])) { ?>
-                                <?php if ($_SESSION['errorMedFirstname'] == "First Name is required"){ ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstname']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstname']; ?></p>
+                                
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
                             <?php if (isset($_SESSION['errorMedLastname'])) { ?>
-                                <?php if ($_SESSION['errorMedLastname'] == "Last Name is required") { ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastname']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastname']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
                                 <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
                             <?php if (isset($_SESSION['errorMedNid'])) { ?>
-                                <?php if ($_SESSION['errorMedNid'] == "National Identificaiton is required" || $_SESSION['errorMedNid'] == "This nid already exist") { ?>
-                                    <p style="color:lightcoral"><?php echo $_SESSION['errorMedNid']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="medicalSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
@@ -707,7 +698,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/vaccineEntry" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -720,7 +711,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="number" name="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="number" name="dosesRequired" class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Length of time between doses (days)</label>
@@ -728,7 +719,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Number of doses available</label>
-                                <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
+                                <input type="number" name="dosesAvailable" class="form-control" value="" id="time-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Medical Constraints</label>

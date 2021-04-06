@@ -5,34 +5,30 @@ function enterEssentialWorker(){
     $_SESSION['errorEssFirstName'] = $_SESSION['errorEssLastName'] = $_SESSION['errorEssNid'] = "";
 
    
-        $validForm = 0;
-        // ensures first name is entered
-        if (empty($_POST["firstName"])) {
-            $_SESSION['errorEssFirstName'] = "First Name is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $firstName = modifyInput($_POST["firstName"]);
-        }
-        // ensures last name is entered
-        if (empty($_POST["lastName"])) {
-            $_SESSION['errorEssLastName'] = "Last Name is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $lastName = modifyInput($_POST["lastName"]);
-        }
-        // ensures nid is entered
-        if (empty($_POST["nid"])) {
-            $_SESSION['errorEssNid'] = "National Identification Number is required";
-            $validForm = $validForm + 1;
-        } 
-        else {
-            $nid = modifyInput($_POST["nid"]);
-        }
-        if($validForm == 3){
-            insertEssential($firstName, $lastName, $nid);
-        }
+       
+    // ensures first name is entered
+    if (empty($_POST["ess_first_Name"])) {
+        $_SESSION['errorEssFirstName'] = "First Name is required";
+        echo $_SESSION['errorEssFirstName'];
+    } 
+    // ensures last name is entered
+    else if (empty($_POST["ess_last_Name"])) {
+        $_SESSION['errorEssLastName'] = "Last Name is required";
+        echo $_SESSION['errorEssLastName'];
+    } 
+    // ensures nid is entered
+    else if (empty($_POST["ess_natid"])) {
+        $_SESSION['errorEssNid'] = "National Identification Number is required";   
+        echo $_SESSION['errorEssNid'];
+    } 
+    else{
+        
+        $firstName = modifyInput($_POST["ess_first_Name"]);
+        $lastName = modifyInput($_POST["ess_last_Name"]);
+        $nid = modifyInput($_POST["ess_natid"]);
+        echo $firstName,$lastName,$nid;
+        insertEssential($firstName, $lastName, $nid);
+    }
 
     
     header("location: /vaccufind/admin/admin_console.php");   
@@ -51,8 +47,8 @@ function modifyInput($input) {
 function insertEssential($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
 
-    $sql = "INSERT INTO essential (firstName, lastName, nid) 
-    VALUES ($firstNameInsert, $lastNameInsert, $nidInsert)";
+    $sql = "INSERT INTO essentialworkers (essentialWorkerFirstName, essentialWorkerLastName , nid) 
+    VALUES ('$firstNameInsert', '$lastNameInsert', '$nidInsert')";
 
     $result = $conn->query($sql);
 

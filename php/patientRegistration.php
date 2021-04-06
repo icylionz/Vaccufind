@@ -134,11 +134,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     else if($medicalConditionsInsert != NULL){
         $tagInsert = 4;
     }
-    echo "tag:",$tagInsert;
-    /*//everyone else tag
-    else {
-        $tagInsert = 5;
-    }*/
+    
     //inserts into patient table
     if(!empty($nidInsert) && !empty($passportNumberInsert)){
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
