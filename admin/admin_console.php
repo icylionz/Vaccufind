@@ -75,8 +75,24 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     include "../php/connect.php";
     $conn = connectVaccufind();
     
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssLastName'] = "";
+    $_SESSION['errorEssNid'] = "";
+    $_SESSION['errorMedFirstName'] = "";
+    $_SESSION['errorMedLastName'] = "";
+    $_SESSION['errorMedNid'] = "";
+    /* $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = "";
+    $_SESSION['errorEssFirstName'] = ""; */
+
     
-    //$patientRecords->free();
     // fetches requested patient data by name
     $patientSearchData = array();
     if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
@@ -86,7 +102,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    //$patientRecords->free();
+    
     // fetches all records in the waiting list
     $waitingTableData = array();
     if($waitingRecords = $conn->query("SELECT patientID, waitingID, firstName, lastName, dateAdded FROM waiting")){
@@ -96,12 +112,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             }
         }
     }
-    // $waitingRecords->free();
+    
+
     
 ?>
 <body onload="forms();">
 
-
+    <script>sessionStorage.setItem("clickedOverlay",0);</script>
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
 
 
@@ -212,7 +229,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 </div>
                                 
                                 <!--Display patient info table-->
-                                <div> 
+                                <div>
+                                <script>sessionStorage.setItem("clickedOverlay",1);</script>
                                     <table class='adminTables' id="patientInfoTable">
                                         <thead>
                                             <tr>
@@ -230,15 +248,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                             if(count($patientTableData) > 0){
                                                 foreach($patientTableData as $p){
                                             ?>
-                                                    <form action="php/handleOverlayID.php" method="get">
-                                                    <tr>
-                                                        <td ><a name="ID" type='submit' onclick="on1()"><?php echo $p->patientID;?></a></td>
+                                            
+                                                    <tr id="<?php echo $p->patientID;?>">
+                                                        
+                                                        <td><a onclick="on1(parseInt(<?php echo $p->patientID;?>));sendToPHP()"><?php echo $p->patientID;?></a></td>
                                                         <td><?php echo $p->firstName;?></td>
                                                         <td><?php echo $p->lastName;?></td>
                                                         <td><?php echo $p->nid;?></td>
                                                         <td><?php echo $p->passportNumber;?></td>
                                                     </tr>
-                                                    </form>
+                                                    
                                                 
                                             <?php        
                                                 }
@@ -259,18 +278,37 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <div id="panel">
                         <br>
                         <br>
-                        <form method="get" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
+                        <form id="transferID" method="get" target="_blank" action="php/handleOverlayID.php">
+                            <input id="setOverlayID" name="overlayID" type="hidden" value="">
+                                    
+                        </form>
+                                <script>
+                                function sendToPHP()
+                                {
+                                    if(document.getElementById("overlay1").style.display == 'block'){
+                                        document.getElementById("setOverlayID").value = sessionStorage.getItem("patientOverlayID");
+                                        document.getElementById("transferID").submit();
+                                        sessionStorage.setItem("clickedOverlay",0);
+                                  
+                                    } 
+                                }
+                                
+                                    
+                                </script>
+                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
-                            <?php 
-                                require 'php/searchPatientID.php';
-                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
-                               
-                                ?>    
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong><?php echo $patientOverlay['firstName']?> <?php echo $patientOverlay['lastName']?></strong>
+                                        <strong>Example</strong>
                                     </h1>
-                                </div>                
+                                </div>
+                                
+                                
+                                <?php 
+                                require 'php/searchPatientID.php';
+                                echo $_SESSION['patientOverlayID'];
+                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
+                                ?>                    
                                 <div>
                                     <label><strong>National ID:</strong></label>
                                     <p><?php echo $patientOverlay['nid']?></p>
@@ -327,14 +365,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="wait" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/scheduleAppointment.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>No. of Persons to be selected each day</label>
-                                <input type="text" name="noP" class="form-control" value="" id="noP-form3-1f">
-                            </div>
+                            
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" class="btn btn-black display-4">Schedule Patients</button>
                             </div>
                         </div>
                     </form>
@@ -588,7 +623,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/enterEssentialWorker.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -598,20 +633,24 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
                                 <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
-                            </div>
+                            </div> 
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssFirstName']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssLastName']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
+                                <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="essentialSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -620,7 +659,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/enterMedicalWorker.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -631,19 +670,26 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedFirstname']; ?></p>
+                                
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorMedLastname'])) { ?>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedLastname']; ?></p>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
+                                <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
+                            <?php if (isset($_SESSION['errorMedNid'])) { ?>
+                                <p style="color:lightcoral"><?php echo $_SESSION['errorMedNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="medicalSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -652,7 +698,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/vaccineEntry" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -665,18 +711,55 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="text" name="dosesNum" class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="number" name="dosesRequired" class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Length of time between doses</label>
-                                <input type="text" name="time" class="form-control" value="" id="time-form3-1f">
+                                <label>Length of time between doses (days)</label>
+                                <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
                             </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Number of doses available</label>
+                                <input type="number" name="dosesAvailable" class="form-control" value="" id="time-form3-1f">
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Medical Constraints</label>
+                                <select name="medicalConstraints[]"  class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                    <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
+                                    <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
+                                    <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+                                    <option value="Diabetes">Diabetes (High Blood Sugar)</option>
+                                    <option value="Heart Conditions">Heart Conditions</option>
+                                    <option value="Hypertension">Hypertension (High Blood Pressure)</option>
+                                    <option value="Immunocompromised">Immunocompromised State</option>
+                                    <option value="Kidney Disease">Kidney Disease</option>
+                                    <option value="Liver Disease">Liver Disease</option>
+                                    <option value="Neurologic conditions">Neurologic Conditions</option>
+                                    <option value="Thalassemia">Thalassemia</option>
+                                    <option value="Pregnant">Pregnant</option>
+                                    <option value="Sickle Cell Disease">Sickle Cell Disease</option>
+                                    <option value="Penicillin">Allergy: Penicillin</option>
+                                    <option value="Aspirin">Allergy: Aspirin</option>
+                                    <option value="Erythromycin">Allergy: Erythromycin</option>
+                                    <option value="Latex or Rubber Products">Allergy: Latex or Rubber Products</option>
+                                    <option value="Codeine">Allergy: Codeine</option>
+                                    <option value="Tetracycline">Allergy: Tetracycline</option>
+                                    <option value="Germicides/Pesticides, Foods">Allergy: Germicides/Pesticides, Foods</option>   
+                                </select>
+                                <small>Select one or more</small>
+                            </div>    
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    <?php
+                    if($_POST["vaccineSubmit"]){
+                        echo "fdafdafdfadfd";
+                    }
+
+                    ?>
                 </div>
+                
             </div>
         </div>
         <br>
