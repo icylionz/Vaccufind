@@ -85,7 +85,7 @@ if(isset($_POST['submit'])){
         
     }
     
-    header("location: /dashboard/Vaccufind/registration.php");
+    header("location: /Vaccufind/registration.php");
 }
 
 
