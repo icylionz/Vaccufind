@@ -24,7 +24,7 @@
     </div>
                     
     <br>
-    
+
     <div>
         <label style=\"float: left;\"><strong>National ID:</strong></label>
         <label style=\"margin-left:4em;\"><strong>Date of Birth:</strong></label>
@@ -54,10 +54,7 @@
         <button type='button' name='$patientOverlayid' id='completeAppointment'class='btn btn-black display-4'>Complete Appointment</button>
     </div>
     <br>
-<<<<<<< HEAD
-=======
     
->>>>>>> d8be5eb5ee6831719b5565a8211d8d10d958fe57
     <div class='col-md-auto col-12 mbr-section-btn'>
         <button type='button' class='btn btn-black display-4' onClick='off1();'>Close</button>
     </div>";
