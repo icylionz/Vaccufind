@@ -179,22 +179,28 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div class="form-col-3 form-menu">
             <div class="menu">
                 <div class="button-1">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="clientList();">Patient List</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="searchList();">Search by ID or Name</button>
                 </div>
                 <div class="button-2">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
                 </div>
                 <div class="button-3">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
                 </div>
                 <div class="button-4">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="essentialForm();">Essential Workers Form</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
                 </div>
                 <div class="button-5">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="medicalForm()">Medical Workers Form</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="essentialForm();">Essential Workers Form</button>
                 </div>
                 <div class="button-6">
+                    <button type="button" class="btn admin_btn btn-primary" onclick="medicalForm()">Medical Workers Form</button>
+                </div>
+                <div class="button-7">
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
+                </div>
+                <div class="button-8">
+                    <button type="button" class="btn admin_btn btn-primary" onclick="">Settings</button>
                 </div>
             </div>
         </div>
@@ -224,8 +230,156 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             </div>
         </div>
 
+
                             <!--  Patient Info List -->        
-        <div id="client" class="container">
+        <div id="search" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                    <div class="wrapper">
+                        <div class="notification_wrap">
+                            <div class="dropdown">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                        <strong>Patient List</strong>
+                                    </h1>
+                                </div>
+                                
+                                <!--Display patient info table-->
+                                <div>
+                                <script>sessionStorage.setItem("clickedOverlay",1);</script>
+                                    <table class='adminTables' id="patientInfoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>National ID</th>
+                                                <th>Passport No.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            require 'php/patientInfoTable.php';
+
+                                            if(count($patientTableData) > 0){
+                                                foreach($patientTableData as $p){
+                                            ?>
+                                            
+                                                    <tr id="<?php echo $p->patientID;?>">
+                                                        
+                                                        <td><a onclick="on1(parseInt(<?php echo $p->patientID;?>));sendToPHP()"><?php echo $p->patientID;?></a></td>
+                                                        <td><?php echo $p->firstName;?></td>
+                                                        <td><?php echo $p->lastName;?></td>
+                                                        <td><?php echo $p->nid;?></td>
+                                                        <td><?php echo $p->passportNumber;?></td>
+                                                    </tr>
+                                                    
+                                                
+                                            <?php        
+                                                }
+                                            }
+                                            ?>
+                                       
+                                        </tbody>
+                                            
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                
+
+                <div id="overlay1" onclick="off1()">
+                    <div id="panel">
+                        <br>
+                        <br>
+                        <form id="transferID" method="get" target="_blank" action="php/handleOverlayID.php">
+                            <input id="setOverlayID" name="overlayID" type="hidden" value="">
+                                    
+                        </form>
+                                <script>
+                                function sendToPHP()
+                                {
+                                    if(document.getElementById("overlay1").style.display == 'block'){
+                                        document.getElementById("setOverlayID").value = sessionStorage.getItem("patientOverlayID");
+                                        document.getElementById("transferID").submit();
+                                        sessionStorage.setItem("clickedOverlay",0);
+                                  
+                                    } 
+                                }
+                                
+                                    
+                                </script>
+                        <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                        <strong>Example</strong>
+                                    </h1>
+                                </div>
+                                
+                                
+                                <?php 
+                                require 'php/searchPatientID.php';
+                                echo $_SESSION['patientOverlayID'];
+                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
+                                ?>                    
+                                <div>
+                                    <label><strong>National ID:</strong></label>
+                                    <p><?php echo $patientOverlay['nid']?></p>
+                                </div>
+
+                                <div class="blank">
+                                </div>
+
+                                <div>
+                                    <label><strong>Date of Birth:</strong></label>
+                                    <p><?php echo $patientOverlay['dob']?></p>
+                                </div>
+
+                                <br>
+
+                                <div>
+                                    <label><strong>Medical Conditions:</strong></label>
+                                    <p><?php echo $patientOverlay['medicalConditions']?></p>
+                                </div>
+
+                                <div class="blnk">
+                                </div>
+
+                                <div>
+                                    <label><strong>Allergies:</strong></label>
+                                    <p><?php echo $patientOverlay['allergies']?></p>
+                                </div>
+                                <div>
+                                    <label><strong>Email:</strong></label>
+                                    <p><?php echo $patientOverlay['email']?></p>
+                                </div>
+
+                                <div>
+                                    <label><strong>Street Address:</strong></label>
+                                    <p><?php echo $patientOverlay['streetAddress']?></p>
+                                </div>
+                                <div class="col-md-auto col-12 mbr-section-btn">
+                                    <button type="button" class="btn btn-black display-4">Complete Appointment</button>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="col-md-auto col-12 mbr-section-btn">
+                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                            <!--  Patient Info List -->        
+        <div id="patient" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
                     <div class="wrapper">
