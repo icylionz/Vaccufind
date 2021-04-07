@@ -120,8 +120,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
     <script type = "text/javascript" language = "javascript">
         
-        // Loads the table data on patient list
-        
+        // Loads the table data on patient list 
         $(document).on("click", "#patientList", function (){
             $.ajax({
                 type: "POST",
@@ -132,11 +131,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 }
             });
         });
-
+        // Loads the table data on waiting list 
+        $(document).on("click", "#waitList", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/waitingListTable.php",
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#waitingTableData").html(result);
+                }
+            });
+        });
         //loads overlay data on cell click
-        $(document).on("click", "#patientInfoTable .patientID", function (){
-            console.log("dfadfd");
-            
+        $(document).on("click", "adminTables .patientID", function (){
             $.ajax({
                 type: "POST",
                 url: "php/handleOverlayID.php",
@@ -208,7 +215,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <button type="button" id="patientList" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
                 </div>
                 <div class="button-3">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
+                    <button type="button" id="waitList" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
                 </div>
                 <div class="button-4">
                     <button type="button" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
@@ -403,31 +410,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <thead>
                                             <tr>
                                                 <th>Patient ID</th>
-                                                <th>Waiting ID</th>
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
-                                                <th>Date Added</th>
-                                              
+                                                <th>National ID</th>
+                                                <th>Passport No.</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                        <?php
-                                            if(count($waitingTableData) > 0){
-                                                foreach($waitingTableData as $w){
-                                        ?>
-                                                    <tr>
-                                                        <td onclick=''><?php echo modifyInput($w->patientID);?></td>
-                                                        <td><?php echo modifyInput($w->waitingID);?></td>
-                                                        <td><?php echo modifyInput($w->firstName);?></td>
-                                                        <td><?php echo modifyInput($w->lastName);?></td>
-                                                        <td><?php echo modifyInput($w->dateAdded);?></td>
-                                                        
-                                                    </tr>
-                                            <?php        
-                                                }
-                                            }
-                                            ?>
-                                       
+                                        <tbody id='waitingTableData'>
+                                        <!-- waiting table info -->
                                         </tbody>
                                             
                                     </table>
