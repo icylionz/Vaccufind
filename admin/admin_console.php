@@ -182,6 +182,62 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 }
             });
         });
+        //Save settings changes
+        $(document).on("click", "#saveSettings", function (){
+            console.log(document.getElementById("selectFromWaiting").value);
+            if(document.getElementById("selectFromWaiting").value == ""){
+                document.getElementById("emptySelectFromWaiting").innerHTML = "Please Specify Value.";
+            }
+            if(document.getElementById("daysUntil").value == ""){
+                document.getElementById("emptyDaysUntil").innerHTML="Please Specify Value.";
+            }
+            if(document.getElementById("elderlyAge").value == ""){
+                document.getElementById("emptyElderlyAge").innerHTML="Please Specify Value.";
+            }
+            if((document.getElementById("selectFromWaiting").value != "") && (document.getElementById("daysUntil").value != "") && (document.getElementById("elderlyAge").value != "")){
+                $.ajax({
+                    type: "POST",
+                    url: "php/settingsHandler.php",
+                    data:{
+                    selectFromWaiting:$('#selectFromWaiting').val(),
+                    daysUntil:$('#daysUntil').val(),
+                    elderlyAge:$('#elderlyAge').val(),
+                    },
+                    success: function (result) {
+                        
+                    },
+                    complete:function(){
+                        $.ajax({
+                            type: "POST",
+                            url: "php/settingsDisplay.php",
+
+                            success: function (results) {
+                                //change the body of the patient table
+                                $("#settingsForm").html(results);
+                            }
+                        })
+                    }
+                });
+                
+            }
+            
+        });
+        // Loads settings form
+        $(document).on("click", "#settingsPanel", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/settingsDisplay.php",
+                data:{
+                    selectFromWaiting:$('selectFromWaiting').val(),
+                    daysUntil:$('daysUntil').val(),
+                    elderlyAge:$('elderlyAge').val(),
+                    },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#settingsForm").html(result);
+                }
+            });
+        });
         //loads overlay data on cell click
         $(document).on("click", ".adminTables .patientID", function (){
             $.ajax({
@@ -270,7 +326,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="">Settings</button>
+                    <button type="button" class="btn admin_btn btn-primary" id='settingsPanel' onclick="settingsPanel()">Settings</button>
                 </div>
             </div>
         </div>
@@ -543,7 +599,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Notification Panel</strong>
                                     </h1>
                                 </div>
-                                <div id="notifications">
+                                <div id="notifications" class="adminTables">
 
                                 </div>
                             </div>
@@ -561,7 +617,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Patient Details</strong>
                                     </h1>
                                 </div>
-                                <div class="overlayDataInfo adminTables">
+                                <div class="overlayDataInfo">
                                 <!-- overlay data -->
                                 </div>
 
@@ -740,6 +796,30 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                   
+                </div>
+                
+            </div>
+        </div>
+        <!-- Settings Panel -->
+        <div id="settings" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" action="php/vaccineEntry.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                    <strong>Settings</strong>
+                                </h1>
+                            </div>
+                            <div id="settingsForm">
+                            <!-- Settings Form -->
+                            </div>
+                            <div class="col-md-auto col-12 mbr-section-btn">
+                                <button type="button" name="settingsSubmit" id="saveSettings" class="btn btn-black display-4">Save Changes</button>
                             </div>
                         </div>
                     </form>
