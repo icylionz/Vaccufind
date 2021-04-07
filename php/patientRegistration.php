@@ -93,7 +93,7 @@ if(isset($_POST['submit'])){
         
     }
     
-    //header("location: ../registration.php");
+    header("location: ../index.html");
 }
 
 
