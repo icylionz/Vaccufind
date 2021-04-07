@@ -119,8 +119,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 <body onload="forms();">
 
     <script>sessionStorage.setItem("clickedOverlay",0);</script>
-    <script> 
+    <script>
+        
         // Loads the table data on patient list
+        
         $(document).on("click", "#patientList", function (){
             $.ajax({
                 type: "POST",
@@ -137,6 +139,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         $(document).ready(function(){
             $("#patientInfoTableData tr .patientID").click(function (){
                 console.log("dfadfd");
+                document.getElementById("overlay1").style.display = "block";
                 $.ajax({
                     type: "POST",
                     url: "php/handleOverlayID.php",
@@ -356,13 +359,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         
                                 
                         <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
-                            <div id="overlayDataPatient" class="dragArea row">
-                            <div class='col-lg-12 col-md-12 col-sm-12'>
-                                <h1 style='text-align: center;' class='mbr-section-title mb-4 display-2'>
-                                    <strong>Patient Details</strong>
-                                </h1>
-                            </div>
+                            <div class="dragArea row">
+                                <div class='col-lg-12 col-md-12 col-sm-12'>
+                                    <h1 style='text-align: center;' class='mbr-section-title mb-4 display-2'>
+                                        <strong>Patient Details</strong>
+                                    </h1>
+                                </div>
+                                <div id="overlayDataPatient">
                                 <!-- overlay data -->
+                                </div>
+                                
                             </div>
                         </form>
                     </div>
