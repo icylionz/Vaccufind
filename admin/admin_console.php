@@ -4,7 +4,7 @@ session_start();
 include "../php/patientRegistration.php";
 
 
-if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
+if ($_SESSION['username'] && $_SESSION['passwrd']) {
 
 ?>
 <!DOCTYPE html>
@@ -286,7 +286,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             Contacts</a></li>
                     </ul>
 
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" >
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="php/admin_logout.php">
                         Log Out</a></div>
                 </div>
             </div>

@@ -27,7 +27,6 @@ html {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    overflow: scroll;
 }
 
 @media (min-width:576px) {
@@ -44,6 +43,17 @@ html {
     .container-sm {
         clear: none;
         max-width: 720px
+    }
+    #default,
+    #search,
+    #patient,
+    #wait,
+    #notification,
+    #essential,
+    #medical,
+    #vac,
+    #settings {
+        margin-left: 20em;
     }
 }
 
