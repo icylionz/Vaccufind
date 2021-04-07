@@ -6,6 +6,7 @@ function forms() {
     document.getElementById('essential').style.display = 'none';
     document.getElementById('medical').style.display = 'none';
     document.getElementById('vac').style.display = 'none';
+    document.getElementById('settings').style.display = 'none';
 }
 
 function searchList() {
@@ -18,6 +19,7 @@ function searchList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('search').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('search').style.display = 'none';
@@ -27,6 +29,7 @@ function searchList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     }
 }
 
@@ -40,6 +43,7 @@ function patientList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('patient').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('search').style.display = 'none';
@@ -49,6 +53,7 @@ function patientList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     }
 }
 
@@ -62,6 +67,7 @@ function waitList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('wait').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('search').style.display = 'none';
@@ -71,6 +77,7 @@ function waitList() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
 
     }
 }
@@ -85,6 +92,7 @@ function notificationTable() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('notification').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('search').style.display = 'none';
@@ -94,6 +102,7 @@ function notificationTable() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     }
 }
 
@@ -107,6 +116,7 @@ function essentialForm() {
         document.getElementById('essential').style.display = 'block';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('essential').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('search').style.display = 'none';
@@ -116,6 +126,7 @@ function essentialForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     }
 }
 
@@ -130,6 +141,7 @@ function medicalForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'block';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('medical').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('patient').style.display = 'none';
@@ -138,6 +150,7 @@ function medicalForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     }
 }
 
@@ -151,6 +164,7 @@ function vacForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'block';
+        document.getElementById('settings').style.display = 'none';
     } else if (document.getElementById('vac').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
         document.getElementById('search').style.display = 'none';
@@ -160,5 +174,30 @@ function vacForm() {
         document.getElementById('essential').style.display = 'none';
         document.getElementById('medical').style.display = 'none';
         document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
+    }
+}
+
+function settingsPanel() {
+    if (document.getElementById('settings').style.display == 'none') {
+        document.getElementById('default').style.display = 'none';
+        document.getElementById('search').style.display = 'none';
+        document.getElementById('patient').style.display = 'none';
+        document.getElementById('wait').style.display = 'none';
+        document.getElementById('notification').style.display = 'none';
+        document.getElementById('essential').style.display = 'none';
+        document.getElementById('medical').style.display = 'none';
+        document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'block';
+    } else if (document.getElementById('settings').style.display == 'block') {
+        document.getElementById('default').style.display = 'block';
+        document.getElementById('search').style.display = 'none';
+        document.getElementById('patient').style.display = 'none';
+        document.getElementById('wait').style.display = 'none';
+        document.getElementById('notification').style.display = 'none';
+        document.getElementById('essential').style.display = 'none';
+        document.getElementById('medical').style.display = 'none';
+        document.getElementById('vac').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
     }
 }

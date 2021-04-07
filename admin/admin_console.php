@@ -241,7 +241,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="">Settings</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="settingsPanel()">Settings</button>
                 </div>
             </div>
         </div>
@@ -671,6 +671,57 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                   
+                </div>
+                
+            </div>
+        </div>
+        <!-- Settings Panel -->
+        <div id="settings" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" action="php/vaccineEntry.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                    <strong>Settings</strong>
+                                </h1>
+                            </div>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Number of Patients to Select From Waiting</label>
+                                <input type="number" id="selectFromWaiting" name="vacName" class="form-control" value="" >
+                            </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Vaccine Name is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Number of Days Until First Appointment</label>
+                                <input type="number" id="daysUntil" name="dosesRequired" class="form-control" value="" >
+                            </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Number of doses is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
+                           
+                           
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Elderly Age (persons this age or older will be given the elderly tag)</label>
+                                <input type="number" id="elderlyAge" name="elderly" class="form-control" value="" >
+                            </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Number of doses available is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
+                            
+                            <div class="col-md-auto col-12 mbr-section-btn">
+                                <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Save Changes</button>
                             </div>
                         </div>
                     </form>
