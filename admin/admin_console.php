@@ -474,7 +474,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Notification Panel</strong>
                                     </h1>
                                 </div>
-                                <div id="notifications">
+                                <div id="notifications" class="adminTables">
 
                                 </div>
                             </div>
@@ -492,7 +492,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Patient Details</strong>
                                     </h1>
                                 </div>
-                                <div class="overlayDataInfo adminTables">
+                                <div class="overlayDataInfo">
                                 <!-- overlay data -->
                                 </div>
 
