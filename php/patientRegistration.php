@@ -67,22 +67,22 @@ if(isset($_POST['submit'])){
         
         if(!empty($_POST["medicalConditions"]) && !empty($_POST["allergies"])){
             $medicalConditionsArr = $_POST["medicalConditions"];
-            $medicalConditions = implode(",",$medicalConditionsArr);
+            $medicalConditions = implode(", ",$medicalConditionsArr);
             $medicalConditions = modifyInput($medicalConditions);
             $allergiesArr = $_POST["allergies"];
-            $allergies = implode(",",$allergiesArr);
+            $allergies = implode(", ",$allergiesArr);
             $allergies = modifyInput($allergies);
             insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, $allergies, $nid, $passportNumber);
         }
         else if(!empty($_POST["medicalConditions"])){
             $medicalConditionsArr = $_POST["medicalConditions"];
-            $medicalConditions = implode(",",$medicalConditionsArr);
+            $medicalConditions = implode(", ",$medicalConditionsArr);
             $medicalConditions = modifyInput($medicalConditions);
             insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, $medicalConditions, NULL, $nid, $passportNumber);
         }
         else if(!empty($_POST["allergies"])){
             $allergiesArr = $_POST["allergies"];
-            $allergies = implode(",",$allergiesArr);
+            $allergies = implode(", ",$allergiesArr);
             $allergies = modifyInput($allergies);
             insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, NULL, $allergies, $nid, $passportNumber);
         }
@@ -165,6 +165,8 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
         echo "You have registered successfully";
     } else {
         echo "Error: Patient has already registered.". $conn->error;
+        header("Location: ../registration.php?error=Patient has already registered");
+        exit();
     }
     //inserts into waiting table
     if($addedID = $conn->query("SELECT MAX(patientID) AS maxim FROM patient")){

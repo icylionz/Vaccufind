@@ -121,6 +121,35 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     <script type = "text/javascript" language = "javascript">
         
         // Loads the table data on patient list 
+        $(document).on("click", "#searchPatientByID", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/searchedPatientByID.php",
+                data:{
+                    searchByID:$("#searchByID").val()
+                },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#searchedPatientTableData").html(result);
+                }
+            });
+        });
+        // Loads the table data on patient list 
+        $(document).on("click", "#searchPatientByName", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/searchedPatientByName.php",
+                data:{
+                    searchByFirstName:$("#searchByFirstName").val(), 
+                    searchByLastName:$("#searchByLastName").val()
+                },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#searchedPatientTableData").html(result);
+                }
+            });
+        });
+        // Loads the table data on patient list 
         $(document).on("click", "#patientList", function (){
             $.ajax({
                 type: "POST",
@@ -283,28 +312,33 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     </div>
                     <br>
                     <div id="byID">
-                        <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                        <form class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md col-sm-12 form-group">
                                     <label>Search by ID</label>
-                                    <input type="text" name="searchID" class="form-control" value="" id="searchID-form3-1f">
+                                    <input type="text" name="searchByID" class="form-control" value="" id="searchByID">
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="submit" name="searchIDSubmit" class="btn btn-black display-4">Submit</button>
+                                    <button type="button" id="searchPatientByID" name="searchIDSubmit" class="btn btn-black display-4" onclick="showByID()">Submit</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     
                     <div id="byName">
-                        <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                        <form class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md col-sm-12 form-group">
-                                    <label>Search by Name</label>
-                                    <input type="text" name="searchName" class="form-control" value="" id="searchName-form3-1f">
+                                    <label><strong>Search by Name</strong></label>
+                                    <br>
+                                    <label><strong>First Name</strong></label>
+                                    <input type="text" name="searchByFirstName" class="form-control" value="" id="searchByFirstName">
+                                    <br>
+                                    <label><strong>Last Name</strong></label>
+                                    <input type="text" name="searchByLastName" class="form-control" value="" id="searchByLastName">
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="submit" name="searchNameSubmit" class="btn btn-black display-4">Submit</button>
+                                    <button type="button" id="searchPatientByName" name="searchNameSubmit" class="btn btn-black display-4" onclick="showByName()">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -331,8 +365,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                                 <th>National ID</th>
                                                 <th>Passport No.</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                        <tbody id="searchedPatientTableData">
+                                            <!-- display table data -->
                                             
                                        
                                         </tbody>
@@ -718,6 +753,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <br>
     </section>
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <section class="footer3 cid-s48P1Icc8J " once="footers " id="footer3-i ">
 

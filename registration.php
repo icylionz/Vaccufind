@@ -124,6 +124,11 @@ include "php/patientRegistration.php";
                     <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name" action="php/patientRegistration.php">
                         <p class="requiredError" class="mbr-text mbr-fonts-style align-center mb-4 display-7">
                             Required*</p>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Patient has already registered") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <br>
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="firstName">

@@ -1,7 +1,6 @@
 <?php
 function searchPatientID($id){
     require 'connect.php';
-    ;
     if($patientInfo = $conn->query("SELECT * FROM patient WHERE patientID = $id")){
         if($patientInfo->num_rows > 0){
             $patientDisplay = $patientInfo->fetch_assoc();
