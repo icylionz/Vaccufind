@@ -230,9 +230,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             </div>
         </div>
 
-
+        
                             <!--  Patient Info List -->        
-        <div id="search" class="container">
+                            <div id="search" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
                     <div class="wrapper">
@@ -288,95 +288,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         </div>
                     </div>
                 </div>
-                                                
-
-                <div id="overlay1" onclick="off1()">
-                    <div id="panel">
-                        <br>
-                        <br>
-                        <form id="transferID" method="get" target="_blank" action="php/handleOverlayID.php">
-                            <input id="setOverlayID" name="overlayID" type="hidden" value="">
-                                    
-                        </form>
-                                <script>
-                                function sendToPHP()
-                                {
-                                    if(document.getElementById("overlay1").style.display == 'block'){
-                                        document.getElementById("setOverlayID").value = sessionStorage.getItem("patientOverlayID");
-                                        document.getElementById("transferID").submit();
-                                        sessionStorage.setItem("clickedOverlay",0);
-                                  
-                                    } 
-                                }
-                                
-                                    
-                                </script>
-                        <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
-                            <div class="dragArea row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Example</strong>
-                                    </h1>
-                                </div>
-                                
-                                
-                                <?php 
-                                require 'php/searchPatientID.php';
-                                echo $_SESSION['patientOverlayID'];
-                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
-                                ?>                    
-                                <div>
-                                    <label><strong>National ID:</strong></label>
-                                    <p><?php echo $patientOverlay['nid']?></p>
-                                </div>
-
-                                <div class="blank">
-                                </div>
-
-                                <div>
-                                    <label><strong>Date of Birth:</strong></label>
-                                    <p><?php echo $patientOverlay['dob']?></p>
-                                </div>
-
-                                <br>
-
-                                <div>
-                                    <label><strong>Medical Conditions:</strong></label>
-                                    <p><?php echo $patientOverlay['medicalConditions']?></p>
-                                </div>
-
-                                <div class="blnk">
-                                </div>
-
-                                <div>
-                                    <label><strong>Allergies:</strong></label>
-                                    <p><?php echo $patientOverlay['allergies']?></p>
-                                </div>
-                                <div>
-                                    <label><strong>Email:</strong></label>
-                                    <p><?php echo $patientOverlay['email']?></p>
-                                </div>
-
-                                <div>
-                                    <label><strong>Street Address:</strong></label>
-                                    <p><?php echo $patientOverlay['streetAddress']?></p>
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
-
 
                             <!--  Patient Info List -->        
         <div id="patient" class="container">

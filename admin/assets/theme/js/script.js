@@ -483,13 +483,11 @@ $jscomp.polyfill("Array.prototype.find", function(a) { return a ? a : function(a
     else a("section .form-with-styler").each(function() {
         a(this).find('select:not("[multiple]")').each(function() {
             $(".multi_select_conditions").select2({
-                placeholder: "Medical Conditions*", //placeholder
                 tags: true,
                 tokenSeparators: ['/', ',', ';', " "]
             });
         });
         a(this).find("input[type=number]").each(function() {
-            a(this).styler();
             a(this).parent().parent().removeClass("form-control")
         });
         var b = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/Firefox/i) ? !0 : !1;
