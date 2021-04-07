@@ -3,6 +3,7 @@ session_start();
 
 include "../php/patientRegistration.php";
 
+
 if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
 ?>
@@ -285,7 +286,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             Contacts</a></li>
                     </ul>
 
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="php/admin_logout.php">
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" >
                         Log Out</a></div>
                 </div>
             </div>
@@ -371,7 +372,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         <form class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md col-sm-12 form-group">
-                                    <label>Search by ID</label>
+                                    <label><strong>Search by ID</strong></label>
                                     <input type="text" name="searchByID" class="form-control" value="" id="searchByID">
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
