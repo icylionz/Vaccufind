@@ -53,8 +53,7 @@
         <button type='button' name='$patientOverlayid' id='completeAppointment'class='btn btn-black display-4'>Complete Appointment</button>
     </div>
     <br>
-    <br>
-    <br>
+    
     <div class='col-md-auto col-12 mbr-section-btn'>
         <button type='button' class='btn btn-black display-4' onClick='off1();'>Close</button>
     </div>";

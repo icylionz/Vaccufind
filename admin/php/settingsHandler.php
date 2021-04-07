@@ -1,47 +1,9 @@
 <?php
-enterVaccine();
-function enterVaccine(){
-    // ensures vaccine name is entered
-    if (empty($_POST["vacName"])) {
-        header("Location: ../admin_console.php?error3=Vaccine Name is required");
-        exit();
-    } 
-    // ensures Number of doses is entered
-    else if (empty($_POST["dosesRequired"])) {
-        header("Location: ../admin_console.php?error3=Number of doses is required");
-        exit();
-    } 
-    // ensures Length of time is entered
-    else if (empty($_POST["time"])) {
-        header("Location: ../admin_console.php?error3=Length of time is required");
-        exit();
-    } 
-    // ensures Number of doses available is entered
-    else if (empty($_POST["dosesAvailable"])) {
-        header("Location: ../admin_console.php?error3=Number of doses available is required");
-        exit();
-    } 
-    else{
-        $name = modifyInput($_POST["vacName"]);
-        $required = modifyInput($_POST["dosesRequired"]);
-        $time = modifyInput(empty($_POST["time"]));
-        $available = modifyInput($_POST["dosesAvailable"]);
-        if (!empty($_POST["medicalConstraints[]"])) {
-            $medicalConstraints = implode(",",$_POST["medicalConstraints[]"]);
-         
-            
-            
-            
-        }
-        else{ //set medical constraints to NULL
-            insertVaccine($name, $required, $time, $available, NULL);
-        }
-    }
-
-    
-    
-
-}
+require 'connect.php';
+$selectFromWaiting =$_POST["selectFromWaiting"];
+$daysUntil = $_POST["daysUntil"];
+$elderlyAge = $_POST["elderlyAge"];
+insertSettings($selectFromWaiting, $daysUntil, $elderlyAge);
 
 //modifies input
 function modifyInput($input) {
@@ -52,16 +14,26 @@ function modifyInput($input) {
 } 
 
 //inserts the essential worker's record into the database
-function insertVaccine($vacname,$dosesreq,$time,$dosesavailable,$medConst){
+function insertSettings($selectFromWaiting, $daysUntil, $elderlyAge){
     require 'connect.php';
-
-    $sql = "INSERT INTO vaccine (vaccineName, lengthOfTimeBetweenDoses, noOfDosesRequired, medicalConstraints, noOfDosesAvailable) 
-    VALUES ('$vacname', '$time', '$dosesreq','$medConst','$dosesavailable')";
-
-    $result = $conn->query($sql);
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+    $selectFromWaiting = $selectFromWaiting;
+    $daysUntil = $daysUntil;
+    $elderlyAge = $elderlyAge;
+    $sql = "UPDATE settings SET settingValue = '$selectFromWaiting' WHERE settingName = 'selectFromWaiting'";
+    if ($conn->query($sql)) {
+        echo "New record updated successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "UPDATE settings SET settingValue = '$daysUntil' WHERE settingName = 'daysUntilAppointment'";
+    if ($conn->query($sql)) {
+        echo "New record updated successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "UPDATE settings SET settingValue = '$elderlyAge' WHERE settingName = 'elderlyAge'";
+    if ($conn->query($sql)) {
+        echo "New record updated successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

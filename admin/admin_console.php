@@ -153,6 +153,62 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 }
             });
         });
+        //Save settings changes
+        $(document).on("click", "#saveSettings", function (){
+            console.log(document.getElementById("selectFromWaiting").value);
+            if(document.getElementById("selectFromWaiting").value == ""){
+                document.getElementById("emptySelectFromWaiting").innerHTML = "Please Specify Value.";
+            }
+            if(document.getElementById("daysUntil").value == ""){
+                document.getElementById("emptyDaysUntil").innerHTML="Please Specify Value.";
+            }
+            if(document.getElementById("elderlyAge").value == ""){
+                document.getElementById("emptyElderlyAge").innerHTML="Please Specify Value.";
+            }
+            if((document.getElementById("selectFromWaiting").value != "") && (document.getElementById("daysUntil").value != "") && (document.getElementById("elderlyAge").value != "")){
+                $.ajax({
+                    type: "POST",
+                    url: "php/settingsHandler.php",
+                    data:{
+                    selectFromWaiting:$('#selectFromWaiting').val(),
+                    daysUntil:$('#daysUntil').val(),
+                    elderlyAge:$('#elderlyAge').val(),
+                    },
+                    success: function (result) {
+                        
+                    },
+                    complete:function(){
+                        $.ajax({
+                            type: "POST",
+                            url: "php/settingsDisplay.php",
+
+                            success: function (results) {
+                                //change the body of the patient table
+                                $("#settingsForm").html(results);
+                            }
+                        })
+                    }
+                });
+                
+            }
+            
+        });
+        // Loads settings form
+        $(document).on("click", "#settingsPanel", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/settingsDisplay.php",
+                data:{
+                    selectFromWaiting:$('selectFromWaiting').val(),
+                    daysUntil:$('daysUntil').val(),
+                    elderlyAge:$('elderlyAge').val(),
+                    },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#settingsForm").html(result);
+                }
+            });
+        });
         //loads overlay data on cell click
         $(document).on("click", ".adminTables .patientID", function (){
             $.ajax({
@@ -241,7 +297,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="settingsPanel()">Settings</button>
+                    <button type="button" class="btn admin_btn btn-primary" id='settingsPanel' onclick="settingsPanel()">Settings</button>
                 </div>
             </div>
         </div>
@@ -724,38 +780,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                     <strong>Settings</strong>
                                 </h1>
                             </div>
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Number of Patients to Select From Waiting</label>
-                                <input type="number" id="selectFromWaiting" name="vacName" class="form-control" value="" >
+                            <div id="settingsForm">
+                            <!-- Settings Form -->
                             </div>
-                            <?php if (isset($_GET['error3'])) { ?>
-                                <?php if ($_GET['error3'] == "Vaccine Name is required") { ?>
-                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Number of Days Until First Appointment</label>
-                                <input type="number" id="daysUntil" name="dosesRequired" class="form-control" value="" >
-                            </div>
-                            <?php if (isset($_GET['error3'])) { ?>
-                                <?php if ($_GET['error3'] == "Number of doses is required") { ?>
-                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
-                           
-                           
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Elderly Age (persons this age or older will be given the elderly tag)</label>
-                                <input type="number" id="elderlyAge" name="elderly" class="form-control" value="" >
-                            </div>
-                            <?php if (isset($_GET['error3'])) { ?>
-                                <?php if ($_GET['error3'] == "Number of doses available is required") { ?>
-                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
-                                <?php } ?>
-                            <?php } ?>
-                            
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Save Changes</button>
+                                <button type="button" name="settingsSubmit" id="saveSettings" class="btn btn-black display-4">Save Changes</button>
                             </div>
                         </div>
                     </form>
