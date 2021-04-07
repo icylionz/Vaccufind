@@ -522,6 +522,7 @@ include "php/patientRegistration.php";
     </section>
 
 
+    <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>

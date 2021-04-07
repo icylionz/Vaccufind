@@ -1,7 +1,5 @@
 function forms() {
     document.getElementById('search').style.display = 'none';
-    document.getElementById('byID').style.display = 'none';
-    document.getElementById('byName').style.display = 'none';
     document.getElementById('patient').style.display = 'none';
     document.getElementById('wait').style.display = 'none';
     document.getElementById('notification').style.display = 'none';
@@ -134,7 +132,6 @@ function medicalForm() {
         document.getElementById('vac').style.display = 'none';
     } else if (document.getElementById('medical').style.display == 'block') {
         document.getElementById('default').style.display = 'block';
-        document.getElementById('search').style.display = 'none';
         document.getElementById('patient').style.display = 'none';
         document.getElementById('wait').style.display = 'none';
         document.getElementById('notification').style.display = 'none';
