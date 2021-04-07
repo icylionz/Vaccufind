@@ -6,12 +6,19 @@
     $patientOverlayid = $patientOverlay['patientID'];
     $patientOverlayfirstname = $patientOverlay['firstName'];
     $patientOverlaylastname = $patientOverlay['lastName'];
-    $patientOverlaynid = $patientOverlay['nid'];
     $patientOverlaydob = $patientOverlay['dob'];
+    $patientOverlaystreetAddress = $patientOverlay['streetAddress'];
+    $patientOverlayPhoneNumber = $patientOverlay['phoneNumber'];
+    $patientOverlayemail = $patientOverlay['email'];
+    $patientOverlayTag = $patientOverlay['tag'];
+    $patientOverlayCountry = $patientOverlay['country'];
+    $patientOverlayVaccineGiven = $patientOverlay['vaccineName'];
+    $patientOverlayDosesRemaining = $patientOverlay['noOfDosesRemaining'];
+    $patientOverlayAppointmentDate = $patientOverlay['appointmentDate'];
     $patientOverlaymedicalConditions = $patientOverlay['medicalConditions'];
     $patientOverlayallergies = $patientOverlay['allergies'];
-    $patientOverlayemail = $patientOverlay['email'];
-    $patientOverlaystreetAddress = $patientOverlay['streetAddress'];
+    $patientOverlaynid = $patientOverlay['nid'];
+    $patientOverlayPassportNumber = $patientOverlay['passportNumber'];
     
     echo "
 
