@@ -93,6 +93,7 @@ if(isset($_POST['submit'])){
         
     }
     
+    header("location: ../index.html");
 }
 
 
@@ -144,32 +145,33 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     
     //inserts into patient table
     if(!empty($nidInsert) && !empty($passportNumberInsert)){
+        echo "3";
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
-        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', , '$passportNumberInsert',$tagInsert);";
+        VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', '$passportNumberInsert',$tagInsert);";
     }
     else if(empty($nidInsert)){
+        echo "2";
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', NULL, '$passportNumberInsert',$tagInsert);";
 
     }
     else if(empty($passportNumberInsert)){
+        echo "1";
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL,$tagInsert);";
     }    
     
-    echo $firstNameInsert, "<br>", $lastNameInsert, "<br>", $dobInsert, "<br>", $streetAddressInsert, "<br>", $phoneNumberInsert, "<br>", $emailInsert, "<br>", $countryInsert, "<br>", $medicalConditionsInsert, "<br>", $allergiesInsert, "<br>", $nidInsert, "<br>", $passportNumberInsert, "<br>";
-
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
-        echo "Error: Patient has already registered.". $conn->error, "<br>";
+        echo "Error: Patient has already registered.". $conn->error;
     }
     //inserts into waiting table
     if($addedID = $conn->query("SELECT MAX(patientID) AS maxim FROM patient")){
         echo "patient id received";
     } 
     else {
-        echo "Error: Patient id has not been regsitered.". $conn->error, "<br>";
+        echo "Error: Patient id has not been regsitered.". $conn->error;
     }
     $addedID = $addedID->fetch_assoc();
    

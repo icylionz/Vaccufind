@@ -1038,6 +1038,17 @@ blockquote {
     .form-menu {
         width: auto;
     }
+    #default,
+    #search,
+    #patient,
+    #wait,
+    #notification,
+    #essential,
+    #medical,
+    #vac,
+    #settings {
+        margin-top: 40em;
+    }
 }
 
 @media (min-width: 992px) {
