@@ -134,7 +134,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 }
             });
         });
-        // Loads the table data on patient list 
+        // Loads the table data on patient list for search by name
         $(document).on("click", "#searchPatientByName", function (){
             $.ajax({
                 type: "POST",
@@ -149,7 +149,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 }
             });
         });
-        // Loads the table data on patient list 
+        // Loads the table data on patient list for search by id
         $(document).on("click", "#patientList", function (){
             $.ajax({
                 type: "POST",
@@ -442,7 +442,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         <br>
                           
                         <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
-                            <div id="overlayData1" class="dragArea row">
+                            <div class='overlayDataInfo' id="overlayData1" class="dragArea row">
                                 <!-- overlay data -->
                             </div>
                         </form>
