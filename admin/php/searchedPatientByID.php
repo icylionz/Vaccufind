@@ -25,7 +25,7 @@ if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, p
         
                 echo "<tr>
                     
-                    <td class='patientID' id='$p->patientID' onclick='on1()'>$p->patientID</td>
+                    <td class='patientID' id='$p->patientID' onclick='on0()'>$p->patientID</td>
                     <td>$p->firstName</td>
                     <td>$p->lastName</td>
                     <td>$p->nid</td>
