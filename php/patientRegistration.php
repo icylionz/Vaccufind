@@ -93,7 +93,6 @@ if(isset($_POST['submit'])){
         
     }
     
-    header("location: ../registration.php");
 }
 
 
@@ -110,7 +109,7 @@ function modifyInput($input) {
 
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
-    require "connect.php";
+    include "connect.php";
     //calculates patient's age
     $today = date("Y-m-d");
     $diff = date_diff(date_create($dobInsert), date_create($today));
@@ -119,7 +118,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     //assign tag to patient
     $tagInsert = 5;
     //medical worker tag
-    echo "medcon:",$medicalConditionsInsert;
+    echo "medcon:",$medicalConditionsInsert,"<br>";
     if($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")){
         if($result->num_rows > 0){
             $tagInsert = 1;
@@ -158,17 +157,19 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL,$tagInsert);";
     }    
     
+    echo $firstNameInsert, "<br>", $lastNameInsert, "<br>", $dobInsert, "<br>", $streetAddressInsert, "<br>", $phoneNumberInsert, "<br>", $emailInsert, "<br>", $countryInsert, "<br>", $medicalConditionsInsert, "<br>", $allergiesInsert, "<br>", $nidInsert, "<br>", $passportNumberInsert, "<br>";
+
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
-        echo "Error: Patient has already registered.". $conn->error;
+        echo "Error: Patient has already registered.". $conn->error, "<br>";
     }
     //inserts into waiting table
     if($addedID = $conn->query("SELECT MAX(patientID) AS maxim FROM patient")){
         echo "patient id received";
     } 
     else {
-        echo "Error: Patient id has not been regsitered.". $conn->error;
+        echo "Error: Patient id has not been regsitered.". $conn->error, "<br>";
     }
     $addedID = $addedID->fetch_assoc();
    

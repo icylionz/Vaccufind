@@ -1,5 +1,13 @@
+function on0() {
+    document.getElementById("overlay0").style.display = "block";
+}
+
+function off0() {
+    document.getElementById("overlay0").style.display = "none";
+}
+
 function on1() {
-    
+
     document.getElementById("overlay1").style.display = "block";
 }
 
@@ -23,10 +31,20 @@ function off3() {
     document.getElementById("overlay3").style.display = "none";
 }
 
-function on4() {
-    document.getElementById("overlay4").style.display = "block";
+function showByID() {
+    if (document.getElementById("byID").style.display == "none") {
+        document.getElementById("byID").style.display = "block";
+        document.getElementById("byName").style.display = "none";
+    } else if (document.getElementById("byID").style.display = "block") {
+        document.getElementById("byID").style.display = "none";
+    }
 }
 
-function off4() {
-    document.getElementById("overlay4").style.display = "none";
+function showByName() {
+    if (document.getElementById("byName").style.display == "none") {
+        document.getElementById("byName").style.display = "block";
+        document.getElementById("byID").style.display = "none";
+    } else if (document.getElementById("byName").style.display = "block") {
+        document.getElementById("byName").style.display = "none";
+    }
 }
