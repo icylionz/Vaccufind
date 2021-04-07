@@ -58,7 +58,7 @@
                                 $_SESSION['errorNid'] = "This nid already exist";
                             }
                             else{
-                                $conn = connectVaccufind();
+                                ;
                                 $essFirstName = $_POST['ess_first_Name'];
                                 $essLastName = $_POST['ess_last_Name'] ;
                                 $conn->query("INSERT INTO essentialworkers (essentialWorkerFirstName,essentialWorkerLastName,nid) VALUES ('$essFirstName','$essLastName','$essNID')");

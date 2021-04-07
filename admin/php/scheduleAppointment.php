@@ -2,7 +2,7 @@
 require 'connect.php';
 require 'updateInfo.php';
 
-$conn = connectVaccufind();
+;
 if($patientsToBeScheduled = $conn->query("SELECT * FROM settings WHERE settingName = 'selectFromWaiting'")){
 
     $patientsToBeScheduled = $patientsToBeScheduled->fetch_assoc();

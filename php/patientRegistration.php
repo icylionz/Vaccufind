@@ -115,7 +115,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     $today = date("Y-m-d");
     $diff = date_diff(date_create($dobInsert), date_create($today));
     $age = $diff->format('%y'); 
-    $conn = connectVaccufind();
+    ;
     //assign tag to patient
     $tagInsert = 5;
     //medical worker tag

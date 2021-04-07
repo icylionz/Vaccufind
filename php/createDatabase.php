@@ -37,7 +37,7 @@ function createDatabase(){
 
 function createEssentialWorkersTable(){
   
-  $conn = connectVaccufind();
+  ;
   
   
   // sql to create table
@@ -63,7 +63,7 @@ function createEssentialWorkersTable(){
 
 function createMedicalWorkersTable(){
   
-  $conn = connectVaccufind();
+  ;
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS medicalWorkers (
@@ -87,7 +87,7 @@ function createMedicalWorkersTable(){
 
 function createPatientTable(){
   
-  $conn = connectVaccufind();
+  ;
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS patient (
@@ -124,7 +124,7 @@ function createPatientTable(){
 
 function createSuperAdminLoginTable(){
   
-  $conn = connectVaccufind();
+  ;
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS superAdminLogin (
@@ -150,7 +150,7 @@ function createSuperAdminLoginTable(){
 }
 function createAdminLoginTable(){
   
-  $conn = connectVaccufind();
+  ;
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS adminLogin (
@@ -176,7 +176,7 @@ function createAdminLoginTable(){
 }
 function createVaccineTable(){
   
-  $conn = connectVaccufind();
+  ;
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS vaccine (
@@ -202,7 +202,7 @@ function createVaccineTable(){
 
 function createWaitingListTable(){
   
-  $conn = connectVaccufind();
+  ;
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS waiting (
@@ -227,7 +227,7 @@ function createWaitingListTable(){
 
 function createSettingsTable(){
   
-  $conn = connectVaccufind();
+  ;
   
   
   // sql to create table

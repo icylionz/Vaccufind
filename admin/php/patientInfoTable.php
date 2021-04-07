@@ -15,7 +15,7 @@ if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, p
             foreach($patientTableData as $p){
         
         
-                echo "<tr id='$p->patientID'>
+                echo "<tr>
                     
                     <td class='patientID' id='$p->patientID' onclick='on1()'>$p->patientID</td>
                     <td>$p->firstName</td>

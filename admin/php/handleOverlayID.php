@@ -1,8 +1,8 @@
 <?php
     require 'connect.php';
     require 'searchPatientID.php';
-    header("location: /vaccufind/admin/admin_console.php");  
-    $patientOverlay = searchPatientID($_POST['$id']);
+   
+    $patientOverlay = searchPatientID($_POST['id']);
     $patientOverlayid = $patientOverlay['patientID'];
     $patientOverlaynid = $patientOverlay['nid'];
     $patientOverlaydob = $patientOverlay['dob'];

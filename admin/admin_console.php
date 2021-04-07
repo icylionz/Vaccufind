@@ -82,7 +82,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 </head>
 <?php
     include "../php/connect.php";
-    $conn = connectVaccufind();
+    ;
     
     $_SESSION['errorEssFirstName'] = "";
     $_SESSION['errorEssLastName'] = "";
@@ -118,8 +118,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 ?>
 <body onload="forms();">
 
-    <script>sessionStorage.setItem("clickedOverlay",0);</script>
-    <script>
+    <script type = "text/javascript" language = "javascript">
         
         // Loads the table data on patient list
         
@@ -127,31 +126,29 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             $.ajax({
                 type: "POST",
                 url: "php/patientInfoTable.php",
-                data: {},
                 success: function (result) {
                     //change the body of the patient table
                     $("#patientInfoTableData").html(result);
                 }
             });
-        })
+        });
 
         //loads overlay data on cell click
-        $(document).ready(function(){
-            $("#patientInfoTableData tr .patientID").click(function (){
-                console.log("dfadfd");
-                document.getElementById("overlay1").style.display = "block";
-                $.ajax({
-                    type: "POST",
-                    url: "php/handleOverlayID.php",
-                    data: {id: $(this).attr('id')},
-                    success: function (result) {
-                        
-                        //change the body of the patient table
-                        $("#overlayDataPatient").html(result);
-                    }
-                });
-            });    
-        });
+        $(document).on("click", "#patientInfoTable .patientID", function (){
+            console.log("dfadfd");
+            
+            $.ajax({
+                type: "POST",
+                url: "php/handleOverlayID.php",
+                data: {id: $(this).attr('id')},
+                success: function (result) {
+                    
+                    //change the body of the patient table
+                    $(".overlayDataInfo").html(result);
+                }
+            });
+        });    
+        
         
     </script>
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
@@ -296,7 +293,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 </div>
                                                 
 
-                <div id="overlay1" onclick="off1()">
+                <div id="overlay4" onclick="off4()">
                     <div id="panel">
                         <br>
                         <br>
@@ -327,7 +324,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 
                                 <!--Display patient info table-->
                                 <div>
-                                <script>sessionStorage.setItem("clickedOverlay",1);</script>
+                                
                                     <table class='adminTables' id="patientInfoTable">
                                         <thead>
                                             <tr>
@@ -365,7 +362,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Patient Details</strong>
                                     </h1>
                                 </div>
-                                <div id="overlayDataPatient">
+                                <div class="overlayDataInfo" id="overlayDataPatient">
                                 <!-- overlay data -->
                                 </div>
                                 
@@ -449,54 +446,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Example</strong>
+                                        <strong>Patient Details</strong>
                                     </h1>
                                 </div>
 
-                                <div>
-                                    <label><strong>National ID:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div class="blank">
-                                </div>
-
-                                <div>
-                                    <label><strong>Date of Birth:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <br>
-
-                                <div>
-                                    <label><strong>Medical Conditions:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div class="blnk">
-                                </div>
-
-                                <div>
-                                    <label><strong>Allergies:</strong></label>
-                                    <p>Example</p>
-                                </div>
-                                <div>
-                                    <label><strong>Email:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div>
-                                    <label><strong>Street Address:</strong></label>
-                                    <p>Example</p>
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
+                                
+                                <div class="overlayDataInfo" id="overlayDataWaiting">
+                                <!-- overlay data -->
                                 </div>
                             </div>
                         </form>

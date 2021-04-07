@@ -3,7 +3,7 @@ require 'connect.php';
 require 'updateInfo.php';
 
 function completeAppointment($id){
-    $conn = connectVaccufind();
+    ;
 
     if($patientComplete = $conn->query("SELECT * FROM patient WHERE patientID = '$id'")){
         $patientComplete = $patientComplete->fetch_assoc();

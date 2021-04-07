@@ -1,5 +1,5 @@
 function on1() {
-    console.log("gfdgfad");
+    
     document.getElementById("overlay1").style.display = "block";
 }
 
@@ -21,4 +21,12 @@ function on3() {
 
 function off3() {
     document.getElementById("overlay3").style.display = "none";
+}
+
+function on4() {
+    document.getElementById("overlay4").style.display = "block";
+}
+
+function off4() {
+    document.getElementById("overlay4").style.display = "none";
 }
