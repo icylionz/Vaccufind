@@ -436,7 +436,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 </div>
                                                 
 
-                <div id="overlay0" onclick="off0()">
+                <div class="overlays" id="overlay0" onclick="off0()">
                     <div id="panel">
                         <br>
                         <br>
@@ -492,7 +492,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 </div>
                                                 
 
-                <div id="overlay1" onclick="off1()">
+                <div class="overlays" id="overlay1" onclick="off1()">
                     <div id="panel">
                         <br>
                         <br>
@@ -564,7 +564,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 </div>
 
 
-                <div id="overlay2" onclick="off2()">
+                <div class="overlays" id="overlay2" onclick="off2()">
                     <div id="panel">
                         <br>
                         <br>
@@ -606,7 +606,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                         </div>
                     </div>
 
-                    <div id="overlay3" onclick="off3()">
+                    <div class="overlays" id="overlay3" onclick="off3()">
                         <div id="panel">
                             <br>
                             <br>
