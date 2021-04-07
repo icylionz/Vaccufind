@@ -1,9 +1,6 @@
-function on1(id) {
+function on1() {
+    console.log("gfdgfad");
     document.getElementById("overlay1").style.display = "block";
-    sessionStorage.setItem("patientOverlayID",id);
-    sessionStorage.setItem("clickedOverlay",1);
-    
-    
 }
 
 function off1() {

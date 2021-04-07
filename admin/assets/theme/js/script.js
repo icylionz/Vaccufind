@@ -474,8 +474,8 @@ $jscomp.polyfill("Array.prototype.find", function(a) { return a ? a : function(a
         })
     }));
     if (e) a(document).on("add.cards", function(b) {
-        a(b.target).find(".form-with-styler").length && (b = a(b.target).find(".form-with-styler"), a(b).find('select:not("[multiple]")').each(function() { a(this).styler() }), a(b).find("input[type=number]").each(function() {
-                a(this).styler();
+        a(b.target).find(".form-with-styler").length && (b = a(b.target).find(".form-with-styler"), a(b).find('select:not("[multiple]")').each(function() {  }), a(b).find("input[type=number]").each(function() {
+                
                 a(this).parent().parent().removeClass("form-control")
             }),
             a(b).find("input[type=date]").each(function() { a(this).datetimepicker && a(this).datetimepicker({ format: "Y-m-d", timepicker: !1 }) }), a(b).find("input[type=time]").each(function() { a(this).datetimepicker && a(this).datetimepicker({ format: "H:i", datepicker: !1 }) }))
@@ -489,7 +489,7 @@ $jscomp.polyfill("Array.prototype.find", function(a) { return a ? a : function(a
             });
         });
         a(this).find("input[type=number]").each(function() {
-            a(this).styler();
+            
             a(this).parent().parent().removeClass("form-control")
         });
         var b = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/Firefox/i) ? !0 : !1;

@@ -33,7 +33,7 @@ function searchList() {
 function patientList() {
     if (document.getElementById('patient').style.display == 'none') {
         document.getElementById('default').style.display = 'none';
-        document.getElementById('search').style.display = 'block';
+        document.getElementById('search').style.display = 'none';
         document.getElementById('patient').style.display = 'block';
         document.getElementById('wait').style.display = 'none';
         document.getElementById('notification').style.display = 'none';
