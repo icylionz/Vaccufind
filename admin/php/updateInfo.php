@@ -10,5 +10,14 @@ function updatePatient($patientUpdate){
         //display error message
     }
 }
-
+function updateVaccine($vaccineUpdate){
+    $conn = connectVaccufind();
+    //updates patient record
+    if($conn->query("UPDATE vaccine SET vaccineName = '$vaccineUpdate["vaccineName"]', 	lengthOfTimeBetweenDoses  = '$vaccineUpdate["lengthOfTimeBetweenDoses"]', noOfDosesRequired  = '$vaccineUpdate["noOfDosesRequired"]', medicalConstraints  = '$vaccineUpdate["medicalConstraints"]',phoneNumber = '$vaccineUpdate["noOfDosesAvailable"]';")){
+        echo "Updated vaccine record";
+    }
+    else{
+        //display error message
+    }
+}
 ?>

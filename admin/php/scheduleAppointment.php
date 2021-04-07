@@ -1,6 +1,7 @@
 <?php
 require 'connect.php';
-require 'updatePatientInfo.php';
+require 'updateInfo.php';
+
 $conn = connectVaccufind();
 if($patientsToBeScheduled = $conn->query("SELECT * FROM settings WHERE settingName = 'selectFromWaiting'")){
 
@@ -26,8 +27,11 @@ while($patientsToBeScheduled > 0){
                     $validVaccine = $validVaccine->fetch_assoc();
                     $patientChosen['vaccineGivenID'] = $validVaccine['vaccineID'];
                     $patientChosen['noOfDosesRemaining'] = $validVaccine['noOfDosesRequired'];
-                    scheduleAppointment($patientChosen, $daysUntil['settingValue']);
+                    $validVaccine['noOfDosesAvailable'] = $validVaccine['noOfDosesAvailable'] - $validVaccine['noOfDosesRequired']; // updates vaccine doses available
+                    
+                    updateVaccine($validVaccine);
                     updatePatient($patientChosen);
+                    scheduleAppointment($patientChosen, $daysUntil['settingValue']);
                     //remove record from waiting list
 
                     $waitingID = $conn->query("SELECT waitingID FROM waiting INNER JOIN patient ON patient.patientID = waiting.patientID ORDER BY patient.tag ASC, waiting.dateAdded ASC LIMIT 1 OFFSET '$offset';");
@@ -35,6 +39,8 @@ while($patientsToBeScheduled > 0){
                     $waitingID = $waitingID['waitingID'];
 
                     $conn->query("DELETE FROM waiting WHERE waitingID = '$waitingID'");
+
+                    
                     //complete scheduling
                     $patientsToBeScheduled = $patientsToBeScheduled - 1;
 
