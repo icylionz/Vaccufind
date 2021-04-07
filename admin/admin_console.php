@@ -90,16 +90,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
     $_SESSION['errorMedFirstName'] = "";
     $_SESSION['errorMedLastName'] = "";
     $_SESSION['errorMedNid'] = "";
-    /* $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssFirstName'] = ""; */
+    
 
     
     // fetches requested patient data by name
@@ -214,7 +205,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="searchList();">Search by ID or Name</button>
                 </div>
                 <div class="button-2">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
+                    <button type="button" id="patientList" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
                 </div>
                 <div class="button-3">
                     <button type="button" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
@@ -262,45 +253,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
             </div>
         </div>
 
-        
-                            <!--  Search Patient Info List -->        
+
+                            <!--  Search List -->        
         <div id="search" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
-                    <div class="col-lg-12 col-md col-sm-12 form-group">
-                        <label style="float:left"><a onclick="showByID()">Search by ID</a></label>
-
-                        <label style="float:right"><a onclick="showByName()">Search by Name</a></label>
-                    </div>
-                    <br>
-                    <div id="byID">
-                        <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
-                            <div class="dragArea row">
-                                <div class="col-lg-12 col-md col-sm-12 form-group">
-                                    <label>Search by ID</label>
-                                    <input type="text" name="searchID" class="form-control" value="" id="searchID-form3-1f">
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="submit" name="searchIDSubmit" class="btn btn-black display-4">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <div id="byName">
-                        <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
-                            <div class="dragArea row">
-                                <div class="col-lg-12 col-md col-sm-12 form-group">
-                                    <label>Search by Name</label>
-                                    <input type="text" name="searchName" class="form-control" value="" id="searchName-form3-1f">
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="submit" name="searchNameSubmit" class="btn btn-black display-4">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="wrapper">
                         <div class="notification_wrap">
                             <div class="dropdown">
@@ -324,27 +281,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            require 'php/patientInfoTable.php';
-
-                                            if(count($patientTableData) > 0){
-                                                foreach($patientTableData as $p){
-                                            ?>
                                             
-                                                    <tr id="<?php echo $p->patientID;?>">
-                                                        
-                                                        <td><a onclick="on1(parseInt(<?php echo $p->patientID;?>));sendToPHP()"><?php echo $p->patientID;?></a></td>
-                                                        <td><?php echo $p->firstName;?></td>
-                                                        <td><?php echo $p->lastName;?></td>
-                                                        <td><?php echo $p->nid;?></td>
-                                                        <td><?php echo $p->passportNumber;?></td>
-                                                    </tr>
-                                                    
-                                                
-                                            <?php        
-                                                }
-                                            }
-                                            ?>
                                        
                                         </tbody>
                                             
@@ -370,6 +307,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 </div>
             </div>
         </div>
+
 
                             <!--  Patient Info List -->        
         <div id="patient" class="container">
@@ -397,28 +335,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                                 <th>Passport No.</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <?php
-                                            require 'php/patientInfoTable.php';
-
-                                            if(count($patientTableData) > 0){
-                                                foreach($patientTableData as $p){
-                                            ?>
+                                        <tbody id="patientInfoTableData">
+                                            <!-- display table data -->
                                             
-                                                    <tr id="<?php echo $p->patientID;?>">
-                                                        
-                                                        <td><a onclick="on1(parseInt(<?php echo $p->patientID;?>));sendToPHP()"><?php echo $p->patientID;?></a></td>
-                                                        <td><?php echo $p->firstName;?></td>
-                                                        <td><?php echo $p->lastName;?></td>
-                                                        <td><?php echo $p->nid;?></td>
-                                                        <td><?php echo $p->passportNumber;?></td>
-                                                    </tr>
-                                                    
-                                                
-                                            <?php        
-                                                }
-                                            }
-                                            ?>
                                        
                                         </tbody>
                                             
@@ -434,85 +353,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <div id="panel">
                         <br>
                         <br>
-                        <form id="transferID" method="get" target="_blank" action="php/handleOverlayID.php">
-                            <input id="setOverlayID" name="overlayID" type="hidden" value="">
-                                    
-                        </form>
-                                <script>
-                                function sendToPHP()
-                                {
-                                    if(document.getElementById("overlay1").style.display == 'block'){
-                                        document.getElementById("setOverlayID").value = sessionStorage.getItem("patientOverlayID");
-                                        document.getElementById("transferID").submit();
-                                        sessionStorage.setItem("clickedOverlay",0);
-                                  
-                                    } 
-                                }
+                        
                                 
-                                    
-                                </script>
                         <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
                             <div class="dragArea row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Example</strong>
+                                <div class='col-lg-12 col-md-12 col-sm-12'>
+                                    <h1 style='text-align: center;' class='mbr-section-title mb-4 display-2'>
+                                        <strong>Patient Details</strong>
                                     </h1>
                                 </div>
                                 <div class="overlayDataInfo" id="overlayDataPatient">
                                 <!-- overlay data -->
                                 </div>
                                 
-                                
-                                <?php 
-                                require 'php/searchPatientID.php';
-                                echo $_SESSION['patientOverlayID'];
-                                $patientOverlay = searchPatientID($_SESSION['patientOverlayID']);
-                                ?>                    
-                                <div>
-                                    <label><strong>National ID:</strong></label>
-                                    <p><?php echo $patientOverlay['nid']?></p>
-                                </div>
-
-                                <div class="blank">
-                                </div>
-
-                                <div>
-                                    <label><strong>Date of Birth:</strong></label>
-                                    <p><?php echo $patientOverlay['dob']?></p>
-                                </div>
-
-                                <br>
-
-                                <div>
-                                    <label><strong>Medical Conditions:</strong></label>
-                                    <p><?php echo $patientOverlay['medicalConditions']?></p>
-                                </div>
-
-                                <div class="blnk">
-                                </div>
-
-                                <div>
-                                    <label><strong>Allergies:</strong></label>
-                                    <p><?php echo $patientOverlay['allergies']?></p>
-                                </div>
-                                <div>
-                                    <label><strong>Email:</strong></label>
-                                    <p><?php echo $patientOverlay['email']?></p>
-                                </div>
-
-                                <div>
-                                    <label><strong>Street Address:</strong></label>
-                                    <p><?php echo $patientOverlay['streetAddress']?></p>
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -781,6 +634,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -905,6 +759,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                             </div>
                         </div>
                     </form>
+                   
                 </div>
                 
             </div>
@@ -937,6 +792,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
 
     <script src="assets/form/overlay.js"></script>
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
+    <script src="assets/popper/popper.min.js"></script>
+    <script src="assets/tether/tether.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
