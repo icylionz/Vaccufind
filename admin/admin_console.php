@@ -142,8 +142,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 }
             });
         });
+        // Loads the table data on waiting list 
+        $(document).on("click", "#notifyList", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/notifyHandler.php",
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#notifications").html(result);
+                }
+            });
+        });
         //loads overlay data on cell click
-        $(document).on("click", "adminTables .patientID", function (){
+        $(document).on("click", ".adminTables .patientID", function (){
             $.ajax({
                 type: "POST",
                 url: "php/handleOverlayID.php",
@@ -218,7 +229,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                     <button type="button" id="waitList" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
                 </div>
                 <div class="button-4">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
+                    <button type="button" id="notifyList" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
                 </div>
                 <div class="button-5">
                     <button type="button" class="btn admin_btn btn-primary" onclick="essentialForm();">Essential Workers Form</button>
@@ -369,7 +380,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Patient Details</strong>
                                     </h1>
                                 </div>
-                                <div class="overlayDataInfo" id="overlayDataPatient">
+                                <div class="overlayDataInfo">
                                 <!-- overlay data -->
                                 </div>
                                 
@@ -463,53 +474,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                         <strong>Notification Panel</strong>
                                     </h1>
                                 </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
+                                <div id="notifications">
+
                                 </div>
                             </div>
                         </div>
@@ -523,55 +489,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <div class="dragArea row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                            <strong>Example</strong>
-                                        </h1>
-                                    </div>
+                                        <strong>Patient Details</strong>
+                                    </h1>
+                                </div>
+                                <div class="overlayDataInfo adminTables">
+                                <!-- overlay data -->
+                                </div>
 
-                                    <div>
-                                        <label><strong>National ID:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <div class="blank">
-                                    </div>
-
-                                    <div>
-                                        <label><strong>Date of Birth:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <br>
-
-                                    <div>
-                                        <label><strong>Medical Conditions:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <div class="blnk">
-                                    </div>
-
-                                    <div>
-                                        <label><strong>Allergies:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-                                    <div>
-                                        <label><strong>Email:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <div>
-                                        <label><strong>Street Address:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-                                    <div class="col-md-auto col-12 mbr-section-btn">
-                                        <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <div class="col-md-auto col-12 mbr-section-btn">
-                                        <button type="button" class="btn btn-black display-4" onClick="off2();">Close</button>
-                                    </div>
+                                    
                                 </div>
                             </form>
                         </div>
