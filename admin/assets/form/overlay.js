@@ -22,3 +22,21 @@ function on3() {
 function off3() {
     document.getElementById("overlay3").style.display = "none";
 }
+
+function showByID() {
+    if (document.getElementById("byID").style.display == "none") {
+        document.getElementById("byID").style.display = "block";
+        document.getElementById("byName").style.display = "none";
+    } else if (document.getElementById("byID").style.display = "block") {
+        document.getElementById("byID").style.display = "none";
+    }
+}
+
+function showByName() {
+    if (document.getElementById("byName").style.display == "none") {
+        document.getElementById("byName").style.display = "block";
+        document.getElementById("byID").style.display = "none";
+    } else if (document.getElementById("byName").style.display = "block") {
+        document.getElementById("byName").style.display = "none";
+    }
+}

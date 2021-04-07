@@ -1,5 +1,7 @@
 function forms() {
     document.getElementById('search').style.display = 'none';
+    document.getElementById('byID').style.display = 'none';
+    document.getElementById('byName').style.display = 'none';
     document.getElementById('patient').style.display = 'none';
     document.getElementById('wait').style.display = 'none';
     document.getElementById('notification').style.display = 'none';
