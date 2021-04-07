@@ -24,14 +24,11 @@
         else{
             $name = modifyInput($_POST["vacName"]);
             $required = modifyInput($_POST["dosesRequired"]);
-            $time = modifyInput(empty($_POST["time"]));
+            $time = modifyInput($_POST["time"]);
             $available = modifyInput($_POST["dosesAvailable"]);
-            if (!empty($_POST["medicalConstraints[]"])) {
-                $medicalConstraints = implode(",",$_POST["medicalConstraints[]"]);
-             
-                
-                
-                
+            if (!empty($_POST["medicalConstraints"])) {
+                $medicalConstraints = implode(",",$_POST["medicalConstraints"]);  
+                insertVaccine($name, $required, $time, $available, $medicalConstraints);
             }
             else{ //set medical constraints to NULL
                 insertVaccine($name, $required, $time, $available, NULL);

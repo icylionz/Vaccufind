@@ -776,8 +776,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                                 <?php } ?>
                             <?php } ?>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
-                                <label>Medical Conditions</label>
-                                <select name="medicalConditions[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                <label>Medical Constraints (Patients with these conditions should not be administered this vaccine)</label>
+                                <select name="medicalConstraints[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
                               
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>

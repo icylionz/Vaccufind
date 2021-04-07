@@ -2,7 +2,7 @@
 require 'connect.php';
 require 'updateInfo.php';
 
-;
+
 if($patientsToBeScheduled = $conn->query("SELECT * FROM settings WHERE settingName = 'selectFromWaiting'")){
 
     $patientsToBeScheduled = $patientsToBeScheduled->fetch_assoc();
@@ -58,7 +58,7 @@ while($patientsToBeScheduled > 0){
         echo "<br>";
         echo "No more patients can be scheduled";
         echo "<br>";
-        header("location: /vaccufind/admin/admin_console.php");
+        //header("location: /vaccufind/admin/admin_console.php");
     }
     
 }
