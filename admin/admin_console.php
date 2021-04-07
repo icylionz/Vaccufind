@@ -276,6 +276,40 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
         <div id="search" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                <div class="col-lg-12 col-md col-sm-12 form-group">
+                        <label style="float:left"><a onclick="showByID()">Search by ID</a></label>
+
+                        <label style="float:right"><a onclick="showByName()">Search by Name</a></label>
+                    </div>
+                    <br>
+                    <div id="byID">
+                        <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md col-sm-12 form-group">
+                                    <label>Search by ID</label>
+                                    <input type="text" name="searchID" class="form-control" value="" id="searchID-form3-1f">
+                                </div>
+                                <div class="col-md-auto col-12 mbr-section-btn">
+                                    <button type="submit" name="searchIDSubmit" class="btn btn-black display-4">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="byName">
+                        <form method="POST" action="" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md col-sm-12 form-group">
+                                    <label>Search by Name</label>
+                                    <input type="text" name="searchName" class="form-control" value="" id="searchName-form3-1f">
+                                </div>
+                                <div class="col-md-auto col-12 mbr-section-btn">
+                                    <button type="submit" name="searchNameSubmit" class="btn btn-black display-4">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="wrapper">
                         <div class="notification_wrap">
                             <div class="dropdown">
@@ -311,7 +345,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['passwrd'])) {
                 </div>
                                                 
 
-                <div id="overlay4" onclick="off4()">
+                <div id="overlay0" onclick="off0()">
                     <div id="panel">
                         <br>
                         <br>

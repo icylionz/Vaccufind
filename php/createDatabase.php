@@ -1,5 +1,4 @@
 <?php
-require 'connect.php';
 createDatabase();
 createEssentialWorkersTable();
 createMedicalWorkersTable();
@@ -37,8 +36,7 @@ function createDatabase(){
 
 function createEssentialWorkersTable(){
   
-  ;
-  
+  include "connect.php";
   
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS essentialWorkers (
@@ -63,7 +61,7 @@ function createEssentialWorkersTable(){
 
 function createMedicalWorkersTable(){
   
-  ;
+  include "connect.php";
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS medicalWorkers (
@@ -87,7 +85,7 @@ function createMedicalWorkersTable(){
 
 function createPatientTable(){
   
-  ;
+  include "connect.php";
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS patient (
@@ -124,7 +122,7 @@ function createPatientTable(){
 
 function createSuperAdminLoginTable(){
   
-  ;
+  include "connect.php";
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS superAdminLogin (
@@ -150,7 +148,7 @@ function createSuperAdminLoginTable(){
 }
 function createAdminLoginTable(){
   
-  ;
+  include "connect.php";
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS adminLogin (
@@ -176,7 +174,7 @@ function createAdminLoginTable(){
 }
 function createVaccineTable(){
   
-  ;
+  include "connect.php";
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS vaccine (
@@ -202,7 +200,7 @@ function createVaccineTable(){
 
 function createWaitingListTable(){
   
-  ;
+  include "connect.php";
 
   // sql to create table
   $sql = "CREATE TABLE IF NOT EXISTS waiting (
@@ -227,7 +225,7 @@ function createWaitingListTable(){
 
 function createSettingsTable(){
   
-  ;
+  include "connect.php";
   
   
   // sql to create table

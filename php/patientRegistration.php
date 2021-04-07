@@ -110,7 +110,7 @@ function modifyInput($input) {
 
 //inserts the patient's record into the database
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
-    require "connect.php";
+    include "connect.php";
     //calculates patient's age
     $today = date("Y-m-d");
     $diff = date_diff(date_create($dobInsert), date_create($today));
@@ -119,7 +119,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     //assign tag to patient
     $tagInsert = 5;
     //medical worker tag
-    echo "medcon:",$medicalConditionsInsert;
+    echo "medcon:",$medicalConditionsInsert,"<br>";
     if($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")){
         if($result->num_rows > 0){
             $tagInsert = 1;
@@ -164,7 +164,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     if ($conn->query($sql) === TRUE) {
         echo "You have registered successfully";
     } else {
-        echo "Error: Patient has already registered.", $conn->error,"nid:",$nidInsert;
+        echo "Error: Patient has already registered.". $conn->error;
     }
     //inserts into waiting table
     if($addedID = $conn->query("SELECT MAX(patientID) AS maxim FROM patient")){
