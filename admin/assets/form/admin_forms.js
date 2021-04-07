@@ -122,10 +122,7 @@ function essentialForm() {
 function medicalForm() {
     if (document.getElementById('medical').style.display == 'none') {
         document.getElementById('default').style.display = 'none';
-<<<<<<< HEAD
-=======
         document.getElementById('search').style.display = 'none';
->>>>>>> c2d33ffc59ca1475278e31edbeb95d567c468739
         document.getElementById('search').style.display = 'none';
         document.getElementById('patient').style.display = 'none';
         document.getElementById('wait').style.display = 'none';
