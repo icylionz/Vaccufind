@@ -31,13 +31,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
-<<<<<<< HEAD
-    
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-
-=======
-    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
->>>>>>> 3b4935e6ba229bf235800da224119fefd57657e4
     <!--Holds CCS for
         nav-dropdown classes, class="navbar-nav nav-dropdown" 
     -->
