@@ -26,6 +26,7 @@
             $required = modifyInput($_POST["dosesRequired"]);
             $time = modifyInput($_POST["time"]);
             $available = modifyInput($_POST["dosesAvailable"]);
+            
             if (!empty($_POST["medicalConstraints"])) {
                 $medicalConstraints = implode(",",$_POST["medicalConstraints"]);  
                 insertVaccine($name, $required, $time, $available, $medicalConstraints);
@@ -36,7 +37,7 @@
         }
     
         
-        header("location: /vaccufind/admin/admin_console.php");  
+        header("location: ../admin_console.php");  
     
     }
     

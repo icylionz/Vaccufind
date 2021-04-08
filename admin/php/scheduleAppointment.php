@@ -12,7 +12,7 @@ if($patientsToBeScheduled = $conn->query("SELECT * FROM settings WHERE settingNa
 }
 else {
     //display error message
-    header("location: /vaccufind/admin/admin_console.php");
+    header("location: ../admin_console.php");
 }
 $offset = 0;echo "dgadfda";
 while($patientsToBeScheduled > 0){
@@ -81,7 +81,7 @@ while($patientsToBeScheduled > 0){
                 $patientsToBeScheduled = 0;
                 echo "No more patients can be scheduled", $conn->error;
                 echo "<br>";
-                header("location: /vaccufind/admin/admin_console.php");
+                header("location: ../admin_console.php");
             }
             
         }
@@ -89,11 +89,11 @@ while($patientsToBeScheduled > 0){
             $patientsToBeScheduled = 0;
             echo "Error has occured", $conn->error;
             echo "<br>";
-            header("location: /vaccufind/admin/admin_console.php");
+            header("location: ../admin_console.php");
         }
     }
 }
-header("location: /vaccufind/admin/admin_console.php");
+header("location: ../admin_console.php");
 
 function selectAppropiateVaccine($medConditions,$allergies){
     require 'connect.php';
