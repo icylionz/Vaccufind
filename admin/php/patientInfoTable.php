@@ -17,11 +17,11 @@ if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, p
         
                 echo "<tr>
                     
-                    <td class='patientID' id='$p->patientID' onclick='on1()'>$p->patientID</td>
-                    <td>$p->firstName</td>
-                    <td>$p->lastName</td>
-                    <td>$p->nid</td>
-                    <td>$p->passportNumber</td>
+                    <td><a class='patientID' id='$p->patientID' onclick='on1()'>$p->patientID</a></td>
+                    <td><a class='patientID' id='$p->patientID' onclick='on1()'>$p->firstName</a></td>
+                    <td><a class='patientID' id='$p->patientID' onclick='on1()'>$p->lastName</a></td>
+                    <td><a class='patientID' id='$p->patientID' onclick='on1()'>$p->nid</a></td>
+                    <td><a class='patientID' id='$p->patientID' onclick='on1()'>$p->passportNumber</a></td>
                 </tr>";
                 
             

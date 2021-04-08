@@ -17,11 +17,11 @@ if($waitingRecords = $conn->query("SELECT patient.patientID, patient.firstName, 
         
                 echo "<tr>
                     
-                    <td class='patientID' id='$w->patientID' onclick='on2()'>$w->patientID</td>
-                    <td>$w->firstName</td>
-                    <td>$w->lastName</td>
-                    <td>$w->nid</td>
-                    <td>$w->passportNumber</td>
+                    <td><a class='patientID' id='$w->patientID' onclick='on2()'>$w->patientID</a></td>
+                    <td><a class='patientID' id='$w->patientID' onclick='on2()'>$w->firstName</a></td>
+                    <td><a class='patientID' id='$w->patientID' onclick='on2()'>$w->lastName</a></td>
+                    <td><a class='patientID' id='$w->patientID' onclick='on2()'>$w->nid</a></td>
+                    <td><a class='patientID' id='$w->patientID' onclick='on2()'>$w->passportNumber</a></td>
                 </tr>";
                 
             
