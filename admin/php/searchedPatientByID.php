@@ -31,8 +31,6 @@ if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, p
                     <td>$p->nid</td>
                     <td>$p->passportNumber</td>
                 </tr>";
-                
-            
                
             }
         }

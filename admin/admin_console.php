@@ -376,7 +376,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md col-sm-12 form-group">
                                     <label><strong>Search by ID</strong></label>
-                                    <input type="text" name="searchByID" class="form-control" value="" id="searchByID">
+                                    <input type="text" name="searchByID" class="form-control" id="searchByID">
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
                                     <button type="button" id="searchPatientByID" name="searchIDSubmit" class="btn btn-black display-4" onclick="showByID()">Submit</button>

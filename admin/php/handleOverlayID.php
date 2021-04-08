@@ -76,16 +76,9 @@
     }
     else if ($patientOverlay['tag'] == 5)
     {
-        $patientOverlayTag = "Medical Worker & Medically Compromised";
+        $patientOverlayTag = "Patient";
     }
-    else if ($patientOverlay['tag'] == 6)
-    {
-        $patientOverlayTag = "Essential Worker & Medically Compromised";
-    }
-    else if ($patientOverlay['tag'] == 7)
-    {
-        $patientOverlayTag = "Elderly & Medically Compromised";
-    }
+    
 
     if ($patientOverlay['vaccineName'] == NULL)
     {

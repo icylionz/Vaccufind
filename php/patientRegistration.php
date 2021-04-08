@@ -121,7 +121,7 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     $age = $diff->format('%y'); 
     ;
     //assign tag to patient
-    $tagInsert = 8;
+    $tagInsert = 5;
     //medical worker tag
     if($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")){
         if($result->num_rows > 0){
@@ -144,22 +144,6 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     
     if($medicalConditionsInsert != NULL){
         $tagInsert = 4;
-    }
-
-    if(($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")) && ($medicalConditionsInsert != NULL)){
-        if($result->num_rows > 0){
-            $tagInsert = 5;
-        }
-    }
-
-    if(($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")) && ($medicalConditionsInsert != NULL)){
-        if($result->num_rows > 0){
-            $tagInsert = 6;
-        }
-    }
-
-    if ($age >= 65 & $medicalConditionsInsert != NULL ){
-        $tagInsert = 7;
     }
     
     //inserts into patient table
