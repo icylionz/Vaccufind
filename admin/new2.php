@@ -1,3 +1,12 @@
+<?php 
+session_start();
+
+include "../php/patientRegistration.php";
+
+
+if ($_SESSION['username'] && $_SESSION['passwrd']) {
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -527,7 +536,10 @@ include "php/patientRegistration.php";
     </section>
 
 
+    <script src="assets/form/overlay.js"></script>
+    <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
+    <script src="assets/tether/tether.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
@@ -540,3 +552,12 @@ include "php/patientRegistration.php";
 </body>
 
 </html>
+<?php
+}
+else
+{
+    header("Location: admin_login.php");
+    exit();
+}
+
+?>

@@ -33,8 +33,8 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
+    
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <!--Holds CCS for
         nav-dropdown classes, class="navbar-nav nav-dropdown" 
@@ -63,7 +63,6 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
         alert tags & classes and - data-form-alert-danger="" class="alert alert-danger col-12"
         ul tags, <ul></ul> -->
     <link rel="stylesheet" href="assets/theme/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
     <link rel="stylesheet" href="assets/theme/css/notification_style.css">
 
     <!--Holds CSS for 
@@ -83,14 +82,6 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
 </head>
 <?php
     include "../php/connect.php";
-    ;
-    
-    $_SESSION['errorEssFirstName'] = "";
-    $_SESSION['errorEssLastName'] = "";
-    $_SESSION['errorEssNid'] = "";
-    $_SESSION['errorMedFirstName'] = "";
-    $_SESSION['errorMedLastName'] = "";
-    $_SESSION['errorMedNid'] = "";
     
 
     
@@ -118,8 +109,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
     
 ?>
 <body onload="forms();">
-
-    <script type = "text/javascript" language = "javascript">
+<script type = "text/javascript" language = "javascript">
         
         // Loads the table data on patient list 
         $(document).on("click", "#searchPatientByID", function (){
@@ -292,7 +282,6 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             </div>
         </nav>
     </section>
-
 
     <section class="form7 cid-srkFJnF1sD" id="form7-18">
 
@@ -778,9 +767,9 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                     <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
                                 <?php } ?>
                             <?php } ?>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
-                                <label>Medical Constraints (Patients with these conditions should not be administered this vaccine)</label>
-                                <select name="medicalConstraints[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <label>Medical Conditions</label>
+                                <select name="medicalConditions[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
                               
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
@@ -847,6 +836,15 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
         <br>
     </section>
 
+    <section class="form7 cid-srkCw23GFr" id="form7-13" style="display: none;">
+        <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" action="php/patientRegistration.php">   
+            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="country">
+                <select type="text" name="country" data-form-field="country" class="form-control" value="" id="country-form7-13">
+                </select>
+            </div>
+        </form>
+    </section>
+
     <br>
     <br>
     <br>
@@ -863,7 +861,6 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
     <br>
     <br>
     <br>
-    
 
     <section class="footer3 cid-s48P1Icc8J " once="footers " id="footer3-i ">
 
@@ -884,11 +881,8 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
         <a href="https://mobirise.site/x "></a>
     </section>
 
-
     <script src="assets/form/overlay.js"></script>
-    <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/tether/tether.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
