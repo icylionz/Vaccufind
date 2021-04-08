@@ -145,24 +145,24 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
         });
         //Save settings changes
         $(document).on("click", "#SsaveSettings", function (){
-            console.log(document.getElementById("SselectFromWaiting").value);
-            if(document.getElementById("SselectFromWaiting").value == ""){
-                document.getElementById("SemptySelectFromWaiting").innerHTML = "Please Specify Value.";
+            console.log(document.getElementById("selectFromWaiting").value);
+            if(document.getElementById("selectFromWaiting").value == ""){
+                document.getElementById("emptySelectFromWaiting").innerHTML = "Please Specify Value.";
             }
-            if(document.getElementById("SdaysUntil").value == ""){
+            if(document.getElementById("daysUntil").value == ""){
                 document.getElementById("emptyDaysUntil").innerHTML="Please Specify Value.";
             }
-            if(document.getElementById("SelderlyAge").value == ""){
+            if(document.getElementById("elderlyAge").value == ""){
                 document.getElementById("emptyElderlyAge").innerHTML="Please Specify Value.";
             }
-            if((document.getElementById("SselectFromWaiting").value != "") && (document.getElementById("SdaysUntil").value != "") && (document.getElementById("SelderlyAge").value != "")){
+            if((document.getElementById("selectFromWaiting").value != "") && (document.getElementById("daysUntil").value != "") && (document.getElementById("elderlyAge").value != "")){
                 $.ajax({
                     type: "POST",
                     url: "php/settingsHandler.php",
                     data:{
-                    selectFromWaiting:$('#SselectFromWaiting').val(),
-                    daysUntil:$('#SdaysUntil').val(),
-                    elderlyAge:$('#SelderlyAge').val(),
+                    selectFromWaiting:$('#selectFromWaiting').val(),
+                    daysUntil:$('#daysUntil').val(),
+                    elderlyAge:$('#elderlyAge').val(),
                     },
                     success: function (result) {
                         
