@@ -329,6 +329,7 @@ function createSuperForm() {
         document.getElementById('vac').style.display = 'none';
         document.getElementById('vaccineList').style.display = 'none';
         document.getElementById('settings').style.display = 'none';
+        document.getElementById('create').style.display = 'none';
         document.getElementById('createSuper').style.display = 'block';
     } else if (document.getElementById('createSuper').style.display == 'block') {
         document.getElementById('default').style.display = 'block';

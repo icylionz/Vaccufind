@@ -32,7 +32,7 @@ if($vaccineRecords = $conn->query("SELECT * FROM vaccine")){
         }
     }
     else{
-        echo "No patient records stored";
+        echo "No vaccine records stored";
     }
 
 }

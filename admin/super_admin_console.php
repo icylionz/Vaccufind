@@ -19,11 +19,19 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
 
 
     <title>Super Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="assets/web/assets/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
-
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <!--Holds CCS for
         nav-dropdown classes, class="navbar-nav nav-dropdown" 
     -->
@@ -60,6 +68,10 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
+    <!--holds cutom css changes
+            patient and waiting list tables
+    -->
+    <link rel="stylesheet" href="assets/bootstrap/css/custom-css-added.css" type="text/css">
     <script src="assets/form/super_admin_forms.js"></script>
 
 
@@ -67,7 +79,174 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
 
 <body onload="forms();">
 
+    <script type = "text/javascript" language = "javascript">
+        
+        // Loads the table data on patient list for search by id
+        $(document).on("click", "#SsearchPatientByID", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/searchedPatientByID.php",
+                data:{
+                    searchByID:$("#SsearchByID").val()
+                },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#SsearchedPatientTableData").html(result);
+                }
+            });
+        });
+        // Loads the table data on patient list for search by name
+        $(document).on("click", "#SsearchPatientByName", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/searchedPatientByName.php",
+                data:{
+                    searchByFirstName:$("#SsearchByFirstName").val(), 
+                    searchByLastName:$("#SsearchByLastName").val()
+                },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#SsearchedPatientTableData").html(result);
+                }
+            });
+        });
+        // Loads the table data on patient list 
+        $(document).on("click", "#SpatientList", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/patientInfoTable.php",
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#SpatientInfoTableData").html(result);
+                }
+            });
+        });
+        // Loads the table data on waiting list 
+        $(document).on("click", "#SwaitList,#Sschedule", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/waitingListTable.php",
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#SwaitingTableData").html(result);
+                }
+            });
+        });
+        // Loads the table data on notifications panel
+        $(document).on("click", "#SnotifyList", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/notifyHandler.php",
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#Snotifications").html(result);
+                }
+            });
+        });
+        //Save settings changes
+        $(document).on("click", "#SsaveSettings", function (){
+            console.log(document.getElementById("SselectFromWaiting").value);
+            if(document.getElementById("SselectFromWaiting").value == ""){
+                document.getElementById("SemptySelectFromWaiting").innerHTML = "Please Specify Value.";
+            }
+            if(document.getElementById("SdaysUntil").value == ""){
+                document.getElementById("emptyDaysUntil").innerHTML="Please Specify Value.";
+            }
+            if(document.getElementById("SelderlyAge").value == ""){
+                document.getElementById("emptyElderlyAge").innerHTML="Please Specify Value.";
+            }
+            if((document.getElementById("SselectFromWaiting").value != "") && (document.getElementById("SdaysUntil").value != "") && (document.getElementById("SelderlyAge").value != "")){
+                $.ajax({
+                    type: "POST",
+                    url: "php/settingsHandler.php",
+                    data:{
+                    selectFromWaiting:$('#SselectFromWaiting').val(),
+                    daysUntil:$('#SdaysUntil').val(),
+                    elderlyAge:$('#SelderlyAge').val(),
+                    },
+                    success: function (result) {
+                        
+                    },
+                    complete:function(){
+                        $.ajax({
+                            type: "POST",
+                            url: "php/settingsDisplay.php",
 
+                            success: function (results) {
+                                //change the body of the patient table
+                                $("#SsettingsForm").html(results);
+                            }
+                        })
+                    }
+                });
+                
+            }
+            
+        });
+        // Loads settings form
+        $(document).on("click", "#SsettingsPanel", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/settingsDisplay.php",
+                data:{
+                    SselectFromWaiting:$('SselectFromWaiting').val(),
+                    SdaysUntil:$('SdaysUntil').val(),
+                    SelderlyAge:$('SelderlyAge').val(),
+                    },
+                success: function (result) {
+                    //change the body of the patient table
+                    $("#SsettingsForm").html(result);
+                }
+            });
+        });
+        //loads overlay data on cell click
+        $(document).on("click", ".adminTables .patientID", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/handleOverlayID.php",
+                data: {id: $(this).attr('id')},
+                success: function (result) {
+                    
+                    //change the body of the patient table
+                    $(".overlayDataInfo").html(result);
+                }
+            });
+        });   
+        // Loads the table data on vaccine list 
+        $(document).on("click", "#SvaccList", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/vaccineInfoTable.php",
+                success: function (result) {
+                    //change the body of the vaccine table
+                    $("#SvaccineInfoTableData").html(result);
+                }
+            });
+        }); 
+        //Complete appointment
+        $(document).on("click", "#completeAppointment", function (){
+        
+            $.ajax({
+                type: "POST",
+                url: "php/completeAppointment.php",
+                data: {id: $('#completeAppointment').attr('name')},
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+        }); 
+        //Schedule Appointment
+        $(document).on("click", "#Sschedule", function (){
+        
+            $.ajax({
+                type: "POST",
+                url: "php/scheduleAppointment.php",
+                success: function (result) {
+                    
+                }
+            });
+        }); 
+    </script>
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
 
 
@@ -118,17 +297,17 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
         </div>
         <div class="form-col-3 form-menu">
             <div class="menu">
-            <div class="button-1">
+                <div class="button-1">
                     <button type="button" class="btn admin_btn btn-primary" onclick="searchList();">Search by ID or Name</button>
                 </div>
                 <div class="button-2">
-                    <button type="button" id="patientList" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
+                    <button type="button" id="SpatientList" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
                 </div>
                 <div class="button-3">
-                    <button type="button" id="waitList" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
+                    <button type="button" id="SwaitList" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
                 </div>
                 <div class="button-4">
-                    <button type="button" id="notifyList" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
+                    <button type="button" id="SnotifyList" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
                 </div>
                 <div class="button-5">
                     <button type="button" class="btn admin_btn btn-primary" onclick="essentialForm();">Essential Workers Form</button>
@@ -140,10 +319,10 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
-                    <button type="button" id="vaccList" class="btn admin_btn btn-primary" onclick="vaccineList()">VaccineList</button>
+                    <button type="button" id="SvaccList" class="btn admin_btn btn-primary" onclick="vaccineList()">VaccineList</button>
                 </div>
                 <div class="button-9">
-                    <button type="button" class="btn admin_btn btn-primary" id='settingsPanel' onclick="settingsPanel()">Settings</button>
+                    <button type="button" class="btn admin_btn btn-primary" id='SsettingsPanel' onclick="settingsPanel()">Settings</button>
                 </div>
                 <div class="button-10">
                     <button type="button" class="btn admin_btn btn-primary" onclick="createForm();">Create Admin</button>
@@ -195,10 +374,10 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md col-sm-12 form-group">
                                     <label><strong>Search by ID</strong></label>
-                                    <input type="text" name="searchByID" class="form-control" id="searchByID">
+                                    <input type="text" name="SsearchByID" class="form-control" id="SsearchByID">
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" id="searchPatientByID" name="searchIDSubmit" class="btn btn-black display-4" onclick="showByID()">Submit</button>
+                                    <button type="button" id="SsearchPatientByID" name="searchIDSubmit" class="btn btn-black display-4" onclick="showByID()">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -211,13 +390,13 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                     <label><strong>Search by Name</strong></label>
                                     <br>
                                     <label><strong>First Name</strong></label>
-                                    <input type="text" name="searchByFirstName" class="form-control" value="" id="searchByFirstName">
+                                    <input type="text" name="SsearchByFirstName" class="form-control" value="" id="SsearchByFirstName">
                                     <br>
                                     <label><strong>Last Name</strong></label>
-                                    <input type="text" name="searchByLastName" class="form-control" value="" id="searchByLastName">
+                                    <input type="text" name="SsearchByLastName" class="form-control" value="" id="SsearchByLastName">
                                 </div>
                                 <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" id="searchPatientByName" name="searchNameSubmit" class="btn btn-black display-4" onclick="showByName()">Submit</button>
+                                    <button type="button" id="SsearchPatientByName" name="searchNameSubmit" class="btn btn-black display-4" onclick="showByName()">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -245,7 +424,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                                 <th>Passport No.</th>
                                             </tr>
                                             </thead>
-                                        <tbody id="searchedPatientTableData">
+                                        <tbody id="SsearchedPatientTableData">
                                             <!-- display table data -->
                                             
                                        
@@ -301,7 +480,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                                 <th>Passport No.</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="patientInfoTableData">
+                                        <tbody id="SpatientInfoTableData">
                                             <!-- display table data -->
                                             
                                        
@@ -347,7 +526,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                         <div class="dragArea row">
                             
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="submit" class="btn btn-black display-4">Schedule Patients</button>
+                                <button id="Sschedule"type="button" class="btn btn-black display-4">Schedule Patients</button>
                             </div>
                         </div>
                     </form>
@@ -375,7 +554,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                                 <th>Passport No.</th>
                                             </tr>
                                         </thead>
-                                        <tbody id='waitingTableData'>
+                                        <tbody id='SwaitingTableData'>
                                         <!-- waiting table info -->
                                         </tbody>
                                             
@@ -422,7 +601,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                         <strong>Notification Panel</strong>
                                     </h1>
                                 </div>
-                                <div id="notifications" class="adminTables">
+                                <div id="Snotifications" class="adminTables">
 
                                 </div>
                             </div>
@@ -659,7 +838,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                                 <th>Medical Constraints</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="vaccineInfoTableData">
+                                        <tbody id="SvaccineInfoTableData">
                                             <!-- display table data -->
                                         </tbody>
                                     </table>
@@ -682,11 +861,11 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                     <strong>Settings</strong>
                                 </h1>
                             </div>
-                            <div id="settingsForm">
+                            <div id="SsettingsForm">
                             <!-- Settings Form -->
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" name="settingsSubmit" id="saveSettings" class="btn btn-black display-4">Save Changes</button>
+                                <button type="button" name="settingsSubmit" id="SsaveSettings" class="btn btn-black display-4">Save Changes</button>
                             </div>
                         </div>
                     </form>
