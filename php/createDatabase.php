@@ -2,12 +2,15 @@
 createDatabase();
 createEssentialWorkersTable();
 createMedicalWorkersTable();
-createPatientTable();
+
 createSuperAdminLoginTable();
-createWaitingListTable();
+
 createVaccineTable();
 createAdminLoginTable();
 createSettingsTable();
+createPatientTable();
+createWaitingListTable();
+addRootAdmin();
 
 function createDatabase(){
   $servername = "127.0.0.1";
@@ -250,7 +253,11 @@ function createSettingsTable(){
   $conn->close();
 }
 
-
+function addRootAdmin(){
+  include "connect.php";
+  $conn->query("INSERT INTO superAdminLogin (username,passwrd) VALUES ('root','root')");
+  $conn->query("INSERT INTO adminLogin (username,passwrd) VALUES ('root','root')");
+}
 
 
 ?> 

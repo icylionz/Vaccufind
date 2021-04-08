@@ -51,14 +51,29 @@ function modifyInput($input) {
 //inserts the medical worker's record into the database
 function insertMedical($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
+    require 'updateInfo.php';
 
     $sql = "INSERT INTO medicalworkers (medicalWorkerFirstName, medicalWorkerLastName , nid) 
     VALUES ('$firstNameInsert', '$lastNameInsert', '$nidInsert')";
 
-    $result = $conn->query($sql);
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created succmedfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    //update patient records of anyone that matches this record
+    $sql = "SELECT * FROM patient WHERE nid = '$nidInsert' LIMIT 1";
+    if ($result = $conn->query($sql)) {
+        if($result->num_rows > 0){
+            $result = $result->fetch_assoc();
+            if($result['tag'] > 1){
+                $result['tag'] = 1;
+                updatePatient($result);
+            }
+
+        }
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

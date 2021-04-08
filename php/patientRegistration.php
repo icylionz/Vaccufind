@@ -148,18 +148,18 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     
     //inserts into patient table
     if(!empty($nidInsert) && !empty($passportNumberInsert)){
-        echo "3";
+       
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', '$passportNumberInsert',$tagInsert);";
     }
     else if(empty($nidInsert)){
-        echo "2";
+       
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', NULL, '$passportNumberInsert',$tagInsert);";
 
     }
     else if(empty($passportNumberInsert)){
-        echo "1";
+      
         $sql = "INSERT INTO patient (firstName, lastName, dob, streetAddress,phoneNumber,email,country,medicalConditions,allergies,nid,passportNumber,tag) 
         VALUES ('$firstNameInsert', '$lastNameInsert', '$dobInsert', '$streetAddressInsert', '$phoneNumberInsert', '$emailInsert', '$countryInsert', '$medicalConditionsInsert', '$allergiesInsert', '$nidInsert', NULL,$tagInsert);";
     }    

@@ -32,6 +32,7 @@
     $patientOverlayPhoneNumber = $patientOverlay['phoneNumber'];
     $patientOverlaystreetAddress = $patientOverlay['streetAddress'];
     $patientOverlayCountry = $patientOverlay['country'];
+    $patientOverlayDosesRemaining = "Unvaccinated";
 
     if ($patientOverlay['medicalConditions'] == NULL)
     {
@@ -90,12 +91,12 @@
         $patientOverlayVaccineGiven = $patientOverlay['vaccineName'];
     }
 
-    if ($patientOverlay['noOfDosesRemaining'] == NULL)
-    {
+    
+    
 
-        $patientOverlayDosesRemaining = "Unvaccinated";
-    }
-    else if ($patientOverlay['noOfDosesRemaining'] == -1)
+        
+    
+    if ($patientOverlay['noOfDosesRemaining'] == -1)
     {
         $patientOverlayDosesRemaining = "Vaccinated";
     }
@@ -104,7 +105,7 @@
         $patientOverlayDosesRemaining = $patientOverlay['noOfDosesRemaining'];
     }
 
-    if ($patientOverlay['appointmentDate'] == NULL)
+    if (($patientOverlay['appointmentDate'] == NULL) || ($patientOverlay['appointmentDate'] == "0000-00-00"))
     {
 
         $patientOverlayAppointmentDate = "NIL";
