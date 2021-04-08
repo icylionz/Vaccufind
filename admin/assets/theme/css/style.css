@@ -985,7 +985,8 @@ form .btn {
 .menu .button-5,
 .menu .button-6,
 .menu .button-7,
-.menu .button-8 {
+.menu .button-8,
+.menu .button-9 {
     width: 100%;
     display: flex;
 }

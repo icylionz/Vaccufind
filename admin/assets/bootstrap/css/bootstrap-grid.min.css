@@ -34,7 +34,6 @@ html {
     .container-sm {
         clear: both;
         width: auto;
-        overflow: scroll;
     }
 }
 
@@ -44,7 +43,6 @@ html {
     .container-sm {
         clear: none;
         max-width: 720px;
-        overflow: scroll;
     }
     #default,
     #search,
@@ -66,7 +64,6 @@ html {
     .container-sm {
         clear: none;
         max-width: 960px;
-        overflow: scroll;
     }
 }
 
@@ -78,7 +75,6 @@ html {
     .container-xl {
         clear: none;
         max-width: 1140px;
-        overflow: scroll;
     }
 }
 

@@ -327,12 +327,15 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
+                    <button type="button" class="btn admin_btn btn-primary" id='vaccineInfo' onclick="vaccineList()">VaccineList</button>
+                </div>
+                <div class="button-9">
                     <button type="button" class="btn admin_btn btn-primary" id='settingsPanel' onclick="settingsPanel()">Settings</button>
                 </div>
             </div>
         </div>
 
-
+                            <!--  Default Panel -->        
         <div id="default" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -443,7 +446,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                         <br>
                           
                         <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
-                            <div class='overlayDataInfo' id="overlayData1" class="dragArea row">
+                            <div class='overlayDataInfo' id="overlayData1" class="dragArea row" style="width:100%">
                                 <!-- overlay data -->
                             </div>
                         </form>
@@ -506,7 +509,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                         <strong>Patient Details</strong>
                                     </h1>
                                 </div>
-                                <div class="overlayDataInfo">
+                                <div class="overlayDataInfo" style="width:100%">
                                 <!-- overlay data -->
                                 </div>
                                 
@@ -578,7 +581,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                 </div>
 
                                 
-                                <div class="overlayDataInfo" id="overlayDataWaiting">
+                                <div class="overlayDataInfo" id="overlayDataWaiting" style="width:100%">
                                 <!-- overlay data -->
                                 </div>
                             </div>
@@ -588,7 +591,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             </div>
         </div>
 
-                <!--Notification panel-->
+                            <!--Notification panel-->
         <div id="notification" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -618,7 +621,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                         <strong>Patient Details</strong>
                                     </h1>
                                 </div>
-                                <div class="overlayDataInfo">
+                                <div class="overlayDataInfo" style="width:100%">
                                 <!-- overlay data -->
                                 </div>
 
@@ -631,7 +634,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             </div>
         </div>
 
-                <!--Essential Workers Form-->
+                            <!--Essential Workers Form-->
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -680,7 +683,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             </div>
         </div>
 
-                <!--Medical Workers Form-->
+                            <!--Medical Workers Form-->
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -728,7 +731,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             </div>
         </div>
 
-                <!--Vaccine Form-->
+                            <!--Vaccine Form-->
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -800,12 +803,22 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                             </div>
                         </div>
                     </form>
-                   
                 </div>
-                
             </div>
         </div>
-        <!-- Settings Panel -->
+
+                            <!-- Vaccine Info Panel -->
+        <div id="vaccineList" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form">
+                 
+                
+
+                </div>
+            </div>
+        </div>
+        
+                            <!-- Settings Panel -->
         <div id="settings" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -842,6 +855,15 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
 
     <section class="footer3 cid-s48P1Icc8J " once="footers " id="footer3-i ">
 
