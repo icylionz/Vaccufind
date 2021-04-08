@@ -1,6 +1,8 @@
 <?php
-require 'connect.php';
+
 function updatePatient($patientUpdate){
+    require 'connect.php';
+    $patientID = $patientUpdate["patientID"];
     $firstName = $patientUpdate["firstName"];
     $lastName = $patientUpdate["lastName"];
     $dob = $patientUpdate["dob"];
@@ -19,14 +21,27 @@ function updatePatient($patientUpdate){
 
     
     //updates patient record
-    if($conn->query("UPDATE patient SET firstName = '$firstName', lastName = '$lastName', dob = '$dob', streetAddress = '$streetAddress',phoneNumber = '$phoneNumber',email = '$email',tag = '$tag,country = '$country,vaccineGivenID = '$vaccineGivenID',noOfDosesRemaining = '$noOfDosesRemaining',appointmentDate = '$appointmentDate',medicalConditions = '$medicalConditions',allergies = '$allergies',nid = '$nid',passportNumber = '$passportNumber' WHERE patientID = '$patientID';")){
-        echo "Updated patient record";
+    if(empty($vaccineGivenID)){
+        if($conn->query("UPDATE patient SET firstName = '$firstName', lastName = '$lastName', dob = '$dob', streetAddress = '$streetAddress',phoneNumber = '$phoneNumber',email = '$email',tag = '$tag',country = '$country',vaccineGivenID = NULL,noOfDosesRemaining = '$noOfDosesRemaining',appointmentDate = '$appointmentDate',medicalConditions = '$medicalConditions',allergies = '$allergies',nid = '$nid',passportNumber = '$passportNumber' WHERE patientID = '$patientID';")){
+            echo "Updated patient record";
+        }
+        else{
+            //display error message
+            echo "Record not updated",$conn->error;
+        }
     }
     else{
-        //display error message
+        if($conn->query("UPDATE patient SET firstName = '$firstName', lastName = '$lastName', dob = '$dob', streetAddress = '$streetAddress',phoneNumber = '$phoneNumber',email = '$email',tag = '$tag',country = '$country',vaccineGivenID = '$vaccineGivenID',noOfDosesRemaining = '$noOfDosesRemaining',appointmentDate = '$appointmentDate',medicalConditions = '$medicalConditions',allergies = '$allergies',nid = '$nid',passportNumber = '$passportNumber' WHERE patientID = '$patientID';")){
+            echo "Updated patient record";
+        }
+        else{
+            //display error message
+            echo "Record not updated",$conn->error;
+        }
     }
 }
 function updateVaccine($vaccineUpdate){
+    require 'connect.php';
     $vaccineName=$vaccineUpdate["vaccineName"];
     $lengthOfTimeBetweenDoses = $vaccineUpdate["lengthOfTimeBetweenDoses"];
     $noOfDosesRequired = $vaccineUpdate["noOfDosesRequired"];

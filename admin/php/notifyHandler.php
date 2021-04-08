@@ -2,7 +2,7 @@
 require 'connect.php';
 // fetches all patient records
 $notifyData = array();
-if($notifyRecords = $conn->query("SELECT * FROM patient WHERE appointmentDate IS NOT NULL ORDER BY ABS(DATEDIFF(appointmentDate, NOW())) ASC")){
+if($notifyRecords = $conn->query("SELECT * FROM patient WHERE ((appointmentDate IS NOT NULL) AND (appointmentDate <> '0000-00-00'))ORDER BY ABS(DATEDIFF(appointmentDate, NOW())) ASC")){
     if($notifyRecords->num_rows > 0){
         while($notifyRow = $notifyRecords->fetch_object()){
             $notifyData[] = $notifyRow;

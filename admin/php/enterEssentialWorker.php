@@ -51,14 +51,28 @@ function modifyInput($input) {
 //inserts the essential worker's record into the database
 function insertEssential($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
-
+    require 'updateInfo.php';
     $sql = "INSERT INTO essentialworkers (essentialWorkerFirstName, essentialWorkerLastName , nid) 
     VALUES ('$firstNameInsert', '$lastNameInsert', '$nidInsert')";
 
-    $result = $conn->query($sql);
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    //update patient records of anyone that matches this record
+    $sql = "SELECT * FROM patient WHERE nid = '$nidInsert' LIMIT 1";
+    if ($result = $conn->query($sql)) {
+        if($result->num_rows > 0){
+            $result = $result->fetch_assoc();
+            if($result['tag'] > 2){
+                $result['tag'] = 2;
+                updatePatient($result);
+            }
+
+        }
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

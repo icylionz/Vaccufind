@@ -121,7 +121,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
 
     <script type = "text/javascript" language = "javascript">
         
-        // Loads the table data on patient list 
+        // Loads the table data on patient list for search by id
         $(document).on("click", "#searchPatientByID", function (){
             $.ajax({
                 type: "POST",
@@ -150,7 +150,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                 }
             });
         });
-        // Loads the table data on patient list for search by id
+        // Loads the table data on patient list 
         $(document).on("click", "#patientList", function (){
             $.ajax({
                 type: "POST",
@@ -251,8 +251,29 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                     $(".overlayDataInfo").html(result);
                 }
             });
-        });    
+        });   
+        // Loads the table data on vaccine list 
+        $(document).on("click", "#vaccList", function (){
+            $.ajax({
+                type: "POST",
+                url: "php/vaccineInfoTable.php",
+                success: function (result) {
+                    //change the body of the vaccine table
+                    $("#vaccineInfoTableData").html(result);
+                }
+            });
+        }); 
+        //Complete appointment
+        $(document).on("click", "#completeAppointment", function (){
         
+            $.ajax({
+                type: "POST",
+                url: "php/completeAppointment.php",
+                success: function (result) {
+                    
+                }
+            });
+        }); 
         
     </script>
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
@@ -327,7 +348,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                     <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
-                    <button type="button" class="btn admin_btn btn-primary" id='vaccineInfo' onclick="vaccineList()">VaccineList</button>
+                    <button type="button" id="vaccList" class="btn admin_btn btn-primary" onclick="vaccineList()">VaccineList</button>
                 </div>
                 <div class="button-9">
                     <button type="button" class="btn admin_btn btn-primary" id='settingsPanel' onclick="settingsPanel()">Settings</button>
@@ -778,9 +799,9 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                     <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
                                 <?php } ?>
                             <?php } ?>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConditions">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConstraints">
                                 <label>Medical Constraints (Patients with these conditions should not be administered this vaccine)</label>
-                                <select name="medicalConstraints[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count > 3">
+                                <select name="medicalConstraints[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count">
                               
                                     <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
                                     <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
@@ -795,6 +816,13 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                     <option value="Thalassemia">Thalassemia</option>
                                     <option value="Pregnant">Pregnant</option>
                                     <option value="Sickle Cell Disease">Sickle Cell Disease</option>
+                                    <option value="Penicillin">Penicillin</option>
+                                    <option value="Aspirin">Aspirin</option>
+                                    <option value="Erythromycin">Erythromycin</option>
+                                    <option value="Latex or Rubber Products">Latex or Rubber Products</option>
+                                    <option value="Codeine">Codeine</option>
+                                    <option value="Tetracycline">Tetracycline</option>
+                                    <option value="Germicides/Pesticides, Foods">Germicides/Pesticides, Foods</option>           
                                 </select>
                                 <small>Select one or more</small>
                             </div>
@@ -810,11 +838,38 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                             <!-- Vaccine Info Panel -->
         <div id="vaccineList" class="container">
             <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form">
-                 
-                
-
-                </div>
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                    <div class="wrapper">
+                        <div class="notification_wrap">
+                            <div class="dropdown">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                        <strong>Vaccine Info</strong>
+                                    </h1>
+                                </div>
+                                
+                                <!--Display vaccine info table-->
+                                <div>
+                                    <table class='adminTables' id="vaccineInfoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Vaccine ID</th>
+                                                <th>Vaccine Name</th>
+                                                <th>Time Between Doses (days)</th>
+                                                <th>Doses Required</th>
+                                                <th>Doses Available</th>
+                                                <th>Medical Constraints</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="vaccineInfoTableData">
+                                            <!-- display table data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
             </div>
         </div>
         

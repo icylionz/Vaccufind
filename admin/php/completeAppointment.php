@@ -1,15 +1,15 @@
 <?php
-require 'connect.php';
-require 'updateInfo.php';
 
 function completeAppointment($id){
-    ;
+    require 'connect.php';
+    require 'updateInfo.php';
 
     if($patientComplete = $conn->query("SELECT * FROM patient WHERE patientID = '$id'")){
         $patientComplete = $patientComplete->fetch_assoc();
         //reduces number of doses
         $patientComplete['noOfDosesRemaining'] = $patientComplete['noOfDosesRemaining'] - 1;
         //check for remaining doses
+        $vaccineGivenID = $patientComplete['vaccineGivenID'];
         if($patientComplete['noOfDosesRemaining'] > 0){
             $vaccineGiven = $conn->query("SELECT * FROM vaccine WHERE vaccineID = '$vaccineGivenID'");
             $vaccineGiven = $vaccineGiven->fetch_assoc();
@@ -23,9 +23,10 @@ function completeAppointment($id){
         }
         else {
             $patientComplete['appointmentDate'] = NULL;
+            $patientComplete['noOfDosesRemaining'] = -1;
         }
         //updates patient
-        updatePatient($patient);
+        updatePatient($patientComplete);
 
     }
 
