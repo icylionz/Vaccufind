@@ -118,28 +118,37 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
         </div>
         <div class="form-col-3 form-menu">
             <div class="menu">
-                <div class="button-1">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="clientList();">Client List</button>
+            <div class="button-1">
+                    <button type="button" class="btn admin_btn btn-primary" onclick="searchList();">Search by ID or Name</button>
                 </div>
                 <div class="button-2">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
+                    <button type="button" id="patientList" class="btn admin_btn btn-primary" onclick="patientList();">Patient List</button>
                 </div>
                 <div class="button-3">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
+                    <button type="button" id="waitList" class="btn admin_btn btn-primary" onclick="waitList();">Waiting List</button>
                 </div>
                 <div class="button-4">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="essentialForm();">Essential Workers Form</button>
+                    <button type="button" id="notifyList" class="btn admin_btn btn-primary" onclick="notificationTable();">Notifications Panel</button>
                 </div>
                 <div class="button-5">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="medicalForm()">Medical Workers Form</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="essentialForm();">Essential Workers Form</button>
                 </div>
                 <div class="button-6">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="medicalForm()">Medical Workers Form</button>
                 </div>
                 <div class="button-7">
-                    <button type="button" class="btn admin_btn btn-primary" onclick="createForm();">Create Admin</button>
+                    <button type="button" class="btn admin_btn btn-primary" onclick="vacForm()">Vaccine Type Form</button>
                 </div>
                 <div class="button-8">
+                    <button type="button" id="vaccList" class="btn admin_btn btn-primary" onclick="vaccineList()">VaccineList</button>
+                </div>
+                <div class="button-9">
+                    <button type="button" class="btn admin_btn btn-primary" id='settingsPanel' onclick="settingsPanel()">Settings</button>
+                </div>
+                <div class="button-10">
+                    <button type="button" class="btn admin_btn btn-primary" onclick="createForm();">Create Admin</button>
+                </div>
+                <div class="button-11">
                     <button type="button" class="btn admin_btn btn-primary" onclick="createSuperForm();">Create Super Admin</button>
                 </div>
             </div>
@@ -171,144 +180,93 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
         </div>
 
 
-        <div id="client" class="container">
+                            <!--  Search List -->        
+        <div id="search" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                <div class="col-lg-12 col-md col-sm-12 form-group">
+                        <label style="float:left"><a onclick="showByID()">Search by ID</a></label>
+
+                        <label style="float:right"><a onclick="showByName()">Search by Name</a></label>
+                    </div>
+                    <br>
+                    <div id="byID">
+                        <form class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md col-sm-12 form-group">
+                                    <label><strong>Search by ID</strong></label>
+                                    <input type="text" name="searchByID" class="form-control" id="searchByID">
+                                </div>
+                                <div class="col-md-auto col-12 mbr-section-btn">
+                                    <button type="button" id="searchPatientByID" name="searchIDSubmit" class="btn btn-black display-4" onclick="showByID()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="byName">
+                        <form class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md col-sm-12 form-group">
+                                    <label><strong>Search by Name</strong></label>
+                                    <br>
+                                    <label><strong>First Name</strong></label>
+                                    <input type="text" name="searchByFirstName" class="form-control" value="" id="searchByFirstName">
+                                    <br>
+                                    <label><strong>Last Name</strong></label>
+                                    <input type="text" name="searchByLastName" class="form-control" value="" id="searchByLastName">
+                                </div>
+                                <div class="col-md-auto col-12 mbr-section-btn">
+                                    <button type="button" id="searchPatientByName" name="searchNameSubmit" class="btn btn-black display-4" onclick="showByName()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="wrapper">
                         <div class="notification_wrap">
                             <div class="dropdown">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Client List</strong>
+                                        <strong>Patient List</strong>
                                     </h1>
                                 </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p>
-                                        <a id="p1" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p2" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p3" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p4" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p>
-                                        <a id="p5" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p6" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p7" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p>
-                                        <a id="p8" class="patient" onclick="on1();">Example</a>
-                                    </p>
-                                    <br>
+                                
+                                <!--Display patient info table-->
+                                <div>
+                                <script>sessionStorage.setItem("clickedOverlay",1);</script>
+                                    <table class='adminTables' id="patientInfoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>National ID</th>
+                                                <th>Passport No.</th>
+                                            </tr>
+                                            </thead>
+                                        <tbody id="searchedPatientTableData">
+                                            <!-- display table data -->
+                                            
+                                       
+                                        </tbody>
+                                            
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                                                
 
-
-                <div id="overlay1" onclick="off1()">
+                <div class="overlays" id="overlay0" onclick="off0()">
                     <div id="panel">
                         <br>
                         <br>
-                        <form method="POST" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
-                            <div class="dragArea row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Example</strong>
-                                    </h1>
-                                </div>
-
-                                <div>
-                                    <label><strong>National ID:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div class="blank">
-                                </div>
-
-                                <div>
-                                    <label><strong>Date of Birth:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <br>
-
-                                <div>
-                                    <label><strong>Medical Conditions:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div class="blnk">
-                                </div>
-
-                                <div>
-                                    <label><strong>Allergies:</strong></label>
-                                    <p>Example</p>
-                                </div>
-                                <div>
-                                    <label><strong>Email:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div>
-                                    <label><strong>Street Address:</strong></label>
-                                    <p>Example</p>
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
-                                </div>
+                          
+                        <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
+                            <div class='overlayDataInfo' id="overlayData1" class="dragArea row" style="width:100%">
+                                <!-- overlay data -->
                             </div>
                         </form>
                     </div>
@@ -317,17 +275,79 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
         </div>
 
 
+                            <!--  Patient Info List -->        
+        <div id="patient" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                    <div class="wrapper">
+                        <div class="notification_wrap">
+                            <div class="dropdown">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                        <strong>Patient List</strong>
+                                    </h1>
+                                </div>
+                                
+                                <!--Display patient info table-->
+                                <div>
+                                
+                                    <table class='adminTables' id="patientInfoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>National ID</th>
+                                                <th>Passport No.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="patientInfoTableData">
+                                            <!-- display table data -->
+                                            
+                                       
+                                        </tbody>
+                                            
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                
+
+                <div class="overlays" id="overlay1" onclick="off1()">
+                    <div id="panel">
+                        <br>
+                        <br>
+                        
+                                
+                        <form method="" class="mbr-form2 form-with-styler mx-auto" style="padding-top:25px">
+                            <div class="dragArea row">
+                                <div class='col-lg-12 col-md-12 col-sm-12'>
+                                    <h1 style='text-align: center;' class='mbr-section-title mb-4 display-2'>
+                                        <strong>Patient Details</strong>
+                                    </h1>
+                                </div>
+                                <div class="overlayDataInfo" style="width:100%">
+                                <!-- overlay data -->
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                            <!--  Waiting List -->
         <div id="wait" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto"style="padding-top:25px">
+                    <form method="POST" action="php/scheduleAppointment.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
-                            <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>No. of Persons to be selected each day</label>
-                                <input type="text" name="noP" class="form-control" value="" id="noP-form3-1f">
-                            </div>
+                            
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" class="btn btn-black display-4">Schedule Patients</button>
                             </div>
                         </div>
                     </form>
@@ -343,53 +363,23 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                         <strong>Waiting List</strong>
                                     </h1>
                                 </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on2();">Example</a> is waiting for an Appointment to be scheduled.</p>
-                                    <br>
+                                <!--Display waiting list-->
+                                <div> 
+                                    <table class='adminTables' id="waitingTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>National ID</th>
+                                                <th>Passport No.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='waitingTableData'>
+                                        <!-- waiting table info -->
+                                        </tbody>
+                                            
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -397,7 +387,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                 </div>
 
 
-                <div id="overlay2" onclick="off2()">
+                <div class="overlays" id="overlay2" onclick="off2()">
                     <div id="panel">
                         <br>
                         <br>
@@ -405,54 +395,13 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                        <strong>Example</strong>
+                                        <strong>Patient Details</strong>
                                     </h1>
                                 </div>
 
-                                <div>
-                                    <label><strong>National ID:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div class="blank">
-                                </div>
-
-                                <div>
-                                    <label><strong>Date of Birth:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <br>
-
-                                <div>
-                                    <label><strong>Medical Conditions:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div class="blnk">
-                                </div>
-
-                                <div>
-                                    <label><strong>Allergies:</strong></label>
-                                    <p>Example</p>
-                                </div>
-                                <div>
-                                    <label><strong>Email:</strong></label>
-                                    <p>Example</p>
-                                </div>
-
-                                <div>
-                                    <label><strong>Street Address:</strong></label>
-                                    <p>Example</p>
-                                </div>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                                <div class="col-md-auto col-12 mbr-section-btn">
-                                    <button type="button" class="btn btn-black display-4" onClick="off1();">Close</button>
+                                
+                                <div class="overlayDataInfo" id="overlayDataWaiting" style="width:100%">
+                                <!-- overlay data -->
                                 </div>
                             </div>
                         </form>
@@ -461,7 +410,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
             </div>
         </div>
 
-
+                            <!--Notification panel-->
         <div id="notification" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -473,59 +422,14 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                         <strong>Notification Panel</strong>
                                     </h1>
                                 </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
-                                </div>
-                                <div class="notify_item">
-                                    <br>
-                                    <br>
-                                    <p id="time">XX:XX <a class="patient" onclick="on3();">Example</a>'s Appointment scheduled for XX/XX/XX XX:XX XX</p>
-                                    <br>
+                                <div id="notifications" class="adminTables">
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="overlay3" onclick="off3()">
+                    <div class="overlays" id="overlay3" onclick="off3()">
                         <div id="panel">
                             <br>
                             <br>
@@ -533,55 +437,14 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                 <div class="dragArea row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
-                                            <strong>Example</strong>
-                                        </h1>
-                                    </div>
+                                        <strong>Patient Details</strong>
+                                    </h1>
+                                </div>
+                                <div class="overlayDataInfo" style="width:100%">
+                                <!-- overlay data -->
+                                </div>
 
-                                    <div>
-                                        <label><strong>National ID:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <div class="blank">
-                                    </div>
-
-                                    <div>
-                                        <label><strong>Date of Birth:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <br>
-
-                                    <div>
-                                        <label><strong>Medical Conditions:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <div class="blnk">
-                                    </div>
-
-                                    <div>
-                                        <label><strong>Allergies:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-                                    <div>
-                                        <label><strong>Email:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-
-                                    <div>
-                                        <label><strong>Street Address:</strong></label>
-                                        <p>Example</p>
-                                    </div>
-                                    <div class="col-md-auto col-12 mbr-section-btn">
-                                        <button type="button" class="btn btn-black display-4">Complete Appointment</button>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <div class="col-md-auto col-12 mbr-section-btn">
-                                        <button type="button" class="btn btn-black display-4" onClick="off2();">Close</button>
-                                    </div>
+                                    
                                 </div>
                             </form>
                         </div>
@@ -590,11 +453,11 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
             </div>
         </div>
 
-
+                            <!--Essential Workers Form-->
         <div id="essential" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                    <form method="POST" action="php/enterEssentialWorker.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -604,29 +467,46 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>First Name</label>
                                 <input type="text" name="ess_first_Name" class="form-control" value="" id="ess_first_Name-form3-1f">
-                            </div>
+                            </div> 
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "First Name is required" || $_GET['error'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="ess_last_Name" class="form-control" value="" id="ess_last_Name-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "Last Name is required" || $_GET['error'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
+                                <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="ess_natid" class="form-control" value="" id="ess_natid-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <?php if ($_GET['error'] == "National ID is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
+                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssNid']; ?></p>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="essentialSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
 
-
+                            <!--Medical Workers Form-->
         <div id="medical" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
+                    <form method="POST" action="php/enterMedicalWorker.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -637,28 +517,44 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                 <label>First Name</label>
                                 <input type="text" name="med_first_Name" class="form-control" value="" id="med_first_Name-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "First Name is required" || $_GET['error2'] == "First Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="med_last_Name" class="form-control" value="" id="med_last_Name-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "Last Name is required" || $_GET['error2'] == "Last Name must be between length of 3-25") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>National Id</label>
-                                <input type="text" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
+                                <input type="text" pattern="[0-9]{6}-[0-9]{4}" name="med_natid" class="form-control" value="" id="med_natid-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error2'])) { ?>
+                                <?php if ($_GET['error2'] == "National ID is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error2']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="medicalSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
 
-
+                            <!--Vaccine Form-->
         <div id="vac" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
-                    <form method="POST" class="mbr-form form-with-styler mx-auto"  style="padding-top:25px">
+                    <form method="POST" action="php/vaccineEntry.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
@@ -669,16 +565,67 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
                                 <label>Vaccine Name</label>
                                 <input type="text" name="vacName" class="form-control" value="" id="vacName-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Vaccine Name is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
                                 <label>No. of doses required</label>
-                                <input type="text" name="dosesNum"  class="form-control" value="" id="dosesNum-form3-1f">
+                                <input type="number" name="dosesRequired" class="form-control" value="" id="dosesNum-form3-1f">
                             </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Number of doses is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
                             <div class="col-lg-12 col-md col-sm-12 form-group">
-                                <label>Length of time between doses</label>
-                                <input type="text" name="time" class="form-control" value="" id="time-form3-1f">
+                                <label>Length of time between doses (days)</label>
+                                <input type="number" name="time" class="form-control" value="" id="time-form3-1f">
+                            </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Length of time is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
+                            <div class="col-lg-12 col-md col-sm-12 form-group">
+                                <label>Number of doses available</label>
+                                <input type="number" name="dosesAvailable" class="form-control" value="" id="time-form3-1f">
+                            </div>
+                            <?php if (isset($_GET['error3'])) { ?>
+                                <?php if ($_GET['error3'] == "Number of doses available is required") { ?>
+                                    <p style="color:lightcoral"><?php echo $_GET['error3']; ?></p>
+                                <?php } ?>
+                            <?php } ?>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="medicalConstraints">
+                                <label>Medical Constraints (Patients with these conditions should not be administered this vaccine)</label>
+                                <select name="medicalConstraints[]" class="form-control multi_select_conditions" value="" id="medical-form7-13" multiple data-selected-text-format="count">
+                              
+                                    <option value="Asthma">Asthma / Pulmonary fibrosis / Respiratory Illnesses</option>
+                                    <option value="Cerebrovascular Disease">Cerebrovascular Disease</option>
+                                    <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+                                    <option value="Diabetes">Diabetes (High Blood Sugar)</option>
+                                    <option value="Heart Conditions">Heart Conditions</option>
+                                    <option value="Hypertension">Hypertension (High Blood Pressure)</option>
+                                    <option value="Immunocompromised">Immunocompromised State</option>
+                                    <option value="Kidney Disease">Kidney Disease</option>
+                                    <option value="Liver Disease">Liver Disease</option>
+                                    <option value="Neurologic conditions">Neurologic Conditions</option>
+                                    <option value="Thalassemia">Thalassemia</option>
+                                    <option value="Pregnant">Pregnant</option>
+                                    <option value="Sickle Cell Disease">Sickle Cell Disease</option>
+                                    <option value="Penicillin">Penicillin</option>
+                                    <option value="Aspirin">Aspirin</option>
+                                    <option value="Erythromycin">Erythromycin</option>
+                                    <option value="Latex or Rubber Products">Latex or Rubber Products</option>
+                                    <option value="Codeine">Codeine</option>
+                                    <option value="Tetracycline">Tetracycline</option>
+                                    <option value="Germicides/Pesticides, Foods">Germicides/Pesticides, Foods</option>           
+                                </select>
+                                <small>Select one or more</small>
                             </div>
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="button" class="btn btn-black display-4">Submit</button>
+                                <button type="submit" name="vaccineSubmit" class="btn btn-black display-4">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -686,7 +633,70 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
             </div>
         </div>
 
+                            <!-- Vaccine Info Panel -->
+        <div id="vaccineList" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" style="align-content: center;">
+                    <div class="wrapper">
+                        <div class="notification_wrap">
+                            <div class="dropdown">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                        <strong>Vaccine Info</strong>
+                                    </h1>
+                                </div>
+                                
+                                <!--Display vaccine info table-->
+                                <div>
+                                    <table class='adminTables' id="vaccineInfoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Vaccine ID</th>
+                                                <th>Vaccine Name</th>
+                                                <th>Time Between Doses (days)</th>
+                                                <th>Doses Required</th>
+                                                <th>Doses Available</th>
+                                                <th>Medical Constraints</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="vaccineInfoTableData">
+                                            <!-- display table data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        
+                            <!-- Settings Panel -->
+        <div id="settings" class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form">
+                    <form method="POST" action="php/vaccineEntry.php" class="mbr-form form-with-styler mx-auto" style="padding-top:25px">
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h1 style="text-align: center;" class="mbr-section-title mb-4 display-2">
+                                    <strong>Settings</strong>
+                                </h1>
+                            </div>
+                            <div id="settingsForm">
+                            <!-- Settings Form -->
+                            </div>
+                            <div class="col-md-auto col-12 mbr-section-btn">
+                                <button type="button" name="settingsSubmit" id="saveSettings" class="btn btn-black display-4">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                   
+                </div>
+                
+            </div>
+        </div>
 
+                            <!-- Create admin -->
         <div id="create" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -751,7 +761,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
             </div>
         </div>
 
-
+                            <!-- Create super admin -->
         <div id="createSuper" class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -820,7 +830,32 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
         <br>
     </section>
 
+    <section class="form7 cid-srkCw23GFr" id="form7-13" style="display: none;">
+        <form name="appointment" method="POST" class="mbr-form form-with-styler mx-auto" action="php/patientRegistration.php">   
+            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="country">
+                <select type="text" name="country" data-form-field="country" class="form-control" value="" id="country-form7-13">
+                </select>
+            </div>
+        </form>
+    </section>
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
     <section class="footer3 cid-s48P1Icc8J " once="footers " id="footer3-i ">
 
 
@@ -842,9 +877,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
 
 
     <script src="assets/form/overlay.js"></script>
-    <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/tether/tether.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
@@ -852,7 +885,6 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
     <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
     <script src="assets/theme/js/script.js"></script>
-
 
 </body>
 

@@ -109,7 +109,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
     
 ?>
 <body onload="forms();">
-<script type = "text/javascript" language = "javascript">
+    <script type = "text/javascript" language = "javascript">
         
         // Loads the table data on patient list for search by id
         $(document).on("click", "#searchPatientByID", function (){
@@ -945,7 +945,13 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
     <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
     <script src="assets/theme/js/script.js"></script>
-
+    
+    
+    
+    
+   
+    
+   
 
 </body>
 
