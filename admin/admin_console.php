@@ -232,8 +232,9 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             $.ajax({
                 type: "POST",
                 url: "php/completeAppointment.php",
+                data: {id: $('#completeAppointment').attr('name')},
                 success: function (result) {
-                    
+                    console.log(result);
                 }
             });
         }); 

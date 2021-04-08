@@ -36,7 +36,7 @@ function enterEssentialWorker(){
     }
 
     
-    header("location: ../admin_console.php");   
+    header("location: ../super_admin_console.php");   
 
 }
 

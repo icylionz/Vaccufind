@@ -1,42 +1,42 @@
 <?php
-enterEssentialWorker();
-function enterEssentialWorker(){
+enterMedicalWorker();
+function enterMedicalWorker(){
     // ensures first name is entered
-    if (empty($_POST["ess_first_Name"])) {
-        header("Location: ../admin_console.php?error=First Name is required");
+    if (empty($_POST["med_first_Name"])) {
+        header("Location: ../admin_console.php?error2=First Name is required");
         exit();
     } 
-    else if (strlen($_POST["ess_first_Name"]) < 3 || strlen($_POST["ess_first_Name"]) > 25 )
+    else if (strlen($_POST["med_first_Name"]) < 3 || strlen($_POST["med_first_Name"]) > 25 )
     {
         header("Location: ../admin_console.php?error=First Name must be between length of 3-25");
         exit();
     }
     // ensures last name is entered
-    else if (empty($_POST["ess_last_Name"])) {
-        header("Location: ../admin_console.php?error=Last Name is required");
+    else if (empty($_POST["med_last_Name"])) {
+        header("Location: ../admin_console.php?error2=Last Name is required");
         exit();
     } 
-    else if (strlen($_POST["ess_last_Name"]) < 3 || strlen($_POST["ess_last_Name"]) > 25 )
+    else if (strlen($_POST["med_last_Name"]) < 3 || strlen($_POST["med_last_Name"]) > 25 )
     {
-        header("Location: ../admin_console.php?error=Last Name must be between length of 3-25");
+        header("Location: ../admin_console.php?error2=Last Name must be between length of 3-25");
         exit();
     }
     // ensures nid is entered
-    else if (empty($_POST["ess_natid"])) {
-        header("Location: ../admin_console.php?error=National ID is required");
+    else if (empty($_POST["med_natid"])) {
+        header("Location: ../admin_console.php?error2=National ID is required");
         exit();
     } 
     else{
         
-        $firstName = modifyInput($_POST["ess_first_Name"]);
-        $lastName = modifyInput($_POST["ess_last_Name"]);
-        $nid = modifyInput($_POST["ess_natid"]);
+        $firstName = modifyInput($_POST["med_first_Name"]);
+        $lastName = modifyInput($_POST["med_last_Name"]);
+        $nid = modifyInput($_POST["med_natid"]);
         echo $firstName,$lastName,$nid;
-        insertEssential($firstName, $lastName, $nid);
+        insertMedical($firstName, $lastName, $nid);
     }
 
     
-    header("location: ../admin_console.php");   
+    header("location: ../super_admin_console.php");   
 
 }
 
@@ -48,16 +48,17 @@ function modifyInput($input) {
     return $input;
 } 
 
-//inserts the essential worker's record into the database
-function insertEssential($firstNameInsert,$lastNameInsert,$nidInsert){
+//inserts the medical worker's record into the database
+function insertMedical($firstNameInsert,$lastNameInsert,$nidInsert){
     require 'connect.php';
     require 'updateInfo.php';
-    $sql = "INSERT INTO essentialworkers (essentialWorkerFirstName, essentialWorkerLastName , nid) 
+
+    $sql = "INSERT INTO medicalworkers (medicalWorkerFirstName, medicalWorkerLastName , nid) 
     VALUES ('$firstNameInsert', '$lastNameInsert', '$nidInsert')";
 
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo "New record created succmedfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -67,8 +68,8 @@ function insertEssential($firstNameInsert,$lastNameInsert,$nidInsert){
     if ($result = $conn->query($sql)) {
         if($result->num_rows > 0){
             $result = $result->fetch_assoc();
-            if($result['tag'] > 2){
-                $result['tag'] = 2;
+            if($result['tag'] > 1){
+                $result['tag'] = 1;
                 updatePatient($result);
             }
 

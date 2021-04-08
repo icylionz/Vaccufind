@@ -36,7 +36,7 @@ function enterMedicalWorker(){
     }
 
     
-    header("location: /vaccufind/admin/admin_console.php");   
+    header("location: ../admin_console.php");   
 
 }
 
