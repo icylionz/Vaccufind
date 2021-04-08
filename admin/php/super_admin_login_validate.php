@@ -3,10 +3,13 @@ include "../php/connect.php";
 
 $chkSupAdId = validate($_SESSION['username']);
 $chkSupAdPass = validate($_SESSION['passwrd']);
-$chkSupAdFName = validate($_SESSION['adminFirstName']);
-$chkSupAdLName= validate($_SESSION['adminLastName']);
 
+<<<<<<< HEAD
 $chkSql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass'";
+=======
+
+$chkSql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass'" ;
+>>>>>>> 3b4935e6ba229bf235800da224119fefd57657e4
 
 $chkResult = $conn->query($chkSql);
 

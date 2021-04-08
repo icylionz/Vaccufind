@@ -1,10 +1,11 @@
 <?php
+completeAppointment($_POST['id']);
 
 function completeAppointment($id){
     require 'connect.php';
     require 'updateInfo.php';
-
-    if($patientComplete = $conn->query("SELECT * FROM patient WHERE patientID = '$id'")){
+    echo "called";
+    if($patientComplete = $conn->query("SELECT * FROM patient WHERE patientID = $id")){
         $patientComplete = $patientComplete->fetch_assoc();
         //reduces number of doses
         $patientComplete['noOfDosesRemaining'] = $patientComplete['noOfDosesRemaining'] - 1;
@@ -17,7 +18,7 @@ function completeAppointment($id){
             date_default_timezone_set('America/Barbados'); // sets timezone to Barbados
             // sets appointment date
             $timeUntil = $vaccineGiven['lengthOfTimeBetweenDoses'];
-            $appointmentDate = date('Y-m-d', strtotime(" + $timeUntil")); 
+            $appointmentDate = date('Y-m-d', strtotime(date('Y-m-d')." + $timeUntil days")); 
             $patientComplete['appointmentDate'] = $appointmentDate;
             
         }

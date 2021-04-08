@@ -125,7 +125,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
             });
         });
         // Loads the table data on waiting list 
-        $(document).on("click", "#waitList", function (){
+        $(document).on("click", "#waitList,#schedule", function (){
             $.ajax({
                 type: "POST",
                 url: "php/waitingListTable.php",
@@ -135,7 +135,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                 }
             });
         });
-        // Loads the table data on waiting list 
+        // Loads the table data on notifications panel
         $(document).on("click", "#notifyList", function (){
             $.ajax({
                 type: "POST",
@@ -237,7 +237,17 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                 }
             });
         }); 
+        //Schedule Appointment
+        $(document).on("click", "#schedule", function (){
         
+            $.ajax({
+                type: "POST",
+                url: "php/scheduleAppointment.php",
+                success: function (result) {
+                    
+                }
+            });
+        }); 
     </script>
     <section class="menu menu2 cid-srkHLfPwRd" once="menu" id="menu2-19">
 
@@ -511,7 +521,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                         <div class="dragArea row">
                             
                             <div class="col-md-auto col-12 mbr-section-btn">
-                                <button type="submit" class="btn btn-black display-4">Schedule Patients</button>
+                                <button id="schedule"type="button" class="btn btn-black display-4">Schedule Patients</button>
                             </div>
                         </div>
                     </form>
