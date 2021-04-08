@@ -692,7 +692,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
                                     <p style="color:lightcoral"><?php echo $_GET['error']; ?></p>
                                 <?php } ?>
                             <?php } ?>
-                            <p style="color:lightcoral"><?php echo $_SESSION['errorEssNid']; ?></p>
+                            
                             <div class="col-md-auto col-12 mbr-section-btn">
                                 <button type="submit" name="essentialSubmit"class="btn btn-black display-4">Submit</button>
                             </div>
