@@ -80,34 +80,7 @@ if ($_SESSION['username'] && $_SESSION['passwrd']) {
 
 
 </head>
-<?php
-    include "../php/connect.php";
-    
 
-    
-    // fetches requested patient data by name
-    $patientSearchData = array();
-    if($patientRecords = $conn->query("SELECT patientID, firstName, lastName, nid, passportNumber FROM patient")){
-        if($patientRecords->num_rows > 0){
-            while($patientRow = $patientRecords->fetch_object()){
-                $patientSearchData[] = $patientRow;
-            }
-        }
-    }
-    
-    // fetches all records in the waiting list
-    $waitingTableData = array();
-    if($waitingRecords = $conn->query("SELECT patientID, waitingID, firstName, lastName, dateAdded FROM waiting")){
-        if($waitingRecords->num_rows > 0){
-            while($waitingRow = $waitingRecords->fetch_object()){
-                $waitingTableData[] = $waitingRow;
-            }
-        }
-    }
-    
-
-    
-?>
 <body onload="forms();">
     <script type = "text/javascript" language = "javascript">
         

@@ -19,10 +19,20 @@ if ($_SESSION['username'] && $_SESSION['passwrd'])
 
 
     <title>Super Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="assets/web/assets/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
+    
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 
     <!--Holds CCS for
         nav-dropdown classes, class="navbar-nav nav-dropdown" 

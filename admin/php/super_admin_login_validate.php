@@ -6,14 +6,14 @@ $chkSupAdPass = validate($_SESSION['passwrd']);
 $chkSupAdFName = validate($_SESSION['adminFirstName']);
 $chkSupAdLName= validate($_SESSION['adminLastName']);
 
-$chkSql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass' AND superAdminFirstName='$chkSupAdFName' AND superAdminLastName='$chkSupAdLName'" ;
+$chkSql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass'";
 
 $chkResult = $conn->query($chkSql);
 
 if ($chkResult->num_rows === 1)
 {
     $row = $chkResult->fetch_assoc();
-    if ($row['username'] === $chkSupAdId && $row['passwrd'] === $chkSupAdPass && $row['superAdminFirstName'] === $chkSupAdFName && $row['superAdminLastName'] === $chkSupAdLName)
+    if ($row['username'] === $chkSupAdId && $row['passwrd'] === $chkSupAdPass)
     {
         $sql = "SELECT * FROM superAdminLogin WHERE username='$chkSupAdId' AND passwrd='$chkSupAdPass'";
 
