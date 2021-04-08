@@ -65,6 +65,10 @@ if(isset($_POST['submit'])){
         $dob = modifyInput($_POST["dob"]);
         $firstName = modifyInput($_POST["firstName"]);
         
+        if(empty($_POST["medicalConditions"]) && empty($_POST["allergies"])){
+            insertPatient($firstName, $lastName, $dob, $streetAddress, $phoneNumber, $email, $country, NULL, NULL, $nid, $passportNumber);
+        }
+        
         if(!empty($_POST["medicalConditions"]) && !empty($_POST["allergies"])){
             $medicalConditionsArr = $_POST["medicalConditions"];
             $medicalConditions = implode(", ",$medicalConditionsArr);
@@ -112,14 +116,13 @@ function modifyInput($input) {
 function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAddressInsert, $phoneNumberInsert, $emailInsert, $countryInsert, $medicalConditionsInsert, $allergiesInsert, $nidInsert, $passportNumberInsert){
     include "connect.php";
     //calculates patient's age
-    $today = date("Y-m-d");
+    $today = date("Y/m/d");
     $diff = date_diff(date_create($dobInsert), date_create($today));
     $age = $diff->format('%y'); 
     ;
     //assign tag to patient
-    $tagInsert = 5;
+    $tagInsert = 8;
     //medical worker tag
-    echo "medcon:",$medicalConditionsInsert,"<br>";
     if($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")){
         if($result->num_rows > 0){
             $tagInsert = 1;
@@ -127,20 +130,36 @@ function insertPatient($firstNameInsert, $lastNameInsert, $dobInsert, $streetAdd
     }
     //essential worker tag
    
-    else if($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")){
+    if($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")){
         if($result->num_rows > 0){
             $tagInsert = 2;
         }
     }
     //elderly tag
     
-    else if($age >= 65 ){
+    if($age >= 65 ){
         $tagInsert = 3;    
     }
     //medically comprised tag
     
-    else if($medicalConditionsInsert != NULL){
+    if($medicalConditionsInsert != NULL){
         $tagInsert = 4;
+    }
+
+    if(($result = $conn->query("SELECT * FROM medicalworkers WHERE nid = $nidInsert")) && ($medicalConditionsInsert != NULL)){
+        if($result->num_rows > 0){
+            $tagInsert = 5;
+        }
+    }
+
+    if(($result = $conn->query("SELECT * FROM essentialworkers WHERE nid = $nidInsert")) && ($medicalConditionsInsert != NULL)){
+        if($result->num_rows > 0){
+            $tagInsert = 6;
+        }
+    }
+
+    if ($age >= 65 & $medicalConditionsInsert != NULL ){
+        $tagInsert = 7;
     }
     
     //inserts into patient table
